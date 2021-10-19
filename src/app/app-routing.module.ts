@@ -2,8 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
 
-import { HomeRoutingModule } from './home/home-routing.module';
-import { DetailRoutingModule } from './detail/detail-routing.module';
+import { ForgotComponent } from './home/forgot/forgot.component';
+import { RegisterComponent } from './home/register/register.component';
+import {HomeRoutingModule} from './home/home-routing.module';
+import {HomeApplicationComponent} from './workflow/home-application/home-application.component';
+import {WaitingTicketsComponent} from "./workflow/waiting-tickets/waiting-tickets.component";
+import {ValidateTicketsComponent} from "./workflow/validate-tickets/validate-tickets.component";
+import {RefusedTicketsComponent} from "./workflow/refused-tickets/refused-tickets.component";
+import {NewTicketsComponent} from "./workflow/new-tickets/new-tickets.component";
 
 const routes: Routes = [
   {
@@ -12,16 +18,39 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'forgot',
+    component: ForgotComponent
+  },
+  {
+    path: 'waitingTicket',
+    component: WaitingTicketsComponent
+  },
+  {
+    path: 'validateTicket',
+    component: ValidateTicketsComponent
+  },
+  {
+    path: 'refusedTicket',
+    component: RefusedTicketsComponent
+  },
+  {
+    path: 'newTicket',
+    component: NewTicketsComponent
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
-  }
+  },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' }),
     HomeRoutingModule,
-    DetailRoutingModule
   ],
   exports: [RouterModule]
 })
