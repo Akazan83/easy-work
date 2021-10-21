@@ -13,8 +13,4 @@ export class ForgotComponent implements OnInit {
   ngOnInit(): void {
     this.electron = new ElectronService();
   }
-
-  closeApp(){
-    this.electron.remote.getCurrentWindow().close();
-  }
 }

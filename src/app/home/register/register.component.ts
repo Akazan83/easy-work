@@ -14,8 +14,4 @@ export class RegisterComponent implements OnInit {
     this.electron = new ElectronService();
   }
 
-  closeApp(){
-    this.electron.remote.getCurrentWindow().close();
-  }
-
 }

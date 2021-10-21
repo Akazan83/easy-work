@@ -12,9 +12,6 @@ export class HomeApplicationComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.electron = new ElectronService();
-    this.electron.remote.getCurrentWindow().setSize(1250,900);
-    this.electron.remote.getCurrentWindow().setResizable(true);
   }
 
 }
