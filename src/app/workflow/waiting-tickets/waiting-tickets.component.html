@@ -87,6 +87,7 @@
         <h3 class="text-dark mb-1" style="text-align: center;">Demandes en attente</h3>
        <app-ticket *ngFor="let ticket of tickets | paginate: { itemsPerPage: 2, currentPage: 1, totalItems: 10 }"
                     [title]="ticket.title"
+                    [status]="ticket.status"
                     [reference]="ticket.reference"
                     [creationDate]="ticket.creationDate"
                     [endDate]="ticket.endDate " >
@@ -95,11 +96,6 @@
 
       </div>
     </div>
-    <footer class="bg-white sticky-footer">
-      <div class="container my-auto">
-        <div class="text-center my-auto copyright"><span>Copyright © Brand 2021</span></div>
-      </div>
-    </footer>
-</div>
+  </div>
 </div>
 </body>

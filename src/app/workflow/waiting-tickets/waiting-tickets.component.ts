@@ -10,72 +10,84 @@ export class WaitingTicketsComponent implements OnInit {
   tickets = [
     {
       title: 'test 1',
+      status: 'En attente',
       reference: '27243872',
       creationDate: '12 fevrier 2021',
       endDate: '13 fevrier 2021'
     },
     {
       title: 'test 2',
+      status: 'En attente',
       reference: '25364531',
       creationDate: '09 mars 2021',
       endDate: '15 mars 2021'
     },
     {
       title: 'test 3',
+      status: 'En attente',
       reference: '23321464',
       creationDate: '28 juin 2021',
       endDate: '30 juin 2021'
     },
     {
       title: 'test 1',
+      status: 'En attente',
       reference: '27243872',
       creationDate: '12 fevrier 2021',
       endDate: '13 fevrier 2021'
     },
     {
       title: 'test 2',
+      status: 'En attente',
       reference: '25364531',
       creationDate: '09 mars 2021',
       endDate: '15 mars 2021'
     },
     {
       title: 'test 3',
+      status: 'En attente',
       reference: '23321464',
       creationDate: '28 juin 2021',
       endDate: '30 juin 2021'
     },
     {
       title: 'test 1',
+      status: 'En attente',
       reference: '27243872',
       creationDate: '12 fevrier 2021',
       endDate: '13 fevrier 2021'
     },
     {
       title: 'test 2',
+      status: 'En attente',
       reference: '25364531',
       creationDate: '09 mars 2021',
       endDate: '15 mars 2021'
     },
     {
       title: 'test 3',
+      status: 'En attente',
       reference: '23321464',
       creationDate: '28 juin 2021',
       endDate: '30 juin 2021'
     },
     {
       title: 'test 1',
+      status: 'En attente',
       reference: '27243872',
       creationDate: '12 fevrier 2021',
       endDate: '13 fevrier 2021'
     },
     {
       title: 'test 2',
+      status: 'En attente',
       reference: '25364531',
       creationDate: '09 mars 2021',
       endDate: '15 mars 2021'
     },
     {
       title: 'test 3',
+      status: 'En attente',
       reference: '23321464',
       creationDate: '28 juin 2021',
       endDate: '30 juin 2021'
@@ -105,6 +117,7 @@ export class WaitingTicketsComponent implements OnInit {
       bg: 'bg-primary'
     },
   ];
+
   constructor() { }
 
   ngOnInit(): void {

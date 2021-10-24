@@ -25,6 +25,7 @@ import { NewTicketsComponent } from './workflow/new-tickets/new-tickets.componen
 import { TicketComponent } from './workflow/ticket/ticket.component';
 import { NotificationComponent } from './workflow/notification/notification.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { MessengerComponent } from './workflow/messenger/messenger.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -32,7 +33,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
 // @ts-ignore
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ForgotComponent, HomeApplicationComponent, ValidateTicketsComponent,
-    RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent],
+    RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent, MessengerComponent],
   imports: [
     NgxPaginationModule,
     MatSliderModule,

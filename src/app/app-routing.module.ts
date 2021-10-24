@@ -6,10 +6,11 @@ import { ForgotComponent } from './home/forgot/forgot.component';
 import { RegisterComponent } from './home/register/register.component';
 import {HomeRoutingModule} from './home/home-routing.module';
 import {HomeApplicationComponent} from './workflow/home-application/home-application.component';
-import {WaitingTicketsComponent} from "./workflow/waiting-tickets/waiting-tickets.component";
-import {ValidateTicketsComponent} from "./workflow/validate-tickets/validate-tickets.component";
-import {RefusedTicketsComponent} from "./workflow/refused-tickets/refused-tickets.component";
-import {NewTicketsComponent} from "./workflow/new-tickets/new-tickets.component";
+import {WaitingTicketsComponent} from './workflow/waiting-tickets/waiting-tickets.component';
+import {ValidateTicketsComponent} from './workflow/validate-tickets/validate-tickets.component';
+import {RefusedTicketsComponent} from './workflow/refused-tickets/refused-tickets.component';
+import {NewTicketsComponent} from './workflow/new-tickets/new-tickets.component';
+import {MessengerComponent} from "./workflow/messenger/messenger.component";
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'newTicket',
     component: NewTicketsComponent
+  },
+  {
+    path: 'messenger',
+    component: MessengerComponent
   },
   {
     path: '**',

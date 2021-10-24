@@ -10,6 +10,9 @@ export class TicketComponent implements OnInit {
   title: string;
 
   @Input()
+  status: string;
+
+  @Input()
   reference: string;
 
   @Input()
