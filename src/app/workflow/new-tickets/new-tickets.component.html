@@ -35,7 +35,19 @@
                     <button type="submit" class="btn btn-success text-white" (click)="addParticipant(participant.value)">Ajouter</button>
                   </div>
                 </form>
+
+                <div class="mt-5">
+                  <h4 class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary">Fichier</span>
+                  </h4>
+                  <form class="card mt-2 p-2">
+                    <div class="input-group">
+                      <input type="file" class="form-control" id="customFile" onchange="console.log(event.target.files)" />
+                    </div>
+                  </form>
+                </div>
               </div>
+
               <div class="col-md-7 col-lg-8">
                 <form class="needs-validation" novalidate>
                   <div class="col-sm-12">

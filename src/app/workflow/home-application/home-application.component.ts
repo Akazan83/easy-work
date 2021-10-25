@@ -7,7 +7,6 @@ import {ElectronService} from '../../core/services';
   styleUrls: ['./home-application.component.scss']
 })
 export class HomeApplicationComponent implements OnInit {
-  electron: ElectronService;
 
   constructor() { }
 
