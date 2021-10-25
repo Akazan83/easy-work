@@ -24,18 +24,16 @@ import { WaitingTicketsComponent } from './workflow/waiting-tickets/waiting-tick
 import { NewTicketsComponent } from './workflow/new-tickets/new-tickets.component';
 import { TicketComponent } from './workflow/ticket/ticket.component';
 import { NotificationComponent } from './workflow/notification/notification.component';
-import {NgxPaginationModule} from 'ngx-pagination';
 import { MessengerComponent } from './workflow/messenger/messenger.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NavbarComponent } from './workflow/navbar/navbar.component';
 
-// AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
-// @ts-ignore
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ForgotComponent, HomeApplicationComponent, ValidateTicketsComponent,
-    RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent, MessengerComponent],
+    RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent, MessengerComponent, NavbarComponent],
   imports: [
-    NgxPaginationModule,
     MatSliderModule,
     BrowserModule,
     FormsModule,
@@ -44,6 +42,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
     SharedModule,
     HomeModule,
     AppRoutingModule,
+    NgxPaginationModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -51,7 +50,6 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
         deps: [HttpClient]
       }
     }),
-    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
