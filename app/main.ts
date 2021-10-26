@@ -20,7 +20,7 @@ function createWindow(): BrowserWindow {
     height: 549,
     autoHideMenuBar: true,
     //frame: false,
-    resizable: false,
+    resizable: true,
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,

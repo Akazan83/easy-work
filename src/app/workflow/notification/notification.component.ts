@@ -7,6 +7,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NotificationComponent implements OnInit {
   @Input()
+  id: number;
+
+  @Input()
   title: string;
 
   @Input()
@@ -25,5 +28,4 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

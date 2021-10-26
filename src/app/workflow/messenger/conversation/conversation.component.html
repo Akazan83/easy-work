@@ -1,0 +1,22 @@
+<div class="position-relative" >
+  <div class="chat-messages p-4 flex flex-column-reverse" style="width:{{maxWidth}} px; height:{{maxHeight}}px">
+
+    <app-message *ngFor="let message of messages"
+                 [dateEnvoi]="message.dateEnvoi"
+                 [userId]="message.userId"
+                 [userName]="message.userName"
+                 [pictureUrl]="message.pictureUrl"
+                 [text]="message.text">
+    </app-message>
+  </div>
+
+  <div class="input-group p-3">
+    <textarea class="form-control"
+              (input)="message=getValue($event)"
+              rows="2"
+              placeholder="Ecrivez votre message..."></textarea>
+    <div class="input-group-prepend">
+      <button class="input-group-text" (click)="sendMessage()"><img src="assets/images/send.png" style="max-width: 50px" alt=""></button>
+    </div>
+  </div>
+</div>

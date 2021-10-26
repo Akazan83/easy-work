@@ -27,13 +27,18 @@ import { NotificationComponent } from './workflow/notification/notification.comp
 import { MessengerComponent } from './workflow/messenger/messenger.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NavbarComponent } from './workflow/navbar/navbar.component';
+import {ConversationComponent} from './workflow/messenger/conversation/conversation.component';
+import { MessageComponent } from './workflow/messenger/conversation/message/message.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ForgotComponent, HomeApplicationComponent, ValidateTicketsComponent,
-    RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent, MessengerComponent, NavbarComponent],
+    RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent,
+    MessengerComponent, NavbarComponent, ConversationComponent, MessageComponent],
   imports: [
+    FontAwesomeModule,
     MatSliderModule,
     BrowserModule,
     FormsModule,
