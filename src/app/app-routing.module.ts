@@ -12,6 +12,7 @@ import {RefusedTicketsComponent} from './workflow/refused-tickets/refused-ticket
 import {NewTicketsComponent} from './workflow/new-tickets/new-tickets.component';
 import {MessengerComponent} from "./workflow/messenger/messenger.component";
 import {DetailTicketComponent} from "./workflow/detail-ticket/detail-ticket.component";
+import {AccountComponent} from "./workflow/navbar/account/account.component";
 
 const routes: Routes = [
   {
@@ -51,6 +52,10 @@ const routes: Routes = [
   {
     path: 'messenger',
     component: MessengerComponent
+  },
+  {
+    path: 'account',
+    component: AccountComponent
   },
   {
     path: '**',

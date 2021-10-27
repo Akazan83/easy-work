@@ -31,13 +31,14 @@ import {ConversationComponent} from './workflow/messenger/conversation/conversat
 import { MessageComponent } from './workflow/messenger/conversation/message/message.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DetailTicketComponent } from './workflow/detail-ticket/detail-ticket.component';
+import { AccountComponent } from './workflow/navbar/account/account.component';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ForgotComponent, HomeApplicationComponent, ValidateTicketsComponent,
     RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent,
-    MessengerComponent, NavbarComponent, ConversationComponent, MessageComponent, DetailTicketComponent],
+    MessengerComponent, NavbarComponent, ConversationComponent, MessageComponent, DetailTicketComponent, AccountComponent],
   imports: [
     FontAwesomeModule,
     MatSliderModule,

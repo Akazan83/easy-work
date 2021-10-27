@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {TicketsService} from '../../services/tickets/tickets.service';
+import {Ticket} from '../../shared/models/ticket.model';
 
 @Component({
   selector: 'app-waiting-tickets',
@@ -6,22 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./waiting-tickets.component.scss']
 })
 export class WaitingTicketsComponent implements OnInit {
-  tickets = [];
   page = 1;
-  constructor() { }
+  tickets: Ticket[];
+
+  constructor(private http: HttpClient, private ticketService: TicketsService) { }
 
   ngOnInit(): void {
-    for (let x = 0; x < 10; x++){
-      const ticket = {
-        id: x,
-        title: 'test ' + x,
-        status: 'En attente',
-        reference: '27243872',
-        creationDate: '12 fevrier 2021',
-        endDate: '13 fevrier 2021'
-      };
-      this.tickets.push(ticket);
-    }
+    this.ticketService.getTickets('En attente').subscribe(tickets => this.tickets = tickets);
   }
 
   handlePageChange(event) {

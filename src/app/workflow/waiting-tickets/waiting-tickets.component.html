@@ -8,7 +8,10 @@
         <h3 class="text-dark mb-1 mt-2" style="text-align: center;">Demandes en attente</h3>
 
         <div class="row row-cols-2">
-          <app-ticket *ngFor="let ticket of tickets  | paginate: {
+   <!--       <div *ngFor="let team of teams | async">
+
+          </div>-->
+          <app-ticket *ngFor="let ticket of tickets | paginate: {
                 itemsPerPage: 8,
                 currentPage: page,
                 totalItems: tickets.length }"
@@ -18,8 +21,10 @@
                       [endDate]="ticket.endDate"
                       [reference]="ticket.reference"
                       [title]="ticket.title"
-                      [id]="ticket.id"></app-ticket>
-          <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
+                      [id]="ticket.id">
+          </app-ticket>
+
+          <pagination-controls class="text-center fixed-bottom" (pageChange)="handlePageChange($event)"></pagination-controls>
         </div>
       </div>
     </div>
