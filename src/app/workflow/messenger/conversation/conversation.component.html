@@ -13,6 +13,7 @@
   <div class="input-group p-3">
     <textarea class="form-control"
               (input)="message=getValue($event)"
+              #messageInput
               rows="2"
               placeholder="Ecrivez votre message..."></textarea>
     <div class="input-group-prepend">

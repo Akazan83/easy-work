@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {fromEvent, Observable, Subscription} from "rxjs";
+import {Component, Input, IterableDiffers, OnInit, ViewChild} from '@angular/core';
+import {fromEvent, Observable, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-conversation',
@@ -7,17 +7,28 @@ import {fromEvent, Observable, Subscription} from "rxjs";
   styleUrls: ['./conversation.component.scss']
 })
 export class ConversationComponent implements OnInit {
+  @ViewChild('messageInput') messageInput;
+  @Input()
+  messagesFrom: [];
+
   maxHeight: number;
   maxWidth: number;
+
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
   messages = [];
-
   message: string;
-  constructor() { }
+  differ: any;
+
+  constructor(private iterableDiffers: IterableDiffers) {
+    this.differ = iterableDiffers.find([]).create(null);
+  }
 
   ngOnInit(): void {
+
+    console.log(this.message);
+    console.log(this.messagesFrom);
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
       this.maxHeight = innerHeight - 180;
@@ -51,6 +62,16 @@ export class ConversationComponent implements OnInit {
     };
 
     this.messages.push(fakeMessage);
+    this.messages.sort(function(a, b) {
+      return b.id - a.id;
+    });
+    this.messageInput.nativeElement.value = '';
+  }
+
+  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
+  ngDoCheck() {
+    this.messages = [];
+    this.messages = this.messagesFrom;
     this.messages.sort(function(a, b) {
       return b.id - a.id;
     });

@@ -23,7 +23,7 @@ import { RefusedTicketsComponent } from './workflow/refused-tickets/refused-tick
 import { WaitingTicketsComponent } from './workflow/waiting-tickets/waiting-tickets.component';
 import { NewTicketsComponent } from './workflow/new-tickets/new-tickets.component';
 import { TicketComponent } from './workflow/ticket/ticket.component';
-import { NotificationComponent } from './workflow/notification/notification.component';
+import { NotificationComponent } from './workflow/navbar/notification/notification.component';
 import { MessengerComponent } from './workflow/messenger/messenger.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NavbarComponent } from './workflow/navbar/navbar.component';
