@@ -13,6 +13,7 @@ export class WaitingTicketsComponent implements OnInit {
   ngOnInit(): void {
     for (let x = 0; x < 10; x++){
       const ticket = {
+        id: x,
         title: 'test ' + x,
         status: 'En attente',
         reference: '27243872',

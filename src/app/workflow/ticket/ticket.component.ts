@@ -7,6 +7,9 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class TicketComponent implements OnInit {
   @Input()
+  id: number;
+
+  @Input()
   title: string;
 
   @Input()

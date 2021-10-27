@@ -14,6 +14,7 @@ export class ValidateTicketsComponent implements OnInit {
   ngOnInit(): void {
     for (let x = 0; x < 10; x++){
       const ticket = {
+        id: x,
         title: 'test ' + x,
         status: 'Validé',
         reference: '27243872',

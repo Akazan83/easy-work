@@ -22,6 +22,7 @@ export class NewTicketsComponent implements OnInit {
       this.participants.push(participant);
     }
   }
+
   addParticipant(newParticipant){
     const participant = {
       nom: newParticipant,

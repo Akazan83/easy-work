@@ -1,0 +1,109 @@
+<body id="page-top">
+<div id="wrapper">
+  <app-home-application></app-home-application>
+  <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+      <app-navbar></app-navbar>
+
+      <div class="container my-auto">
+        <div class="container">
+          <main>
+            <div class="py-5 text-center">
+              <h2>Demande n°{{ demande.reference }}</h2>
+            </div>
+
+            <div class="row g-5">
+              <div class="col-md-5 col-lg-4 order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="text-primary">Participants</span>
+                  <span class="badge bg-primary rounded-pill">{{participants.length}}</span>
+                </h4>
+                <ul class="list-group mb-3">
+                  <li class="list-group-item d-flex justify-content-between lh-sm" *ngFor="let participant of participants">
+                    <div>
+                      <h6 class="my-0">{{participant.nom}} {{participant.prenom}}</h6>
+                      <small class="text-muted">{{ participant.role }}</small>
+                    </div>
+                    <span class="text-muted">{{ participant.status }}</span>
+                    <button type="button" class="btn btn-danger" *ngIf="isOwner" (click)="removeParticipant(participant.id)">X</button>
+                  </li>
+                </ul>
+
+
+                <form class="card p-2" *ngIf="isOwner">
+                  <div class="input-group">
+                    <input type="text" class="form-control" id="participant" name="participant" #participant placeholder="Nom prénom">
+                    <button type="submit" class="btn btn-success text-white" (click)="addParticipant(participant.value)">Ajouter</button>
+                  </div>
+                </form>
+
+                <div class="mt-5">
+                  <h4 class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary">Fichier</span>
+                  </h4>
+                  <form class="card mt-2 p-2">
+                    <div class="input-group">
+                      <input type="file" class="form-control" id="customFile" onchange="console.log(event.target.files)" />
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-md-7 col-lg-8">
+                <form class="needs-validation" novalidate>
+                  <div class="col-sm-12">
+                    <div *ngIf="isOwner">
+                      <input type="text" class="form-control" id="title" placeholder="Titre" value="{{ demande.title }}">
+                    </div>
+                    <div *ngIf="!isOwner">
+                      <input type="text" class="form-control" id="title" placeholder="Titre" value="{{ demande.title }}" readonly>
+                    </div>
+                    <div class="invalid-feedback">
+                      Valid last name is required.
+                    </div>
+                  </div>
+
+                  <div class="row g-3">
+                    <div class="col-sm-12">
+                      <div *ngIf="isOwner">
+                        <textarea type="text" class="form-control mt-3" id="description" placeholder="Description" value="{{ demande.description }}"  rows="14"></textarea>
+                      </div>
+                      <div *ngIf="!isOwner">
+                        <textarea type="text" class="form-control mt-3" id="description" placeholder="Description" value="{{ demande.description }}"  rows="14" readonly></textarea>
+                      </div>
+                      <div class="invalid-feedback">
+                        Valid first name is required.
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="start">Date butoir :</label> <br>
+                      <div *ngIf="isOwner">
+                        <input type="date" id="start" value="{{ demande.endDate }}">
+                      </div>
+                      <div *ngIf="!isOwner">
+                        <input id="start" value="{{ demande.endDate }}" readonly>
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="my-4">
+                  <div *ngIf="isOwner">
+                    <button class="w-100 btn btn-primary btn-lg mb-4" type="submit">Modifier</button>
+                  </div>
+                  <div *ngIf="!isOwner">
+                    <button class="w-100 btn btn-success btn-lg mb-4 text-white" type="submit">Approuver</button>
+                    <button class="w-100 btn btn-danger btn-lg mb-4 text-white" type="submit">Refuser</button>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+

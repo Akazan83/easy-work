@@ -11,6 +11,7 @@ import {ValidateTicketsComponent} from './workflow/validate-tickets/validate-tic
 import {RefusedTicketsComponent} from './workflow/refused-tickets/refused-tickets.component';
 import {NewTicketsComponent} from './workflow/new-tickets/new-tickets.component';
 import {MessengerComponent} from "./workflow/messenger/messenger.component";
+import {DetailTicketComponent} from "./workflow/detail-ticket/detail-ticket.component";
 
 const routes: Routes = [
   {
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: 'newTicket',
     component: NewTicketsComponent
+  },
+  {
+    path: 'ticket/:id',
+
+    component: DetailTicketComponent,
   },
   {
     path: 'messenger',

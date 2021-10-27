@@ -13,6 +13,7 @@ export class RefusedTicketsComponent implements OnInit {
   ngOnInit(): void {
     for (let x = 0; x < 10; x++){
       const ticket = {
+        id: x,
         title: 'test ' + x,
         status: 'Refusé',
         reference: '27243872',

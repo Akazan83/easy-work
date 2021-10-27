@@ -10,7 +10,7 @@
     <h4 class="card-title" style="text-align: center;">{{ title }}</h4>
     <div class="d-flex justify-content-between">
       <p class="align-self-end" style="margin-bottom: 0;">Référence : {{reference}}</p>
-      <button class="btn btn-primary" style="background: rgb(41,55,69);border-color: rgb(41,55,69);">Ouvrir</button>
+      <button class="btn btn-primary" style="background: rgb(41,55,69);border-color: rgb(41,55,69); " [routerLink]="'/ticket/' + id">Ouvrir</button>
     </div>
   </div>
 </div>

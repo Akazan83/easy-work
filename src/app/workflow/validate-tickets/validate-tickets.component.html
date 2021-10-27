@@ -12,7 +12,13 @@
                 itemsPerPage: 8,
                 currentPage: page,
                 totalItems: tickets.length }"
-                [status]="ticket.status" [creationDate]="ticket.creationDate" [endDate]="ticket.endDate" [reference]="ticket.reference" [title]="ticket.title"></app-ticket>
+
+                [status]="ticket.status"
+                [creationDate]="ticket.creationDate"
+                [endDate]="ticket.endDate"
+                [reference]="ticket.reference"
+                [title]="ticket.title"
+                [id]="ticket.id"></app-ticket>
         </div>
         <pagination-controls (pageChange)="handlePageChange($event)"></pagination-controls>
       </div>
