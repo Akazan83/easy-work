@@ -1,0 +1,30 @@
+<body id="page-top">
+<div id="wrapper">
+<app-home-application></app-home-application>
+  <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+      <app-navbar></app-navbar>
+      <div class="container-fluid">
+        <h3 class="text-dark mb-1 mt-2" style="text-align: center;">Demandes en attente</h3>
+
+        <div class="row row-cols-2">
+          <app-ticket *ngFor="let ticket of tickets | paginate: {
+                itemsPerPage: 8,
+                currentPage: page,
+                totalItems: ticketsNumber }"
+
+                      [status]="ticket.status"
+                      [creationDate]="ticket.creationDate"
+                      [endDate]="ticket.endDate"
+                      [reference]="ticket.reference"
+                      [title]="ticket.title"
+                      [id]="ticket.id">
+          </app-ticket>
+
+          <pagination-controls class="text-center fixed-bottom" (pageChange)="handlePageChange($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
