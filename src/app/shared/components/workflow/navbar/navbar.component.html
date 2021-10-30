@@ -4,12 +4,11 @@
       <div class="input-group">
         <input class="bg-light form-control border-0 small" type="text"
                placeholder="Rechercher une demande..." [(ngModel)]="searchText">
-        <select class="form-control select2">
-          <option *ngFor="let c of tickets | appFilter: searchText">{{c.reference}}</option>
-        </select>
-        <button class="btn btn-primary py-0" type="button" style="background: rgb(41,55,69);border-color: rgb(41,55,69);">
-          <i class="fas fa-search"></i>
-        </button>
+          <div class="autocomplete-items" *ngIf="searchText.length">
+            <div *ngFor="let c of tickets | appFilter: searchText" [routerLink]="'/ticket/' + c.id">
+                {{c.reference}}
+            </div>
+          </div>
 
       </div>
     </div>
