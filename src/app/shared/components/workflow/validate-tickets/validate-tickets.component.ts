@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {TicketsService} from "../../../../services/tickets/tickets.service";
+import {HttpClient} from '@angular/common/http';
+import {TicketsService} from '../../../../services/tickets/tickets.service';
 
 @Component({
   selector: 'app-validate-tickets',
