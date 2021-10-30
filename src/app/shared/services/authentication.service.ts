@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {User} from '../shared/models/user.model';
+import {User} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class AuthenticationService {
   }
 
   // TODO: A Remettre
-/*  login(email: string, password: string) {
+/*  home(email: string, password: string) {
     return this.httpClient.post<any>(`http://localhost:8000/auth/login`, {email, password})
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));

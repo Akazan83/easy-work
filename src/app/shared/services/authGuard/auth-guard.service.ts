@@ -19,7 +19,7 @@ export class AuthGuardService {
       return true;
     }
 
-    // not logged in so redirect to login page with the return url
+    // not logged in so redirect to home page with the return url
     this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
     return false;
   }

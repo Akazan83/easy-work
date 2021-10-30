@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
 
-import { ForgotComponent } from './home/forgot/forgot.component';
-import { RegisterComponent } from './home/register/register.component';
-import {HomeRoutingModule} from './home/home-routing.module';
+import { ForgotComponent } from './shared/components/home/forgot/forgot.component';
+import { RegisterComponent } from './shared/components/home/register/register.component';
+import {HomeRoutingModule} from './shared/components/home/home-routing.module';
 import {WaitingTicketsComponent} from './shared/components/workflow/waiting-tickets/waiting-tickets.component';
 import {ValidateTicketsComponent} from './shared/components/workflow/validate-tickets/validate-tickets.component';
 import {RefusedTicketsComponent} from './shared/components/workflow/refused-tickets/refused-tickets.component';
@@ -12,12 +12,12 @@ import {NewTicketsComponent} from './shared/components/workflow/new-tickets/new-
 import {MessengerComponent} from './shared/components/workflow/messenger/messenger.component';
 import {DetailTicketComponent} from './shared/components/workflow/detail-ticket/detail-ticket.component';
 import {AccountComponent} from './shared/components/workflow/navbar/account/account.component';
-import {AuthGuardService} from './services/authGuard/auth-guard.service';
+import {AuthGuardService} from './shared/services/authGuard/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {

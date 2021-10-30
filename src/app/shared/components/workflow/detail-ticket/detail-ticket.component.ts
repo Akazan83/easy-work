@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {TicketsService} from '../../../../services/tickets/tickets.service';
+import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Ticket} from '../../../models/ticket.model';
 import {Participant} from '../../../models/participant.model';
 import {Commentarie} from "../../../models/commentarie.model";

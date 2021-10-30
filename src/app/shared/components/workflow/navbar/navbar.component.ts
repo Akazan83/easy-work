@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthenticationService} from '../../../../services/authentication.service';
+import {AuthenticationService} from '../../../services/authentication.service';
 import {Router} from '@angular/router';
 import {User} from '../../../models/user.model';
+import {Ticket} from '../../../models/ticket.model';
+import {TicketsService} from '../../../services/tickets/tickets.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,6 +11,9 @@ import {User} from '../../../models/user.model';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+  tickets: Ticket[];
+  searchText = '';
+
   alerts = [
     {
       id: 1,
@@ -41,10 +46,12 @@ export class NavbarComponent implements OnInit {
   user: User;
 
   constructor(private authenticationService: AuthenticationService,
-              private router: Router) { }
+              private router: Router,
+              private ticketService: TicketsService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.tickets = this.ticketService.tickets;
   }
 
   logout(){

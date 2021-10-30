@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {TicketsService} from "../../../../services/tickets/tickets.service";
+import {HttpClient} from '@angular/common/http';
+import {TicketsService} from '../../../services/tickets/tickets.service';
 
 @Component({
   selector: 'app-refused-tickets',
@@ -14,10 +14,10 @@ export class RefusedTicketsComponent implements OnInit {
   constructor(private http: HttpClient, private ticketService: TicketsService) { }
 
   ngOnInit(): void {
-    this.ticketService.getTickets('Refusé').subscribe(tickets => {
-      this.tickets = tickets;
-      this.ticketsNumber = tickets.length;
+    this.tickets = this.ticketService.tickets.filter(function(ticket){
+      return ticket.status === 'Refusé';
     });
+    this.ticketsNumber = this.tickets.length;
   }
 
   handlePageChange(event) {
