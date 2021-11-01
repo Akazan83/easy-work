@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -32,20 +32,26 @@ import { MessageComponent } from './shared/components/workflow/messenger/convers
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DetailTicketComponent } from './shared/components/workflow/detail-ticket/detail-ticket.component';
 import { AccountComponent } from './shared/components/workflow/navbar/account/account.component';
-import {FilterPipe} from './shared/services/filter/filter.pipe';
+import {TicketsFilterPipe} from './shared/services/filter/ticketsFilter.pipe';
 import {TicketsService} from './shared/services/tickets/tickets.service';
+import {UserService} from './shared/services/user/user.service';
+import {UsersFilterPipe} from './shared/services/filter/userFilter.pipe';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
-export function initializeApp1(ticketService: TicketsService) {
+export function initializeTickets(ticketService: TicketsService) {
   return (): Promise<any> => ticketService.init();
+}
+
+export function initializeUsers(userService: UserService) {
+  return (): Promise<any> => userService.init();
 }
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ForgotComponent, HomeApplicationComponent, ValidateTicketsComponent,
     RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent,
     MessengerComponent, NavbarComponent, ConversationComponent, MessageComponent, DetailTicketComponent, AccountComponent,
-    FilterPipe],
+    TicketsFilterPipe, UsersFilterPipe],
   imports: [
     FontAwesomeModule,
     MatSliderModule,
@@ -64,9 +70,11 @@ export function initializeApp1(ticketService: TicketsService) {
         deps: [HttpClient]
       }
     }),
+    ReactiveFormsModule,
   ],
   providers: [  TicketsService,
-    { provide: APP_INITIALIZER,useFactory: initializeApp1, deps: [TicketsService], multi: true}
+    { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},
+    { provide: APP_INITIALIZER,useFactory: initializeUsers, deps: [UserService], multi: true}
   ],
   bootstrap: [AppComponent]
 })

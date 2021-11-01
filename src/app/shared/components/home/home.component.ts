@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private authenticationService: AuthenticationService,

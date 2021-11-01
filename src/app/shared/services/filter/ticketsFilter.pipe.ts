@@ -2,8 +2,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import {Ticket} from '../../models/ticket.model';
 
-@Pipe({ name: 'appFilter' })
-export class FilterPipe  implements PipeTransform {
+@Pipe({ name: 'ticketsFilter' })
+export class TicketsFilterPipe implements PipeTransform {
   /**
    * Pipe filters the list of elements based on the search text provided
    *
