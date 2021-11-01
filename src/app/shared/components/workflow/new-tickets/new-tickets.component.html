@@ -29,7 +29,7 @@
                   </li>
                 </ul>
 
-                <form class="card p-2">
+                <form class="card p-2"  >
                   <div class="input-group">
                     <input type="text" class="form-control" id="participant" name="participant" placeholder="Nom prénom" [(ngModel)]="searchText">
                     <div class="autocomplete-items" *ngIf="searchText.length">
@@ -41,16 +41,16 @@
                   </div>
                 </form>
 
-                <div class="mt-5">
+                <form class="mt-5" [formGroup] = "ticketForm">
                   <h4 class="d-flex justify-content-between align-items-center">
                     <span class="text-primary">Fichier</span>
                   </h4>
                   <form class="card mt-2 p-2">
                     <div class="input-group">
-                      <input type="file" class="form-control" id="customFile" onchange="console.log(event.target.files)" />
+                      <input type="file" class="form-control" id="file" (change)="uploadFile($event)"/>
                     </div>
                   </form>
-                </div>
+                </form>
               </div>
 
               <div class="col-md-7 col-lg-8">

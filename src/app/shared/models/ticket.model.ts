@@ -10,6 +10,7 @@ export class Ticket implements Deserializable{
   reference: string;
   creationDate: string;
   endDate: string;
+  file: FormData;
   participants: Participant[];
   commentaries: Commentarie[];
   description: string;

@@ -17,6 +17,7 @@ export class NewTicketsComponent implements OnInit {
   participants = [];
   commentaries = new Array(0);
   file: File;
+  fileName = '';
   searchText = '';
   ticketForm: FormGroup;
   submitted = false;
@@ -33,7 +34,8 @@ export class NewTicketsComponent implements OnInit {
     this.ticketForm = this.formBuilder.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      endDate: ['', Validators.required]
+      endDate: ['', Validators.required],
+      file: [null, Validators.required]
     });
   }
 
@@ -46,6 +48,21 @@ export class NewTicketsComponent implements OnInit {
     this.participants.splice(this.users[this.users.findIndex(user => user.id === participantId)] as unknown as number,1);
   }
 
+  uploadFile(event) {
+    const reader = new FileReader();
+    const element = event.target as HTMLInputElement;
+    const fileList: FileList | null = element.files;
+    if (fileList) {
+      this.file = fileList[0];
+      reader.readAsDataURL(fileList[0]);
+      reader.onload = () => {
+        this.ticketForm.patchValue({
+          file: reader.result
+        });
+      };
+    }
+  }
+
   get f() { return this.ticketForm.controls; }
 
   onSubmit() {
@@ -56,9 +73,9 @@ export class NewTicketsComponent implements OnInit {
       return;
     }
     this.loading = true;
-    console.log(this.commentaries);
+
     this.ticketService.postNewTicket(this.f.title.value, this.f.description.value, this.f.endDate.value,
-      this.participants, this.commentaries, this.file, this.currentUser.id)
+      this.participants, this.commentaries, this.f.file.value, this.currentUser.id)
       .pipe(first())
       .subscribe(
         data => {
@@ -69,5 +86,5 @@ export class NewTicketsComponent implements OnInit {
           this.loading = false;
         });
   }
-
 }
+

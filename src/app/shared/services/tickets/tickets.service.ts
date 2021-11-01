@@ -31,6 +31,9 @@ export class TicketsService {
 
   public postNewTicket(title: string, description: string, endDate: string, participants: Participant[],
                        commentaries: Commentarie[], file: File, owner: number){
+
+    const formData = new FormData();
+    formData.append('file', file);
     const ticket = new Ticket();
     ticket.title = title;
     ticket.description = description;
@@ -39,8 +42,8 @@ export class TicketsService {
     ticket.commentaries = commentaries;
     ticket.endDate = endDate;
     ticket.owner = owner;
-    ticket.reference = Math.random().toString();
-
+    ticket.file = formData;
+    ticket.reference = Math.floor(100000000 + Math.random() * 900000000).toString();
     return this.httpClient.post<Ticket>(`/api/tickets/`, ticket).pipe(map(data => data));;
   }
 
