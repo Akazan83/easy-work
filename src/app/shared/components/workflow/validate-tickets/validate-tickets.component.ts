@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TicketsService} from '../../../services/tickets/tickets.service';
+import {TicketStateEnum} from '../ticket/ticketStateEnum';
 
 @Component({
   selector: 'app-validate-tickets',
@@ -15,7 +16,7 @@ export class ValidateTicketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tickets = this.ticketService.tickets.filter(function(ticket){
-      return ticket.status === 'Validé';
+      return ticket.status === TicketStateEnum.approved;
     });
     this.ticketsNumber = this.tickets.length;
   }

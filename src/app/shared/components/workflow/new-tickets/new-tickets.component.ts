@@ -4,7 +4,8 @@ import {UserService} from '../../../services/user/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {first} from 'rxjs/operators';
-import {Commentarie} from '../../../models/commentarie.model';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-tickets',
@@ -26,7 +27,9 @@ export class NewTicketsComponent implements OnInit {
 
   constructor(private userService: UserService,
               private ticketService: TicketsService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router,
+              private http: HttpClient) { }
 
   ngOnInit(): void {
     this.users = this.userService.users;
@@ -48,18 +51,15 @@ export class NewTicketsComponent implements OnInit {
     this.participants.splice(this.users[this.users.findIndex(user => user.id === participantId)] as unknown as number,1);
   }
 
-  uploadFile(event) {
-    const reader = new FileReader();
-    const element = event.target as HTMLInputElement;
-    const fileList: FileList | null = element.files;
-    if (fileList) {
-      this.file = fileList[0];
-      reader.readAsDataURL(fileList[0]);
-      reader.onload = () => {
-        this.ticketForm.patchValue({
-          file: reader.result
-        });
-      };
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append('thumbnail', file);
+      const upload$ = this.http.post('/api/messages', formData);
+      upload$.subscribe();
     }
   }
 
@@ -79,7 +79,9 @@ export class NewTicketsComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log('OK');
+          this.ticketService.init().then(()=>{
+            this.router.navigate(['']);
+          });
         },
         error => {
           this.error = error;

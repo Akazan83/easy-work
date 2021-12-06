@@ -1,4 +1,4 @@
-<body id="page-top">
+<body >
 <div id="wrapper">
 <app-home-application></app-home-application>
   <div class="d-flex flex-column" id="content-wrapper">
@@ -20,11 +20,10 @@
                       [title]="ticket.title"
                       [id]="ticket.id">
           </app-ticket>
-
-          <pagination-controls class="text-center fixed-bottom" (pageChange)="handlePageChange($event)"></pagination-controls>
         </div>
       </div>
     </div>
+    <pagination-controls class="text-center m-4" (pageChange)="handlePageChange($event)"></pagination-controls>
   </div>
 </div>
 </body>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Ticket} from '../../../models/ticket.model';
+import {TicketStateEnum} from '../ticket/ticketStateEnum';
 
 @Component({
   selector: 'app-waiting-tickets',
@@ -17,7 +18,7 @@ export class WaitingTicketsComponent implements OnInit {
 
   ngOnInit(): void {
     this.tickets = this.ticketService.tickets.filter(function(ticket){
-      return ticket.status === 'En attente';
+      return ticket.status === TicketStateEnum.waiting;
     });
     this.ticketsNumber = this.tickets.length;
   }

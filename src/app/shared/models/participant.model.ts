@@ -1,8 +1,9 @@
 import {Deserializable} from './deserializable.model';
+import {TicketStateEnum} from '../components/workflow/ticket/ticketStateEnum';
 
 export class Participant implements Deserializable{
   userId: number;
-  status: string;
+  status: string = TicketStateEnum.waiting;
   firstName: string;
   lastName: string;
   role: string;

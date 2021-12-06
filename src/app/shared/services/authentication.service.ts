@@ -21,14 +21,14 @@ export class AuthenticationService {
   }
 
   // TODO: A Remettre
-/*  home(email: string, password: string) {
+ home(email: string, password: string) {
     return this.httpClient.post<any>(`http://localhost:8000/auth/login`, {email, password})
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
       }));
-  }*/
+  }
 
   login(email: string, password: string) {
     return this.httpClient.get<User>(`/api/users/1`).pipe(map(user => {

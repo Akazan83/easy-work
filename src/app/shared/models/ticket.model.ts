@@ -18,7 +18,7 @@ export class Ticket implements Deserializable{
   deserialize(input: any) {
     Object.assign(this, input);
     this.participants = input.participants.map(participant => new Participant().deserialize(participant));
-    this.commentaries = input.commentaries.map(commentarie => new Commentarie().deserialize(commentarie));
+    this.commentaries = input.commentaries.map(commentaries => new Commentarie().deserialize(commentaries));
     return this;
   }
 }
