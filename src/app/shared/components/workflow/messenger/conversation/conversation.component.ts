@@ -1,4 +1,4 @@
-import {Component, Input, IterableDiffers, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers, OnInit, ViewChild} from '@angular/core';
 import {fromEvent, Observable, Subscription} from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss']
 })
-export class ConversationComponent implements OnInit {
+export class ConversationComponent implements OnInit, DoCheck {
   @ViewChild('messageInput') messageInput;
   @Input()
   messagesFrom: [];
@@ -34,38 +34,26 @@ export class ConversationComponent implements OnInit {
     this.maxHeight = innerHeight - 180;
     this.maxWidth = innerWidth - 120;
 
-    const dateNow =  new Date();
-    const fakeMessage = {
-      id:1,
-      dateEnvoi: dateNow.getHours() + ':' + dateNow.getMinutes(),
-      userId: 1,
-      userName:'Sharon Lessman',
-      pictureUrl:'https://bootdey.com/img/Content/avatar/avatar3.png',
-      text:'Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.'
-    };
-
-    this.messages.push(fakeMessage);
   }
 
   sendMessage() {
     const dateNow =  new Date();
-    const fakeMessage = {
-      id:2,
-      dateEnvoi: dateNow.getHours() + ':' + dateNow.getMinutes(),
+    const newMessage = {
+      id:7,
+      dateEnvoi: dateNow.toLocaleString(),
       userId: 2,
       userName:'You',
       pictureUrl:'https://bootdey.com/img/Content/avatar/avatar3.png',
       text:this.message
     };
 
-    this.messages.push(fakeMessage);
+    this.messages.push(newMessage);
     this.messages.sort(function(a, b) {
       return b.id - a.id;
     });
     this.messageInput.nativeElement.value = '';
   }
 
-  // eslint-disable-next-line @angular-eslint/use-lifecycle-interface
   ngDoCheck() {
     this.messages = [];
     this.messages = this.messagesFrom;

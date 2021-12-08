@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {fromEvent, Observable, Subscription} from 'rxjs';
+import {User} from '../../../models/user.model';
+import {UserService} from '../../../services/user/user.service';
+import {MessengerService} from '../../../services/messenger/messenger.service';
 
 
 @Component({
@@ -9,12 +12,14 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
 })
 export class MessengerComponent implements OnInit {
   maxHeight: number;
+  users: User[];
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
   messages = [];
 
-  constructor() { }
+  constructor(private userService: UserService,
+              private messengerService: MessengerService) { }
 
   ngOnInit(): void {
     this.resizeObservable$ = fromEvent(window, 'resize');
@@ -23,36 +28,15 @@ export class MessengerComponent implements OnInit {
     });
     this.maxHeight = innerHeight - 70;
 
-    const dateNow =  new Date();
-    const fakeMessage = {
-      id:1,
-      dateEnvoi: dateNow.getHours() + ':' + dateNow.getMinutes(),
-      userId: 1,
-      userName:'Sharon Lessman',
-      pictureUrl:'https://bootdey.com/img/Content/avatar/avatar3.png',
-      text:'Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.'
-    };
-
-    this.messages.push(fakeMessage);
-  }
-
-  counter(i: number) {
-    return new Array(i);
+    this.users = this.userService.users;
   }
 
   loadMessages(usrId){
     this.messages = [];
-    const dateNow =  new Date();
-    const fakeMessage = {
-      id:1,
-      dateEnvoi: dateNow.getHours() + ':' + dateNow.getMinutes(),
-      userId: usrId,
-      userName:'Sharon Lessman',
-      pictureUrl:'https://bootdey.com/img/Content/avatar/avatar3.png',
-      text:'Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.' + usrId
-    };
-
-    this.messages.push(fakeMessage);
+    this.messengerService.getMessagesFromUserId(usrId)
+      .subscribe(message => {
+      this.messages.push(message);
+    });
   }
 
   onDestroy() {
