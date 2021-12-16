@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PageNotFoundComponent } from './shared/components';
 
-import { ForgotComponent } from './shared/components/home/forgot/forgot.component';
-import { RegisterComponent } from './shared/components/home/register/register.component';
-import {HomeRoutingModule} from './shared/components/home/home-routing.module';
+import { ForgotComponent } from './shared/components/splashScreen/forgot/forgot.component';
+import { RegisterComponent } from './shared/components/splashScreen/register/register.component';
+import {HomeRoutingModule} from './shared/components/splashScreen/home-routing.module';
 import {WaitingTicketsComponent} from './shared/components/workflow/waiting-tickets/waiting-tickets.component';
 import {ValidateTicketsComponent} from './shared/components/workflow/validate-tickets/validate-tickets.component';
 import {RefusedTicketsComponent} from './shared/components/workflow/refused-tickets/refused-tickets.component';

@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-splashscreen',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private formBuilder: FormBuilder) {
 
-    // redirect to home if already logged in
+    // redirect to splashScreen if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/waitingTicket']);
     }

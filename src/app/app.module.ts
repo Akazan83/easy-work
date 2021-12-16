@@ -14,9 +14,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MatSliderModule } from '@angular/material/slider';
 
 import { AppComponent } from './app.component';
-import { ForgotComponent } from './shared/components/home/forgot/forgot.component';
-import { RegisterComponent } from './shared/components/home/register/register.component';
-import { HomeModule } from './shared/components/home/home.module';
+import { ForgotComponent } from './shared/components/splashScreen/forgot/forgot.component';
+import { RegisterComponent } from './shared/components/splashScreen/register/register.component';
+import { HomeModule } from './shared/components/splashScreen/home.module';
 import { HomeApplicationComponent } from './shared/components/workflow/home-application/home-application.component';
 import { ValidateTicketsComponent } from './shared/components/workflow/validate-tickets/validate-tickets.component';
 import { RefusedTicketsComponent } from './shared/components/workflow/refused-tickets/refused-tickets.component';

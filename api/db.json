@@ -6,19 +6,21 @@
       "status": "En attente",
       "participants": [
         {
-          "status": "Validé",
-          "userId": 2,
-          "firstName": "John",
-          "role": "Conducteur de travaux",
-          "lastName": "Doe"
-        },
-        {
           "status": "En attente",
           "id": 1,
           "email": "ana@entreprise.com",
           "lastName": "Richard",
           "firstName": "Ana",
           "role": "Manager",
+          "password": "test"
+        },
+        {
+          "status": "En attente",
+          "id": 3,
+          "email": "steeve@entreprise.com",
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "role": "PDG",
           "password": "test"
         }
       ],
