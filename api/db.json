@@ -589,7 +589,6 @@
       "dateEnvoi": "2021-10-27T10:34:59",
       "userId": 2,
       "userName": "John Doe",
-      "pictureUrl": "https://bootdey.com/img/Content/avatar/avatar3.png",
       "text": "Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo."
     },
     {
@@ -597,7 +596,6 @@
       "dateEnvoi": "2021-10-27T10:34:59",
       "userId": 1,
       "userName": "Ana Richard",
-      "pictureUrl": "https://bootdey.com/img/Content/avatar/avatar2.png",
       "text": "Proin ut fermentum erat, ut dignissim lorem.."
     },
     {
@@ -605,8 +603,21 @@
       "dateEnvoi": "2021-10-27T10:34:59",
       "userId": 2,
       "userName": "Steeve Jobs",
-      "pictureUrl": "https://bootdey.com/img/Content/avatar/avatar1.png",
       "text": " Praesent fermentum faucibus volutpat. Pellentesque fermentum sagittis lorem, et eleifend odio aliquet id. Fusce massa arcu, egestas a odio sed, facilisis facilisis lorem. Donec sodales felis sed tincidunt sodales.."
+    },
+    {
+      "dateEnvoi": "17/12/2021, 22:18:54",
+      "userId": 2,
+      "userName": "Ana",
+      "text": "fff",
+      "id": 4
+    },
+    {
+      "dateEnvoi": "17/12/2021, 22:55:40",
+      "userId": 1,
+      "userName": "Ana",
+      "text": "hh",
+      "id": 5
     }
   ]
 }

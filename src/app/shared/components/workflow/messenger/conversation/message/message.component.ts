@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {User} from "../../../../../models/user.model";
 
 @Component({
   selector: 'app-message',
@@ -21,9 +22,11 @@ export class MessageComponent implements OnInit {
   @Input()
   pictureUrl: string;
 
+  user: User;
   constructor() { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('currentUser'));
   }
 
 }

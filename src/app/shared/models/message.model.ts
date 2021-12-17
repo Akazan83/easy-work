@@ -3,7 +3,7 @@ import {Deserializable} from './deserializable.model';
 export class Message implements Deserializable{
   id: number;
   dateEnvoi: string;
-  userId: string;
+  userId: number;
   userName: string;
   text: string;
 

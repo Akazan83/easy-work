@@ -11,22 +11,15 @@ export class MessengerService {
   messages: Message[];
   constructor(private httpClient: HttpClient) { }
 
-  getMessagesFromUserId(id: number): Observable<Message>{
-    return this.httpClient.get<Message[]>(`/api/messages/${id}`).pipe(
+  getMessagesFromUserId(userId: number): Observable<Message>{
+    return this.httpClient.get<Message[]>(`/api/messages?userId=${userId}`).pipe(
       map(message =>  new Message().deserialize(message)),
-      catchError(() => throwError('Ticket not found'))
+      catchError(() => throwError('Messages not found'))
     );
   }
 
-  postNewMessage(id: number, dateEnvoi: string, userId: string, userName: string, text: string){
-    const message = new Message();
-    message.id = id;
-    message.dateEnvoi = dateEnvoi;
-    message.userId = userId;
-    message.userName  = userName;
-    message.text = text;
-
-    return this.httpClient.post<Message>(`/api/message/`, message).pipe(map(data => data));
+  postNewMessage(newMessage: Message){
+    return this.httpClient.post<Message>(`/api/messages/`, newMessage).pipe(map(data => data)).subscribe(data => {console.log('ok');});
   }
 
 }

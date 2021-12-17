@@ -3,8 +3,9 @@
     <img src="{{ pictureUrl }}" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
   </div>
   <div class="flex-shrink-1 bg-light rounded py-2 px-3">
-    <div class="font-weight-bold mb-1">{{ userName }}</div>
+    <div *ngIf="userName === user.firstName" class="font-weight-bold mb-1">Vous</div>
+    <div *ngIf="userName !== user.firstName">{{ userName }}</div>
     <p>{{ text }}</p>
-    <p class="text-right" style="font-size: 12px; float: right">{{ dateEnvoi.replace('T',' ') }}</p>
+    <p class="text-right" style="font-size: 12px; float: right">{{ dateEnvoi }}</p>
   </div>
 </div>
