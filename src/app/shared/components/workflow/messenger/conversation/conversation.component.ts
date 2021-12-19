@@ -3,6 +3,7 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../../models/user.model';
 import {MessengerService} from '../../../../services/messenger/messenger.service';
 import {Message} from '../../../../models/message.model';
+import {UserService} from '../../../../services/user/user.service';
 
 @Component({
   selector: 'app-conversation',
@@ -12,7 +13,10 @@ import {Message} from '../../../../models/message.model';
 export class ConversationComponent implements OnInit, DoCheck {
   @ViewChild('messageInput') messageInput;
   @Input()
-  messagesFrom: [];
+  messagesFrom: Message[];
+
+  @Input()
+  receiverId: number;
 
   maxHeight: number;
   maxWidth: number;
@@ -23,14 +27,17 @@ export class ConversationComponent implements OnInit, DoCheck {
   messages = [];
   message: string;
   differ: any;
-  user: User;
+  currentUser: User;
+  users: User[];
 
   constructor(private iterableDiffers: IterableDiffers,
-              private messengerService: MessengerService) {
+              private messengerService: MessengerService,
+              private userService: UserService) {
     this.differ = iterableDiffers.find([]).create(null);
   }
 
   ngOnInit(): void {
+    this.users = this.userService.users;
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
       this.maxHeight = innerHeight - 180;
@@ -38,7 +45,7 @@ export class ConversationComponent implements OnInit, DoCheck {
     });
     this.maxHeight = innerHeight - 180;
     this.maxWidth = innerWidth - 120;
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   sendMessage() {
@@ -46,25 +53,25 @@ export class ConversationComponent implements OnInit, DoCheck {
 
     const newMessage = new Message();
     newMessage.dateEnvoi = dateNow.toLocaleString();
-    newMessage.userId = this.user.id;
-    newMessage.userName = this.user.firstName;
+    newMessage.senderId = this.currentUser.id;
+    newMessage.receiverId = this.receiverId;
+    newMessage.firstName = this.currentUser.firstName;
+    newMessage.lastName = this.currentUser.lastName;
     newMessage.text = this.message;
 
-    this.messages.push(newMessage);
     this.messageInput.nativeElement.value = '';
     this.messengerService.postNewMessage(newMessage);
-
-    this.messages.sort(function(a, b) {
-      return b.id - a.id;
-    });
+    console.log(this.messagesFrom);
   }
 
   ngDoCheck() {
     this.messages = [];
-    this.messages = this.messagesFrom;
-    this.messages.sort(function(a, b) {
-      return b.id - a.id;
-    });
+    if(this.messagesFrom.length !== 0){
+      this.messages = this.messagesFrom;
+      this.messages.sort(function(a, b) {
+        return b.id - a.id;
+      });
+    }
   }
 
   getValue(event: Event): string {
