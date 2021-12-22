@@ -601,8 +601,10 @@
     {
       "id": 3,
       "dateEnvoi": "2021-10-27T10:34:59",
-      "userId": 2,
-      "userName": "Ana Richard",
+      "senderId": 3,
+      "receiverId": 1,
+      "firstName": "Steeve",
+      "lastName": "Jobs",
       "text": " Praesent fermentum faucibus volutpat. Pellentesque fermentum sagittis lorem, et eleifend odio aliquet id. Fusce massa arcu, egestas a odio sed, facilisis facilisis lorem. Donec sodales felis sed tincidunt sodales.."
     },
     {
@@ -637,11 +639,11 @@
     },
     {
       "dateEnvoi": "19/12/2021, 22:56:16",
-      "senderId": 1,
-      "receiverId": 2,
-      "firstName": "Ana",
-      "lastName": "Richard",
-      "text": "Coucou",
+      "senderId": 2,
+      "receiverId": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "text": "Coucou Ana",
       "id": 8
     },
     {
@@ -727,10 +729,10 @@
     },
     {
       "dateEnvoi": "19/12/2021, 23:08:47",
-      "senderId": 1,
-      "receiverId": 3,
-      "firstName": "Ana",
-      "lastName": "Richard",
+      "senderId": 3,
+      "receiverId": 1,
+      "firstName": "Steeve",
+      "lastName": "Jobs",
       "text": "xoxo",
       "id": 18
     }

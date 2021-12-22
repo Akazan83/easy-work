@@ -1,11 +1,25 @@
-<div class="chat-message-left pb-4">
-  <div>
-    <img src="{{ pictureUrl }}" class="rounded-circle mr-1" alt="" width="40" height="40">
+<div *ngIf="userName === user.firstName + ' ' + user.lastName">
+  <div class="chat-message-left pb-4">
+    <div>
+      <img src="{{ pictureUrl }}" class="rounded-circle mr-1" alt="" width="40" height="40">
+    </div>
+    <div class="flex-shrink-1 bg-light rounded py-2 px-3">
+      <div *ngIf="userName === user.firstName + ' ' + user.lastName" class="font-weight-bold mb-1">Vous</div>
+      <p>{{ text }}</p>
+      <p class="text-right" style="font-size: 12px; float: left">{{ dateEnvoi }}</p>
+    </div>
   </div>
-  <div class="flex-shrink-1 bg-light rounded py-2 px-3">
-    <div *ngIf="userName === user.firstName + ' ' + user.lastName" class="font-weight-bold mb-1">Vous</div>
-    <div *ngIf="userName !== user.firstName + ' ' + user.lastName">{{ userName }}</div>
-    <p>{{ text }}</p>
-    <p class="text-right" style="font-size: 12px; float: right">{{ dateEnvoi }}</p>
+</div>
+
+<div *ngIf="userName !== user.firstName + ' ' + user.lastName" >
+  <div class="chat-message-right pb-4">
+    <div>
+      <img src="{{ pictureUrl }}" class="rounded-circle mr-1" alt="" width="40" height="40">
+    </div>
+    <div class="flex-shrink-1 bg-light rounded py-2 px-3">
+      <div *ngIf="userName !== user.firstName + ' ' + user.lastName" class="font-weight-bold mb-1">{{ userName }}</div>
+      <p>{{ text }}</p>
+      <p class="text-right" style="font-size: 12px; float: right">{{ dateEnvoi }}</p>
+    </div>
   </div>
 </div>
