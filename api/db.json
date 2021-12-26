@@ -26,8 +26,11 @@
       ],
       "commentaries": [
         {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
         }
       ],
       "endDate": "2021-10-17T20:34:59",
@@ -37,24 +40,20 @@
       "id": 1
     },
     {
-      "id": 2,
-      "owner": 3,
-      "title": "Devis de Monsieur Bob",
+      "title": "Devis de Monsieur Boby",
+      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
       "status": "En attente",
-      "reference": 32648723,
-      "creationDate": "2021-10-15T10:34:59",
-      "endDate": "2021-10-18T20:34:59",
       "participants": [
         {
-          "userId": 2,
           "status": "En attente",
+          "userId": 2,
           "firstName": "John",
           "role": "Conducteur de travaux",
           "lastName": "Doe"
         },
         {
-          "userId": 3,
           "status": "Validé",
+          "userId": 3,
           "firstName": "Samantha",
           "role": "Manager",
           "lastName": "Carter"
@@ -62,11 +61,46 @@
       ],
       "commentaries": [
         {
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
+        },
+        {
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
+        },
+        {
           "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "firstName": "Ana",
+          "lastName": "Richard",
+          "text": "bdf",
+          "dateEnvoi": "26/12/2021, 22:38:37"
+        },
+        {
+          "userId": 1,
+          "firstName": "Ana",
+          "lastName": "Richard",
+          "text": "Merci Steve ! :)",
+          "dateEnvoi": "26/12/2021, 22:40:02"
+        },
+        {
+          "userId": 1,
+          "firstName": "Ana",
+          "lastName": "Richard",
+          "text": "Good bye",
+          "dateEnvoi": "26/12/2021, 22:41:12"
         }
       ],
-      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+      "endDate": "2021-10-18T20:34:59",
+      "owner": 1,
+      "file": {},
+      "reference": 32648723,
+      "id": 2
     },
     {
       "id": 3,
@@ -94,31 +128,30 @@
       ],
       "commentaries": [
         {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
         }
       ],
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
     },
     {
-      "id": 4,
-      "owner": 3,
       "title": "Devis de Monsieur Gilbert",
+      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
       "status": "En attente",
-      "reference": 41256398,
-      "creationDate": "2021-09-05T10:34:59",
-      "endDate": "2021-09-15T20:34:59",
       "participants": [
         {
-          "userId": 2,
           "status": "En attente",
+          "userId": 2,
           "firstName": "John",
           "role": "Conducteur de travaux",
           "lastName": "Doe"
         },
         {
-          "userId": 3,
           "status": "Validé",
+          "userId": 3,
           "firstName": "Samantha",
           "role": "Manager",
           "lastName": "Carter"
@@ -126,11 +159,18 @@
       ],
       "commentaries": [
         {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
         }
       ],
-      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+      "endDate": "2021-09-15T20:34:59",
+      "owner": 1,
+      "file": {},
+      "reference": 41256398,
+      "id": 4
     },
     {
       "id": 5,
@@ -165,56 +205,55 @@
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
     },
     {
-      "id": 6,
-      "owner": 3,
       "title": "Devis de Monsieur Xavier",
+      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
       "status": "En attente",
-      "reference": 32999723,
-      "creationDate": "2021-10-25T10:34:59",
+      "participants": [
+        {
+          "status": "En attente",
+          "userId": 2,
+          "firstName": "John",
+          "role": "Conducteur de travaux",
+          "lastName": "Doe"
+        },
+        {
+          "status": "Validé",
+          "userId": 3,
+          "firstName": "Samantha",
+          "role": "Manager",
+          "lastName": "Carter"
+        }
+      ],
+      "commentaries": [
+        {
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
+        }
+      ],
       "endDate": "2021-11-02T20:34:59",
-      "participants": [
-        {
-          "userId": 2,
-          "status": "En attente",
-          "firstName": "John",
-          "role": "Conducteur de travaux",
-          "lastName": "Doe"
-        },
-        {
-          "userId": 3,
-          "status": "Validé",
-          "firstName": "Samantha",
-          "role": "Manager",
-          "lastName": "Carter"
-        }
-      ],
-      "commentaries": [
-        {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
-        }
-      ],
-      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+      "owner": 1,
+      "file": {},
+      "reference": 32999723,
+      "id": 6
     },
     {
-      "id": 7,
-      "owner": 3,
       "title": "Devis de Madame Gilbert",
+      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
       "status": "En attente",
-      "reference": 96328723,
-      "creationDate": "2021-03-18T10:34:59",
-      "endDate": "2021-03-28T20:34:59",
       "participants": [
         {
-          "userId": 2,
-          "status": "En attente",
-          "firstName": "John",
+          "status": "Refusé",
+          "userId": 1,
+          "firstName": "Ana",
           "role": "Conducteur de travaux",
-          "lastName": "Doe"
+          "lastName": "Richard"
         },
         {
-          "userId": 3,
           "status": "Validé",
+          "userId": 3,
           "firstName": "Samantha",
           "role": "Manager",
           "lastName": "Carter"
@@ -222,31 +261,40 @@
       ],
       "commentaries": [
         {
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
+        },
+        {
           "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "firstName": "Ana",
+          "lastName": "Richard",
+          "text": "Cool !",
+          "dateEnvoi": "26/12/2021, 22:41:52"
         }
       ],
-      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+      "endDate": "2021-03-28T20:34:59",
+      "owner": 3,
+      "reference": 96328723,
+      "id": 7
     },
     {
-      "id": 8,
-      "owner": 3,
       "title": "Devis de Madame Ana",
+      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.",
       "status": "En attente",
-      "reference": 22648413,
-      "creationDate": "2021-04-15T10:34:59",
-      "endDate": "2021-04-28T20:34:59",
       "participants": [
         {
-          "userId": 2,
           "status": "En attente",
+          "userId": 2,
           "firstName": "John",
           "role": "Conducteur de travaux",
           "lastName": "Doe"
         },
         {
-          "userId": 3,
           "status": "Validé",
+          "userId": 3,
           "firstName": "Samantha",
           "role": "Manager",
           "lastName": "Carter"
@@ -254,11 +302,18 @@
       ],
       "commentaries": [
         {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
         }
       ],
-      "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
+      "endDate": "2021-04-28T20:34:59",
+      "owner": 1,
+      "file": {},
+      "reference": 22648413,
+      "id": 8
     },
     {
       "id": 9,
@@ -286,8 +341,11 @@
       ],
       "commentaries": [
         {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
         }
       ],
       "description": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32."
@@ -308,8 +366,11 @@
       ],
       "commentaries": [
         {
-          "userId": 1,
-          "text": "C'est parfait, Merci !"
+          "userId": 3,
+          "lastName": "Jobs",
+          "firstName": "Steeve",
+          "text": "C'est parfait, Merci !",
+          "dateEnvoi": "26/12/2021, 17:09:59"
         }
       ],
       "endDate": "2021-11-01",
@@ -735,6 +796,24 @@
       "lastName": "Jobs",
       "text": "xoxo",
       "id": 18
+    },
+    {
+      "dateEnvoi": "26/12/2021, 17:09:59",
+      "senderId": 1,
+      "receiverId": 3,
+      "firstName": "Ana",
+      "lastName": "Richard",
+      "text": "Bye",
+      "id": 19
+    },
+    {
+      "dateEnvoi": "26/12/2021, 23:03:53",
+      "senderId": 1,
+      "receiverId": 2,
+      "firstName": "Ana",
+      "lastName": "Richard",
+      "text": "Bonne nuit",
+      "id": 20
     }
   ]
 }

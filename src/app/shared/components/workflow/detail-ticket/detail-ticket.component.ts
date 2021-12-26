@@ -8,6 +8,8 @@ import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TicketStateEnum} from '../ticket/ticketStateEnum';
 
 @Component({
   selector: 'app-detail-ticket',
@@ -23,6 +25,7 @@ export class DetailTicketComponent implements OnInit {
   isOwner: boolean;
   searchText = '';
   id: number;
+  closeResult = '';
 
 
   currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -37,7 +40,8 @@ export class DetailTicketComponent implements OnInit {
               private ticketService: TicketsService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserService,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.users = this.userService.users;
@@ -57,6 +61,7 @@ export class DetailTicketComponent implements OnInit {
         });
     });
     this.user = JSON.parse(localStorage.getItem('currentUser'));
+
   }
 
   addParticipant(participantId){
@@ -73,16 +78,13 @@ export class DetailTicketComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.ticketForm.invalid) {
       return;
     }
     this.loading = true;
-
-    this.ticketService.updateTicket(this.f.title.value, this.f.description.value, this.f.endDate.value,
-    this.participants, this.commentaries, this.f.file.value, this.currentUser.id, this.ticket.reference,
-    this.id)
+    const ticket = this.ticketFactory();
+    this.ticketService.updateTicket(ticket, this.ticket.id)
       .pipe(first())
       .subscribe(
         data => {
@@ -94,5 +96,55 @@ export class DetailTicketComponent implements OnInit {
           this.error = error;
           this.loading = false;
         });
+  }
+
+  saveCommentarie(data){
+    const dateNow =  new Date();
+    const commentarie = new Commentarie();
+    commentarie.userId = this.currentUser.id;
+    commentarie.firstName = this.currentUser.firstName;
+    commentarie.lastName = this.currentUser.lastName;
+    commentarie.text = data.comment.value;
+    commentarie.dateEnvoi = dateNow.toLocaleString();
+
+    this.commentaries.push(commentarie);
+    const ticket = this.ticketFactory();
+    this.ticketService.postCommentarie(ticket, this.ticket.id).subscribe(value => console.log('Commentaire envoyé'));
+  }
+
+  changeParticipantStatus(status){
+    this.participants.map(value => {
+      if(value.userId === this.currentUser.id){
+        value.status = status === 'Approved' ? TicketStateEnum.approved: TicketStateEnum.refused;
+      }
+    });
+
+    const ticket = this.ticketFactory();
+    this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(value => console.log('Status mis à jour'));
+  }
+
+  openCommentForm(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    });
+  }
+
+  openCommentShow(longContent) {
+    this.modalService.open(longContent, { scrollable: true });
+  }
+
+  private ticketFactory(){
+    const ticket = new Ticket();
+    ticket.title = this.f.title.value;
+    ticket.description = this.f.description.value;
+    ticket.status = this.ticket.status.toString();
+    ticket.participants = this.participants;
+    ticket.commentaries = this.commentaries;
+    ticket.endDate = this.f.endDate.value;
+    ticket.owner = this.ticket.owner;
+    ticket.file = this.ticket.file;
+    ticket.reference = this.ticket.reference;
+
+    return ticket;
   }
 }

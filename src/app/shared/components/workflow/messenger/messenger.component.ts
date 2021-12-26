@@ -44,7 +44,6 @@ export class MessengerComponent implements OnInit {
       this.messages.push(...messages);
     });
     this.receiverId = receiverId;
-
   }
 
   onDestroy() {

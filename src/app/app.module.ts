@@ -36,6 +36,7 @@ import {TicketsFilterPipe} from './shared/services/filter/ticketsFilter.pipe';
 import {TicketsService} from './shared/services/tickets/tickets.service';
 import {UserService} from './shared/services/user/user.service';
 import {UsersFilterPipe} from './shared/services/filter/userFilter.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -71,6 +72,7 @@ export function initializeUsers(userService: UserService) {
       }
     }),
     ReactiveFormsModule,
+    NgbModule,
   ],
   providers: [  TicketsService,
     { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},

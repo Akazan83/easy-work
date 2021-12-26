@@ -20,13 +20,18 @@
                   <span class="badge bg-primary rounded-pill">{{participants.length}}</span>
                 </h4>
                 <ul class="list-group mb-3">
-                  <li class="list-group-item d-flex justify-content-between lh-sm" *ngFor="let participant of participants">
-                    <div>
-                      <h6 class="my-0">{{participant.firstName}} {{participant.lastName}}</h6>
-                      <small class="text-muted">{{ participant.role }}</small>
-                    </div>
-                    <span class="text-muted">{{ participant.status }}</span>
-                    <button type="button" class="btn btn-danger" *ngIf="isOwner" (click)="removeParticipant(participant.userId)">X</button>
+                  <li class="list-group-item d-flex justify-content-between lh-sm"
+                      [ngClass]="{
+                       'bg-success text-white': participant.status === 'Validé',
+                       'bg-danger' : participant.status === 'Refusé',
+                       'bg-warning' : participant.status === 'En attente' }" *ngFor="let participant of participants">
+                      <div>
+                        <h6 class="my-0">{{participant.firstName}} {{participant.lastName}}</h6>
+                        <small>{{ participant.role }}</small>
+                      </div>
+                      <span>{{ participant.status }}</span>
+                      <button type="button" class="btn btn-danger" *ngIf="isOwner" (click)="removeParticipant(participant.userId)">X</button>
+
                   </li>
                 </ul>
 
@@ -57,7 +62,7 @@
                   <h4 class="d-flex justify-content-between align-items-center">
                     <span class="text-primary">Commentaires</span>
                   </h4>
-                  <button class="w-100 btn btn-outline-primary btn-lg" type="submit">Voir les commentaires</button>
+                  <button class="w-100 btn btn-outline-primary btn-lg" (click)="openCommentShow(longContent)" type="button">Voir les commentaires</button>
                 </div>
               </div>
 
@@ -105,13 +110,13 @@
                   <hr class="my-4">
                   <div *ngIf='ticket.status === "En attente"'>
                     <div *ngIf="isOwner" class="text-center">
-                      <button class="btn btn-info btn-lg m-1 text-white" >Commenter</button>
+                      <button class="btn btn-info btn-lg m-1 text-white"  (click)="openCommentForm(content)" type="button">Commenter</button>
                       <button class="btn btn-primary btn-lg m-1" type="submit">Modifier</button>
                     </div>
                     <div *ngIf="!isOwner" class="text-center">
-                      <button class="btn btn-info btn-lg m-1 text-white" >Commenter</button>
-                      <button class="btn btn-success btn-lg m-1 text-white" >Approuver</button>
-                      <button class="btn btn-danger btn-lg m-1 text-white" >Refuser</button>
+                      <button class="btn btn-info btn-lg m-1 text-white"  (click)="openCommentForm(content)" type="button" >Commenter</button>
+                      <button class="btn btn-success btn-lg m-1 text-white" type="button" (click)="changeParticipantStatus('Approved')">Approuver</button>
+                      <button class="btn btn-danger btn-lg m-1 text-white" type="button" (click)="changeParticipantStatus('Refused')" >Refuser</button>
                     </div>
                   </div>
 
@@ -131,5 +136,47 @@
     </div>
   </div>
 </div>
+
+<!-- Add comment -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Ajout d'un commentaire</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #data (ngSubmit)="saveCommentarie(data)">
+      <div class="form-group">
+        <label for="comment">Commentaire</label>
+        <div class="input-group">
+          <textarea id="comment" class="form-control"></textarea>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-outline-success" (click)="modal.close()">Envoyer</button>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Annuler</button>
+  </div>
+</ng-template>
+
+<!-- See comment -->
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Commentaires</h4>
+
+  </div>
+  <div class="modal-body">
+   <div *ngFor="let commentarie of commentaries">
+     <p>{{commentarie.text}}</p>
+     <p class="text-right commentarie">{{commentarie.lastName}} {{commentarie.firstName}} Le {{commentarie.dateEnvoi}}</p>
+     <hr class="my-2">
+   </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Fermer</button>
+  </div>
+</ng-template>
 </body>
 

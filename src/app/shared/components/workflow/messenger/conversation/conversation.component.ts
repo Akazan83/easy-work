@@ -4,6 +4,7 @@ import {User} from '../../../../models/user.model';
 import {MessengerService} from '../../../../services/messenger/messenger.service';
 import {Message} from '../../../../models/message.model';
 import {UserService} from '../../../../services/user/user.service';
+import {MessengerComponent} from '../messenger.component';
 
 @Component({
   selector: 'app-conversation',
@@ -32,7 +33,8 @@ export class ConversationComponent implements OnInit, DoCheck {
 
   constructor(private iterableDiffers: IterableDiffers,
               private messengerService: MessengerService,
-              private userService: UserService) {
+              private userService: UserService,
+              private messengerComponent: MessengerComponent) {
     this.differ = iterableDiffers.find([]).create(null);
   }
 
@@ -60,8 +62,23 @@ export class ConversationComponent implements OnInit, DoCheck {
     newMessage.text = this.message;
 
     this.messageInput.nativeElement.value = '';
-    this.messengerService.postNewMessage(newMessage);
-    console.log(this.messagesFrom);
+
+    const messageSent = new Promise((resolve => {
+      this.messengerService.postNewMessage(newMessage);
+      resolve(newMessage);
+    }));
+
+    messageSent.then((value => {
+
+      if (value instanceof Message) {
+        try {
+          this.messengerComponent.messages.unshift(value);
+        }catch (e) {
+          console.log(e);
+        }
+      }
+    }));
+
   }
 
   ngDoCheck() {

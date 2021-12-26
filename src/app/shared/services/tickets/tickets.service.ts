@@ -48,21 +48,12 @@ export class TicketsService {
     return this.httpClient.post<Ticket>(`/api/tickets/`, ticket).pipe(map(data => data));
   }
 
-  public updateTicket(title: string, description: string, endDate: string, participants: Participant[],
-  commentaries: Commentarie[], file: File, owner: number, reference: string, id: number){
-    const formData = new FormData();
-    formData.append('file', file);
-    const ticket = new Ticket();
-    ticket.title = title;
-    ticket.description = description;
-    ticket.status = TicketStateEnum.waiting;
-    ticket.participants = participants;
-    ticket.commentaries = commentaries;
-    ticket.endDate = endDate;
-    ticket.owner = owner;
-    ticket.file = formData;
-    ticket.reference = reference;
-    return this.httpClient.put<Ticket>(`/api/tickets/` + id, ticket).pipe(map(data => data));
+  public postCommentarie(ticket: Ticket, ticketId: number){
+    return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
+  }
+
+  public updateTicket(ticket: Ticket, ticketId: number){
+    return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
   }
 
   private getTickets(): Observable<Ticket[]> {
