@@ -70,6 +70,7 @@ export class DetailTicketComponent implements OnInit {
     this.searchText = '';
   }
 
+  // TODO: Change removeParticipant
   removeParticipant(participantId){
     this.participants.splice(this.users[this.users.findIndex(user => user.id === participantId)] as unknown as number,1);
   }
