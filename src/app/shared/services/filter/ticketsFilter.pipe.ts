@@ -23,7 +23,7 @@ export class TicketsFilterPipe implements PipeTransform {
     searchText = searchText.toLocaleLowerCase();
 
     return items.filter(function(it){
-      return it.reference.toString().includes(searchText);
+      return it.id.toString().includes(searchText);
     });
   }
 

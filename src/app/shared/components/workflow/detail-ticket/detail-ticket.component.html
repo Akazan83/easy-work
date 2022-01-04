@@ -9,7 +9,7 @@
         <div class="container" *ngIf="ticket">
           <main>
             <div class="py-5 text-center">
-              <h2>Demande n°{{ ticket.reference }}</h2>
+              <h2>Demande n°{{ ticket.id }}</h2>
               <h3>{{ticket.status}}</h3>
             </div>
 
@@ -71,12 +71,12 @@
                   <div class="col-sm-12">
 
                     <div *ngIf="isOwner">
-                      <input type="text" formControlName="title" class="form-control mt-2" id="title"
+                      <input type="text" formControlName="title" class="form-control mt-2"
                             [ngClass]="{ 'is-invalid': submitted && f.title.errors }"
                             required>
                     </div>
                     <div *ngIf="!isOwner">
-                      <input type="text" class="form-control" formControlName="title" id="title" placeholder="Titre" value="{{ ticket.title }}" readonly>
+                      <input type="text" class="form-control" formControlName="title" placeholder="Titre" value="{{ ticket.title }}" readonly>
                     </div>
                     <div class="invalid-feedback">
                       Valid last name is required.
@@ -86,10 +86,11 @@
                   <div class="row g-3">
                     <div class="col-sm-12">
                       <div *ngIf="isOwner">
-                        <textarea type="text" class="form-control mt-3" id="description" placeholder="Description" value="{{ ticket.description }}"  rows="14"></textarea>
+                        <textarea type="text" class="form-control mt-3" formControlName="description" rows="14"
+                                  [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
                       </div>
                       <div *ngIf="!isOwner">
-                        <textarea type="text" class="form-control mt-3" id="description" placeholder="Description" value="{{ ticket.description }}"  rows="14" readonly></textarea>
+                        <textarea type="text" class="form-control mt-3" formControlName="description" rows="14" readonly></textarea>
                       </div>
                       <div class="invalid-feedback">
                         Valid first name is required.
@@ -99,7 +100,7 @@
                     <div class="col-12">
                       <label for="start">Date butoir :</label> <br>
                       <div *ngIf="isOwner">
-                        <input type="date" id="start" value="{{ ticket.endDate }}">
+                        <input type="date" id="start" formControlName="endDate" value="{{ ticket.endDate }}">
                       </div>
                       <div *ngIf="!isOwner">
                         <p>{{ ticket.endDate }}</p>

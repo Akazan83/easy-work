@@ -6,6 +6,8 @@ import {TicketsService} from '../../../services/tickets/tickets.service';
 import {first} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {Participant} from '../../../models/participant.model';
+import {TicketStateEnum} from '../ticket/ticketStateEnum';
 
 @Component({
   selector: 'app-new-tickets',
@@ -13,17 +15,17 @@ import {Router} from '@angular/router';
   styleUrls: ['./new-tickets.component.scss']
 })
 export class NewTicketsComponent implements OnInit {
-  users: User[];
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  participants = [];
-  commentaries = new Array(0);
-  file: File;
-  fileName = '';
-  searchText = '';
-  ticketForm: FormGroup;
-  submitted = false;
-  loading = false;
-  error = '';
+  public ticketForm: FormGroup;
+  public submitted = false;
+  public loading = false;
+  public users: User[];
+  public participants = [];
+  public searchText = '';
+  private file: File;
+  private commentaries = [];
+  private currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  private fileName = '';
+  private error = '';
 
   constructor(private userService: UserService,
               private ticketService: TicketsService,
@@ -38,17 +40,24 @@ export class NewTicketsComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       endDate: ['', Validators.required],
-      file: [null, Validators.required]
+      file: [null]
     });
   }
 
   addParticipant(participantId){
-    this.participants.push(this.users[this.users.findIndex(user => user.id === participantId)]);
+    const user: User = this.users.find(value => value.id === participantId);
+    const newParticipant = new Participant();
+    newParticipant.userId = user.id;
+    newParticipant.firstName = user.firstName;
+    newParticipant.lastName = user.lastName;
+    newParticipant.status = TicketStateEnum.waiting;
+    newParticipant.role = user.role;
+    this.participants.push(newParticipant);
     this.searchText = '';
   }
 
   removeParticipant(participantId){
-    this.participants.splice(this.users[this.users.findIndex(user => user.id === participantId)] as unknown as number,1);
+    this.participants = this.participants.filter(value => value.userId !== participantId);
   }
 
   onFileSelected(event) {
@@ -67,7 +76,6 @@ export class NewTicketsComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
     // stop here if form is invalid
     if (this.ticketForm.invalid) {
       return;

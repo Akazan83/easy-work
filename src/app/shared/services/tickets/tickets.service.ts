@@ -44,7 +44,6 @@ export class TicketsService {
     ticket.endDate = endDate;
     ticket.owner = owner;
     ticket.file = formData;
-    ticket.reference = Math.floor(100000000 + Math.random() * 900000000).toString();
     return this.httpClient.post<Ticket>(`/api/tickets/`, ticket).pipe(map(data => data));
   }
 

@@ -7,7 +7,7 @@
           <div class="autocomplete-items" *ngIf="searchText.length">
             <div *ngFor="let c of tickets | ticketsFilter: searchText"
                  [routerLink]="'/ticket/' + c.id">
-                {{c.reference}}
+                {{c.id}}
             </div>
           </div>
 

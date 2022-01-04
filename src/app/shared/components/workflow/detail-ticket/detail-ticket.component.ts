@@ -65,14 +65,20 @@ export class DetailTicketComponent implements OnInit {
   }
 
   addParticipant(participantId){
-    // @ts-ignore
-    this.participants.push(this.users[this.users.findIndex(user => user.id === participantId)]);
+    const user: User = this.users.find(value => value.id === participantId);
+    const newParticipant = new Participant();
+    newParticipant.userId = user.id;
+    newParticipant.firstName = user.firstName;
+    newParticipant.lastName = user.lastName;
+    newParticipant.status = TicketStateEnum.waiting;
+    newParticipant.role = user.role;
+    this.participants.push(newParticipant);
     this.searchText = '';
   }
 
-  // TODO: Change removeParticipant
+
   removeParticipant(participantId){
-    this.participants.splice(this.users[this.users.findIndex(user => user.id === participantId)] as unknown as number,1);
+    this.participants = this.participants.filter(value => value.userId !== participantId);
   }
 
   get f() { return this.ticketForm.controls; }
@@ -85,6 +91,7 @@ export class DetailTicketComponent implements OnInit {
     }
     this.loading = true;
     const ticket = this.ticketFactory();
+
     this.ticketService.updateTicket(ticket, this.ticket.id)
       .pipe(first())
       .subscribe(
@@ -144,7 +151,6 @@ export class DetailTicketComponent implements OnInit {
     ticket.endDate = this.f.endDate.value;
     ticket.owner = this.ticket.owner;
     ticket.file = this.ticket.file;
-    ticket.reference = this.ticket.reference;
 
     return ticket;
   }
