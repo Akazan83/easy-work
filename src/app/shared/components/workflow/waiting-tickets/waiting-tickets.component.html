@@ -13,12 +13,12 @@
                 currentPage: page,
                 totalItems: ticketsNumber }"
 
-                      [status]="ticket.status"
-                      [creationDate]="ticket.creationDate"
-                      [endDate]="ticket.endDate"
-                      [reference]="ticket.id.toString()"
-                      [title]="ticket.title"
-                      [id]="ticket.id">
+                [id]="ticket.id"
+                [status]="ticket.status"
+                [creationDate]="ticket.creationDate"
+                [endDate]="ticket.endDate"
+                [reference]="ticket.id.toString()"
+                [title]="ticket.title">
           </app-ticket>
         </div>
       </div>

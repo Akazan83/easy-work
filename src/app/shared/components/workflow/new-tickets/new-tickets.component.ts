@@ -8,6 +8,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Participant} from '../../../models/participant.model';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
+import {Commentary} from '../../../models/commentarie.model';
 
 @Component({
   selector: 'app-new-tickets',
@@ -19,10 +20,10 @@ export class NewTicketsComponent implements OnInit {
   public submitted = false;
   public loading = false;
   public users: User[];
-  public participants: Participant[];
+  public participants: Participant[] = [];
   public searchText = '';
   private file: File;
-  private commentaries = [];
+  private commentaries: Commentary[] = [];
   private currentUser = JSON.parse(localStorage.getItem('currentUser'));
   private fileName = '';
   private error = '';

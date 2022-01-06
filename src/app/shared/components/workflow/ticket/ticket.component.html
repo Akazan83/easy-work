@@ -1,7 +1,11 @@
-<div class="card" style="margin-top: 5px;">
-  <div class="card-body" style="border-style: solid;">
+<div class="card">
+  <div class="card-body">
     <div class="d-flex justify-content-between" id="cardContent">
-      <p>{{status}}</p>
+      <p  [ngClass]="{'text-success': status === 'Validé',
+                      'text-warning': status === 'En attente',
+                      'text-danger': status === 'Refusé'}">
+        <strong>{{status}}</strong>
+      </p>
       <div>
         <p id="endDate">Date butoir : {{endDate}}</p>
       </div>

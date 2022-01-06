@@ -1,3 +1,11 @@
+.card {
+  margin-top: 5px;
+}
+
+.card-body {
+  border-style: solid;
+}
+
 #cardContent {
   padding-bottom: 0;
 }
@@ -16,6 +24,6 @@
 }
 
 #openButton {
-  background: rgb(41,55,69);
-  border-color: rgb(41,55,69);
+  background: #2199e8;
+  border-color: #2199e8;
 }

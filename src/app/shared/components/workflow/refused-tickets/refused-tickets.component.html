@@ -1,4 +1,4 @@
-<body id="page-top">
+<body>
 <div id="wrapper">
   <app-home-application></app-home-application>
   <div class="d-flex flex-column" id="content-wrapper">
@@ -18,7 +18,8 @@
                 [creationDate]="ticket.creationDate"
                 [endDate]="ticket.endDate"
                 [reference]="ticket.id.toString()"
-                [title]="ticket.title"></app-ticket>
+                [title]="ticket.title">
+          </app-ticket>
         </div>
       </div>
     </div>
