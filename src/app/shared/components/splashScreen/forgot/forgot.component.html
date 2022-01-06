@@ -4,24 +4,26 @@
       <div class="card shadow-lg o-hidden border-0 my-5">
         <div class="card-body p-0">
           <div class="row">
-            <div class="col-lg-6 d-none d-lg-flex" style="color: #1cc88a;background: #1cc88a;">
-              <div class="flex-grow-1 bg-password-image" style="background: url('../../../../../assets/images/logo.png') center no-repeat;"></div>
+            <div class="col-lg-6 d-none d-lg-flex" id="bandeau">
+              <div class="flex-grow-1 bg-password-image" id="bg-login-image"></div>
             </div>
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="text-center">
                   <h4 class="text-dark mb-2">Mot de passe oublié ?</h4>
-                  <p class="mb-4" style="background: #ffffff;">Entrez simplement votre adresse e-mail ci-dessous et nous vous enverrons un lien pour réinitialiser votre mot de passe !<br></p>
+                  <p class="mb-4">Entrez simplement votre adresse e-mail ci-dessous et nous vous enverrons un lien pour réinitialiser votre mot de passe !<br></p>
                 </div>
                 <form class="user">
                   <div class="mb-3"><input class="form-control" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="E-mail" name="email">
                     </div>
-                      <button class="btn btn-primary d-block w-100" type="submit" style="background: #1cc88a;border-color: #1cc88a;">Réinitialiser le mot de passe</button>
+                      <button class="btn btn-primary d-block w-100" type="submit" id="reinitButton">Réinitialiser le mot de passe</button>
                 </form>
                 <div class="text-center">
                   <hr>
-                </div><a class="btn btn-primary d-block btn-user w-100" type="submit" style="background: #283644;border-color: #283644;" href="home">Retour</a>
-                <div class="text-center"></div>
+                </div>
+                  <a class="btn btn-primary d-block btn-user w-100" type="submit" id="goBackButton" href="home">Retour</a>
+                  <div class="text-center">
+                </div>
               </div>
             </div>
           </div>

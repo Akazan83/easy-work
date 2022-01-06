@@ -35,13 +35,14 @@ textarea {
   padding-top: 1rem!important;
   padding-bottom: 1rem!important;
 }
-.px-4 {
-  padding-right: 1.5rem!important;
-  padding-left: 1.5rem!important;
-}
+
 .flex-grow-0 {
   flex-grow: 0!important;
 }
 .border-top {
   border-top: 1px solid #dee2e6!important;
+}
+
+.input-group-text {
+  max-width: 50px;
 }

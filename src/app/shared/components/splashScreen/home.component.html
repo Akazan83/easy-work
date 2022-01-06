@@ -4,38 +4,38 @@
       <div class="card shadow-lg o-hidden border-0 my-5">
         <div class="card-body p-0">
           <div class="row">
-            <div class="col-lg-6 d-none d-lg-flex" style="background: #1cc88a;">
-              <div class="flex-grow-1 bg-login-image" style="background: url('../../../../assets/images/logo.png') center no-repeat, #1cc88a;border-color: #1cc88a;"></div>
+            <div class="col-lg-6 d-none d-lg-flex" id="bandeau">
+              <div class="flex-grow-1" id="bg-login-image"></div>
             </div>
             <div class="col-lg-6">
               <div class="p-4">
                 <div class="text-center">
-                  <h4 class="mb-4" style="font-weight: bold;font-family: Alatsi, sans-serif;color: #1cc88a;">Bienvenue !</h4>
+                  <h4 class="mb-4">Bienvenue !</h4>
                 </div>
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="text" id="email" formControlName="email" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <input type="text" id="email" formControlName="email" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"></input>
                     <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
                       <div *ngIf="f.email.errors.required">Email requis</div>
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" id="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <input type="password" id="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"></input>
                     <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
                       <div *ngIf="f.password.errors.required">Mot de passe requis</div>
                     </div>
                   </div>
-                  <button [disabled]="loading" class="btn btn-primary d-block w-100 mt-4" style="background: #1cc88a;border-color: #1cc88a;">
+                  <button [disabled]="loading" class="btn btn-primary d-block w-100 mt-4">
                     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                     Se connecter
                   </button>
                   <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
-                  <a class="btn btn-primary d-block w-100 mt-2" style="background: rgb(41,55,69);border-color: rgb(41,55,69);" href="register">S'inscrire</a>
+                  <a class="btn btn-primary d-block w-100 mt-2" id="register" href="register">S'inscrire</a>
                 </form>
 
-                <div class="text-center mt-2"><a class="small" href="forgot-password.html" style="border-color: rgb(41,55,69);" href="forgot">Mot de passe oublié ?</a></div>
+                <div class="text-center mt-2"><a class="small" id="forgotPasswordButton" href="forgot">Mot de passe oublié ?</a></div>
                 </div>
               </div>
             </div>

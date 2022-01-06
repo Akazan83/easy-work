@@ -1,11 +1,11 @@
 import {Deserializable} from './deserializable.model';
 
-export class Commentarie implements Deserializable{
+export class Commentary implements Deserializable{
   userId: number;
   firstName: string;
   lastName: string;
   text: string;
-  dateEnvoi: string;
+  sendingDate: string;
 
   deserialize(input: any): this {
     Object.assign(this, input);

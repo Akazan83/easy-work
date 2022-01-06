@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -12,8 +12,6 @@ const args = process.argv.slice(1),
 
 function createWindow(): BrowserWindow {
 
-  const electronScreen = screen;
-
   // Create the browser window.
   win = new BrowserWindow({
     width: 1200,
@@ -23,7 +21,7 @@ function createWindow(): BrowserWindow {
     resizable: true,
     webPreferences: {
       nodeIntegration: true,
-      allowRunningInsecureContent: (serve) ? true : false,
+      allowRunningInsecureContent: (serve),
       contextIsolation: false,  // false if you want to run e2e test with Spectron
       enableRemoteModule : true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
     },
@@ -36,7 +34,7 @@ function createWindow(): BrowserWindow {
     require('electron-reload')(__dirname, {
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
-    win.loadURL('http://localhost:4200');
+    win.loadURL('http://localhost:4200').catch(error => console.log(error));
   } else {
     // Path when running electron executable
     let pathIndex = './index.html';
@@ -50,7 +48,7 @@ function createWindow(): BrowserWindow {
       pathname: path.join(__dirname, pathIndex),
       protocol: 'file:',
       slashes: true
-    }));
+    })).catch(error => console.log(error));
   }
 
   // Emitted when the window is closed.

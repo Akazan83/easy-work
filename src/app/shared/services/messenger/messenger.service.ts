@@ -11,7 +11,7 @@ export class MessengerService {
   messages: Message[];
   constructor(private httpClient: HttpClient) { }
 
-  getMessagesFromUserId(receiverId: number, senderId: number): Observable<Message[]>{
+  public getMessagesFromUserId(receiverId: number, senderId: number): Observable<Message[]>{
     return this.httpClient
       .get<Message[]>(`/api/messages?receiverId=${receiverId}&senderId=${senderId}&receiverId=${senderId}&senderId=${receiverId}`)
       .pipe(map(data =>  data.map(message => new Message()
@@ -19,7 +19,7 @@ export class MessengerService {
     );
   }
 
-  postNewMessage(newMessage: Message){
+  public postNewMessage(newMessage: Message){
     return this.httpClient.post<Message>(`/api/messages/`, newMessage)
       .pipe(map(data => data)).subscribe(data => this.getMessagesFromUserId(data.receiverId, data.senderId));
   }

@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Ticket} from '../../../models/ticket.model';
 import {Participant} from '../../../models/participant.model';
-import {Commentarie} from '../../../models/commentarie.model';
+import {Commentary} from '../../../models/commentarie.model';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {first} from 'rxjs/operators';
@@ -19,7 +19,7 @@ import {TicketStateEnum} from '../ticket/ticketStateEnum';
 export class DetailTicketComponent implements OnInit {
   ticket: Ticket;
   participants: Participant[];
-  commentaries: Commentarie[];
+  commentaries: Commentary[];
   users: User[];
   user: User;
   isOwner: boolean;
@@ -95,9 +95,9 @@ export class DetailTicketComponent implements OnInit {
     this.ticketService.updateTicket(ticket, this.ticket.id)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
           this.ticketService.init().then(()=>{
-            this.router.navigate(['']);
+            this.router.navigate(['']).catch(error => this.error = error);
           });
         },
         error => {
@@ -106,18 +106,18 @@ export class DetailTicketComponent implements OnInit {
         });
   }
 
-  saveCommentarie(data){
+  saveComment(data){
     const dateNow =  new Date();
-    const commentarie = new Commentarie();
-    commentarie.userId = this.currentUser.id;
-    commentarie.firstName = this.currentUser.firstName;
-    commentarie.lastName = this.currentUser.lastName;
-    commentarie.text = data.comment.value;
-    commentarie.dateEnvoi = dateNow.toLocaleString();
+    const commentary = new Commentary();
+    commentary.userId = this.currentUser.id;
+    commentary.firstName = this.currentUser.firstName;
+    commentary.lastName = this.currentUser.lastName;
+    commentary.text = data.comment.value;
+    commentary.sendingDate = dateNow.toLocaleString();
 
-    this.commentaries.push(commentarie);
+    this.commentaries.push(commentary);
     const ticket = this.ticketFactory();
-    this.ticketService.postCommentarie(ticket, this.ticket.id).subscribe(value => console.log('Commentaire envoyé'));
+    this.ticketService.postCommentarie(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
   }
 
   changeParticipantStatus(status){
@@ -128,7 +128,7 @@ export class DetailTicketComponent implements OnInit {
     });
 
     const ticket = this.ticketFactory();
-    this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(value => console.log('Status mis à jour'));
+    this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(() => console.log('Status mis à jour'));
   }
 
   openCommentForm(content) {

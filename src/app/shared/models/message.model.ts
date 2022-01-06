@@ -2,7 +2,7 @@ import {Deserializable} from './deserializable.model';
 
 export class Message implements Deserializable{
   id: number;
-  dateEnvoi: string;
+  sendingDate: string;
   senderId: number;
   receiverId: number;
   firstName: string;

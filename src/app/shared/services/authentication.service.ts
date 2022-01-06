@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
 
 @Injectable({
@@ -20,8 +20,7 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  // TODO: A Remettre
- home(email: string, password: string) {
+  public home(email: string, password: string) {
     return this.httpClient.post<any>(`http://localhost:8000/auth/login`, {email, password})
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
@@ -30,7 +29,7 @@ export class AuthenticationService {
       }));
   }
 
-  login(email: string, password: string) {
+  public login(email: string, password: string) {
     return this.httpClient.get<User>(`/api/users/1`).pipe(map(user => {
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
@@ -38,7 +37,7 @@ export class AuthenticationService {
     }));
   }
 
-  logout() {
+  public logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);

@@ -1,3 +1,31 @@
 html {
   height: 100%;
 }
+
+#bandeau {
+  background: #1cc88a;
+}
+
+#bg-login-image{
+  background: url('../../../../assets/images/logo.png') center no-repeat, #1cc88a;
+}
+
+h4 {
+  font-weight: bold;
+  font-family: Alatsi, sans-serif;
+  color: #1cc88a;
+}
+
+button {
+  background: #1cc88a;
+  border-color: #1cc88a;
+}
+
+#register {
+  background: rgb(41,55,69);
+  border-color: rgb(41,55,69);
+}
+
+#forgotPasswordButton {
+  border-color: rgb(41,55,69);
+}

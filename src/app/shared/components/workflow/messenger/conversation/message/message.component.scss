@@ -1,22 +1,24 @@
 .chat-online {
-  color: #34ce57
+  color: #34ce57;
 }
 
 .chat-offline {
-  color: #e4606d
+  color: #e4606d;
 }
 
 .chat-messages {
   display: flex;
   flex-direction: column;
   max-height: 800px;
-  overflow-y: scroll
+  overflow-y: scroll;
 }
 
 .chat-message-left,
 .chat-message-right {
   display: flex;
-  flex-shrink: 0
+  flex-shrink: 0;
+  font-size: 12px;
+  float: left;
 }
 
 .chat-message-left {
@@ -36,10 +38,7 @@
   padding-top: 1rem!important;
   padding-bottom: 1rem!important;
 }
-.px-4 {
-  padding-right: 1.5rem!important;
-  padding-left: 1.5rem!important;
-}
+
 .flex-grow-0 {
   flex-grow: 0!important;
 }

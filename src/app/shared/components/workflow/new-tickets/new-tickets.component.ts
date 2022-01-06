@@ -19,7 +19,7 @@ export class NewTicketsComponent implements OnInit {
   public submitted = false;
   public loading = false;
   public users: User[];
-  public participants = [];
+  public participants: Participant[];
   public searchText = '';
   private file: File;
   private commentaries = [];
@@ -86,9 +86,9 @@ export class NewTicketsComponent implements OnInit {
       this.participants, this.commentaries, this.f.file.value, this.currentUser.id)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
           this.ticketService.init().then(()=>{
-            this.router.navigate(['']);
+            this.router.navigate(['']).catch(error => console.log(error));
           });
         },
         error => {

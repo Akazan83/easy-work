@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
     // redirect to splashScreen if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/waitingTicket']);
+      this.router.navigate(['/waitingTicket']).catch(error => console.log(error));
     }
   }
 
@@ -51,8 +51,8 @@ export class HomeComponent implements OnInit {
     this.authenticationService.login(this.f.email.value, this.f.password.value)
       .pipe(first())
       .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
+        () => {
+          this.router.navigate([this.returnUrl]).catch(error => console.log(error));
         },
         error => {
           this.error = error;

@@ -12,7 +12,7 @@ export class AuthGuardService {
     private authenticationService: AuthenticationService
   ) { }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  protected canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     if (currentUser) {
       // logged in so return true
@@ -20,7 +20,6 @@ export class AuthGuardService {
     }
 
     // not logged in so redirect to splashScreen page with the return url
-    this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
-    return false;
+    this.router.navigate(['/'], {queryParams: {returnUrl: state.url}}).then(() => false);
   }
 }

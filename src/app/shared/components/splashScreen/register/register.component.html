@@ -4,13 +4,13 @@
         <div class="card shadow-lg o-hidden border-0 my-5">
           <div class="card-body p-0">
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-flex" style="background: #1cc88a;color: #1cc88a;">
-                <div class="flex-grow-1 bg-register-image" style="background: url('../../../../../assets/images/logo.png') center no-repeat, #1cc88a;color: #1cc88a;"></div>
+              <div class="col-lg-6 d-none d-lg-flex" id="bandeau">
+                <div class="flex-grow-1 bg-register-image" id="bg-login-image"></div>
               </div>
               <div class="col-lg-6">
-                <div style="padding: 15px;">
+                <div id="form">
                   <div class="text-center">
-                    <h4 style="font-weight: bold;font-family: Alatsi, sans-serif;color: #1cc88a; margin-bottom: 37px;">Création d'un compte</h4>
+                    <h4 style="">Création d'un compte</h4>
                   </div>
                   <form class="user">
                     <div class="row mb-3">
@@ -21,9 +21,9 @@
                     <div class="row mb-3">
                       <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control" type="password" id="examplePasswordInput" placeholder="Mot de passe" name="password"></div>
                       <div class="col-sm-6"><input class="form-control" type="password" id="exampleRepeatPasswordInput" placeholder="Répéter le mot de passe" name="password_repeat"></div>
-                    </div><button class="btn btn-primary d-block w-100" type="submit" style="background: #1cc88a;border-color: #1cc88a;">S'enregistrer</button>
+                    </div><button class="btn btn-primary d-block w-100" type="submit" id="registerButton">S'enregistrer</button>
                     <hr style="">
-                    <a class="btn btn-primary d-block btn-facebook w-100" role="button" style="background: rgb(40,53,67);border-color:rgb(40,53,67);" href="">Retour</a>
+                    <a class="btn btn-primary d-block btn-facebook w-100" role="button" id="goBackButton" href="home">Retour</a>
                   </form>
                   <div class="text-center"></div>
                   <div class="text-center"></div>

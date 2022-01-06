@@ -11,7 +11,7 @@ export class TicketsFilterPipe implements PipeTransform {
    * @param searchText search string
    * @returns list of elements filtered by search text or []
    */
-  transform(items: Ticket[], searchText: string): Ticket[] {
+  public transform(items: Ticket[], searchText: string): Ticket[] {
 
     if (!items) {
       return [];

@@ -53,7 +53,7 @@
                   </h4>
                   <form class="card mt-2 p-2">
                     <div class="input-group">
-                      <input type="file" class="form-control" id="customFile" onchange="console.log(event.target.files)">
+                      <input type="file" class="form-control" id="customFile" onchange="console.log(target.files)">
                     </div>
                   </form>
                 </div>
@@ -142,12 +142,12 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Ajout d'un commentaire</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form #data (ngSubmit)="saveCommentarie(data)">
+    <form #data (ngSubmit)="saveComment(data)">
       <div class="form-group">
         <label for="comment">Commentaire</label>
         <div class="input-group">
@@ -169,9 +169,9 @@
 
   </div>
   <div class="modal-body">
-   <div *ngFor="let commentarie of commentaries">
-     <p>{{commentarie.text}}</p>
-     <p class="text-right commentarie">{{commentarie.lastName}} {{commentarie.firstName}} Le {{commentarie.dateEnvoi}}</p>
+   <div *ngFor="let commentary of commentaries">
+     <p>{{commentary.text}}</p>
+     <p class="text-right commentary">{{commentary.lastName}} {{commentary.firstName}} Le {{commentary.sendingDate}}</p>
      <hr class="my-2">
    </div>
   </div>

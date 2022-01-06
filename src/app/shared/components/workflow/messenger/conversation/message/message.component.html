@@ -6,7 +6,7 @@
     <div class="flex-shrink-1 bg-light rounded py-2 px-3">
       <div *ngIf="userName === user.firstName + ' ' + user.lastName" class="font-weight-bold mb-1">Vous</div>
       <p>{{ text }}</p>
-      <p class="text-right" style="font-size: 12px; float: left">{{ dateEnvoi }}</p>
+      <p class="text-right">{{ dateEnvoi }}</p>
     </div>
   </div>
 </div>
@@ -19,7 +19,7 @@
     <div class="flex-shrink-1 bg-light rounded py-2 px-3">
       <div *ngIf="userName !== user.firstName + ' ' + user.lastName" class="font-weight-bold mb-1">{{ userName }}</div>
       <p>{{ text }}</p>
-      <p class="text-right" style="font-size: 12px; float: right">{{ dateEnvoi }}</p>
+      <p class="text-right">{{ dateEnvoi }}</p>
     </div>
   </div>
 </div>

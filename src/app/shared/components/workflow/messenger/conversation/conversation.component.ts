@@ -25,7 +25,7 @@ export class ConversationComponent implements OnInit, DoCheck {
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
-  messages = [];
+  messages: Message[] ;
   message: string;
   differ: any;
   currentUser: User;
@@ -41,7 +41,7 @@ export class ConversationComponent implements OnInit, DoCheck {
   ngOnInit(): void {
     this.users = this.userService.users;
     this.resizeObservable$ = fromEvent(window, 'resize');
-    this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
+    this.resizeSubscription$ = this.resizeObservable$.subscribe( () => {
       this.maxHeight = innerHeight - 180;
       this.maxWidth = innerWidth - 120;
     });
@@ -54,7 +54,7 @@ export class ConversationComponent implements OnInit, DoCheck {
     const dateNow =  new Date();
 
     const newMessage = new Message();
-    newMessage.dateEnvoi = dateNow.toLocaleString();
+    newMessage.sendingDate = dateNow.toLocaleString();
     newMessage.senderId = this.currentUser.id;
     newMessage.receiverId = this.receiverId;
     newMessage.firstName = this.currentUser.firstName;

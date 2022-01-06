@@ -4,7 +4,7 @@ import {Ticket} from '../../models/ticket.model';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Participant} from '../../models/participant.model';
-import {Commentarie} from '../../models/commentarie.model';
+import {Commentary} from '../../models/commentarie.model';
 import {TicketStateEnum} from '../../components/workflow/ticket/ticketStateEnum';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class TicketsService {
   }
 
   public postNewTicket(title: string, description: string, endDate: string, participants: Participant[],
-                       commentaries: Commentarie[], file: File, owner: number){
+                       commentaries: Commentary[], file: File, owner: number){
 
     const formData = new FormData();
     formData.append('file', file);

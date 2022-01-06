@@ -11,7 +11,7 @@ export class UsersFilterPipe implements PipeTransform {
    * @param searchText search string
    * @returns list of elements filtered by search text or []
    */
-  transform(users: User[], searchText: string): User[] {
+  public transform(users: User[], searchText: string): User[] {
 
     if (!users) {
       return [];
