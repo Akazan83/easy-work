@@ -33,8 +33,8 @@ export class DetailTicketComponent implements OnInit {
   fileName = '';
   ticketForm: FormGroup;
   submitted = false;
-  loading = false;
-  error = '';
+  private loading = false;
+  private error = '';
 
   constructor(private route: ActivatedRoute,
               private ticketService: TicketsService,

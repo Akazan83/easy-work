@@ -54,8 +54,8 @@ export class HomeComponent implements OnInit {
         () => {
           this.router.navigate([this.returnUrl]).catch(error => console.log(error));
         },
-        error => {
-          this.error = error;
+        () => {
+          this.error = 'Email or Password incorrect';
           this.loading = false;
         });
   }

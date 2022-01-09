@@ -20,21 +20,17 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  public home(email: string, password: string) {
-    return this.httpClient.post<any>(`http://localhost:8000/auth/login`, {email, password})
+  public register(firstName: string, lastName: string, email: string, password: string){
+    return this.httpClient.post(`http://localhost:8080/api/auth/signup`, {firstName, lastName, email, password});
+  }
+
+  public login(email: string, password: string) {
+    return this.httpClient.post<User>(`http://localhost:8080/api/auth/signin`, {email, password})
       .pipe(map(user => {
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
       }));
-  }
-
-  public login(email: string, password: string) {
-    return this.httpClient.get<User>(`/api/users/1`).pipe(map(user => {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return user;
-    }));
   }
 
   public logout() {
