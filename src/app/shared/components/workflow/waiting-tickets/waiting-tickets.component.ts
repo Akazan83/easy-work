@@ -17,10 +17,10 @@ export class WaitingTicketsComponent implements OnInit {
   constructor(private http: HttpClient, private ticketService: TicketsService) { }
 
   ngOnInit(): void {
-    this.tickets = this.ticketService.tickets.filter(function(ticket){
-      return ticket.status === TicketStateEnum.waiting;
+    this.ticketService.getTickets().subscribe(ticket => {
+      this.tickets = ticket;
+      this.ticketsNumber = this.tickets.length;
     });
-    this.ticketsNumber = this.tickets.length;
   }
 
   handlePageChange(event) {

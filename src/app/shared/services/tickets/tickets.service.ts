@@ -4,7 +4,7 @@ import {Ticket} from '../../models/ticket.model';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Participant} from '../../models/participant.model';
-import {Commentary} from '../../models/commentarie.model';
+import {Commentary} from '../../models/commentary.model';
 import {TicketStateEnum} from '../../components/workflow/ticket/ticketStateEnum';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class TicketsService {
   constructor(private httpClient: HttpClient) { }
 
   init(){
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve) => {
       this.getTickets().subscribe(tickets => {
         this.tickets = tickets;
         resolve();
@@ -44,10 +44,10 @@ export class TicketsService {
     ticket.endDate = endDate;
     ticket.owner = owner;
     ticket.file = formData;
-    return this.httpClient.post<Ticket>(`/api/tickets/`, ticket).pipe(map(data => data));
+    return this.httpClient.post<Ticket>(`http://localhost:8080/api/v1/ticket`, ticket).pipe(map(data => data));
   }
 
-  public postCommentarie(ticket: Ticket, ticketId: number){
+  public postCommentary(ticket: Ticket, ticketId: number){
     return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
   }
 
@@ -55,8 +55,8 @@ export class TicketsService {
     return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
   }
 
-  private getTickets(): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(`/api/tickets`).pipe(
+  public getTickets(): Observable<Ticket[]> {
+    return this.httpClient.get<Ticket[]>(`http://localhost:8080/api/v1/tickets`).pipe(
       map(data => data.map(ticket => new Ticket().deserialize(ticket)))
     );
   }

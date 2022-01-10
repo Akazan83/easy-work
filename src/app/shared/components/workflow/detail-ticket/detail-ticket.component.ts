@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Ticket} from '../../../models/ticket.model';
 import {Participant} from '../../../models/participant.model';
-import {Commentary} from '../../../models/commentarie.model';
+import {Commentary} from '../../../models/commentary.model';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {first} from 'rxjs/operators';
@@ -117,7 +117,7 @@ export class DetailTicketComponent implements OnInit {
 
     this.commentaries.push(commentary);
     const ticket = this.ticketFactory();
-    this.ticketService.postCommentarie(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
+    this.ticketService.postCommentary(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
   }
 
   changeParticipantStatus(status){

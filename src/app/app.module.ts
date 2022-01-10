@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -37,6 +37,7 @@ import {TicketsService} from './shared/services/tickets/tickets.service';
 import {UserService} from './shared/services/user/user.service';
 import {UsersFilterPipe} from './shared/services/filter/userFilter.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {BasicAuthHtppInterceptorService} from './shared/services/httpInterceptor/BasicAuthHtppInterceptorService';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -74,9 +75,10 @@ export function initializeUsers(userService: UserService) {
     ReactiveFormsModule,
     NgbModule,
   ],
-  providers: [  TicketsService,
-    { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},
-    { provide: APP_INITIALIZER,useFactory: initializeUsers, deps: [UserService], multi: true}
+  providers: [ // TicketsService,
+   // { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},
+    //{ provide: APP_INITIALIZER,useFactory: initializeUsers, deps: [UserService], multi: true}
+    { provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true }
   ],
   bootstrap: [AppComponent]
 })

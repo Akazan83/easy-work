@@ -3,12 +3,12 @@ import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TicketsService} from '../../../services/tickets/tickets.service';
-import {first} from 'rxjs/operators';
+import {first, map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Participant} from '../../../models/participant.model';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
-import {Commentary} from '../../../models/commentarie.model';
+import {Commentary} from '../../../models/commentary.model';
 
 @Component({
   selector: 'app-new-tickets',
@@ -35,7 +35,10 @@ export class NewTicketsComponent implements OnInit {
               private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.users = this.userService.users;
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+      console.log(this.users);
+    });
 
     this.ticketForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -76,6 +79,7 @@ export class NewTicketsComponent implements OnInit {
   get f() { return this.ticketForm.controls; }
 
   onSubmit() {
+    console.log(this.users);
     this.submitted = true;
     // stop here if form is invalid
     if (this.ticketForm.invalid) {

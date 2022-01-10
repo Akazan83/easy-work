@@ -1,4 +1,4 @@
-import {Deserializable} from './deserializable.model';
+import {Deserializable} from './deserializable';
 
 export class Commentary implements Deserializable{
   userId: number;

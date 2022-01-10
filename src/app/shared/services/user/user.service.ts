@@ -15,13 +15,14 @@ export class UserService {
     return new Promise<void>((resolve, reject) => {
       this.getAllUsers().subscribe(users => {
         this.users = users;
+        console.log(this.users);
         resolve();
       });
     });
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`/api/users`).pipe(
+    return this.httpClient.get<User[]>(`http://localhost:8080/api/test/users`).pipe(
       map(data => data.map(users => new User().deserialize(users)))
     );
   }

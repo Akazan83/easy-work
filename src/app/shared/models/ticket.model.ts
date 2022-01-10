@@ -1,6 +1,6 @@
 import {Participant} from './participant.model';
-import {Commentary} from './commentarie.model';
-import {Deserializable} from './deserializable.model';
+import {Commentary} from './commentary.model';
+import {Deserializable} from './deserializable';
 
 export class Ticket implements Deserializable{
   id: number;

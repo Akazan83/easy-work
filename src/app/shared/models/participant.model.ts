@@ -1,4 +1,4 @@
-import {Deserializable} from './deserializable.model';
+import {Deserializable} from './deserializable';
 import {TicketStateEnum} from '../components/workflow/ticket/ticketStateEnum';
 
 export class Participant implements Deserializable{

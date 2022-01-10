@@ -4,7 +4,7 @@ export class User {
   email: string;
   firstName: string;
   lastName: string;
-  token?: string;
+  accessToken?: string;
 
   deserialize(input: any): this {
     Object.assign(this, input);

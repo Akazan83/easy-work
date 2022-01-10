@@ -26,11 +26,16 @@ export class AuthenticationService {
 
   public login(email: string, password: string) {
     return this.httpClient.post<User>(`http://localhost:8080/api/auth/signin`, {email, password})
-      .pipe(map(user => {
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        return user;
-      }));
+      .pipe(
+        map(userData => {
+        localStorage.setItem('currentUser', JSON.stringify(userData));
+
+        localStorage.setItem('token', 'Bearer ' + userData.accessToken);
+        this.currentUserSubject.next(userData);
+
+        return userData;
+      })
+      );
   }
 
   public logout() {
