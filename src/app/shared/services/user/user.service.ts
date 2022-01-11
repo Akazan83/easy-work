@@ -15,7 +15,6 @@ export class UserService {
     return new Promise<void>((resolve, reject) => {
       this.getAllUsers().subscribe(users => {
         this.users = users;
-        console.log(this.users);
         resolve();
       });
     });

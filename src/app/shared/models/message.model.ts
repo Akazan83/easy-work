@@ -1,10 +1,10 @@
 import {Deserializable} from './deserializable';
 
 export class Message implements Deserializable{
-  id: number;
+  id: string;
   sendingDate: string;
-  senderId: number;
-  receiverId: number;
+  senderId: string;
+  receiverId: string;
   firstName: string;
   lastName: string;
   text: string;

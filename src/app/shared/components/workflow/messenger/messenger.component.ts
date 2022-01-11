@@ -32,9 +32,14 @@ export class MessengerComponent implements OnInit {
     });
     this.maxHeight = innerHeight - 70;
 
-    this.users = this.userService.users;
-    this.users.sort((a,b) => b.id - a.id);
-    this.loadMessages(this.users[0].id);
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+      console.log(this.users);
+      this.loadMessages(this.users[0].id);
+    });
+
+    //this.users.sort((a,b) => b.id - a.id);
+
   }
 
   loadMessages(receiverId){

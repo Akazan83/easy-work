@@ -17,7 +17,7 @@ export class ConversationComponent implements OnInit, DoCheck {
   messagesFrom: Message[];
 
   @Input()
-  receiverId: number;
+  receiverId: string;
 
   maxHeight: number;
   maxWidth: number;
@@ -85,9 +85,9 @@ export class ConversationComponent implements OnInit, DoCheck {
     this.messages = [];
     if(this.messagesFrom.length !== 0){
       this.messages = this.messagesFrom;
-      this.messages.sort(function(a, b) {
+  /*    this.messages.sort(function(a, b) {
         return b.id - a.id;
-      });
+      });*/
     }
   }
 

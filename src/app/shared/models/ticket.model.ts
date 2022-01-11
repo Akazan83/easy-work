@@ -3,8 +3,8 @@ import {Commentary} from './commentary.model';
 import {Deserializable} from './deserializable';
 
 export class Ticket implements Deserializable{
-  id: number;
-  owner: number;
+  id: string;
+  owner: string;
   title: string;
   status: string;
   reference: string;

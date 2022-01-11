@@ -12,7 +12,6 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('currentUser'));
-    console.log(this.user);
   }
 
 }

@@ -37,7 +37,6 @@ export class NewTicketsComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(users => {
       this.users = users;
-      console.log(this.users);
     });
 
     this.ticketForm = this.formBuilder.group({
@@ -79,7 +78,6 @@ export class NewTicketsComponent implements OnInit {
   get f() { return this.ticketForm.controls; }
 
   onSubmit() {
-    console.log(this.users);
     this.submitted = true;
     // stop here if form is invalid
     if (this.ticketForm.invalid) {

@@ -11,7 +11,7 @@ export class MessengerService {
   messages: Message[];
   constructor(private httpClient: HttpClient) { }
 
-  public getMessagesFromUserId(receiverId: number, senderId: number): Observable<Message[]>{
+  public getMessagesFromUserId(receiverId: string, senderId: string): Observable<Message[]>{
     return this.httpClient
       .get<Message[]>(`/api/messages?receiverId=${receiverId}&senderId=${senderId}&receiverId=${senderId}&senderId=${receiverId}`)
       .pipe(map(data =>  data.map(message => new Message()

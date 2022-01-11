@@ -24,7 +24,7 @@ export class DetailTicketComponent implements OnInit {
   user: User;
   isOwner: boolean;
   searchText = '';
-  id: number;
+  id: string;
   closeResult = '';
 
 
@@ -45,7 +45,7 @@ export class DetailTicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.users = this.userService.users;
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = this.route.snapshot.paramMap.get('id');
     this.ticketService.getTicket(this.id)
       .subscribe(ticket => {
         this.ticket = ticket;

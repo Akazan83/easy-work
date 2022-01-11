@@ -23,15 +23,15 @@ export class TicketsService {
     });
   }
 
-  public getTicket(id: number): Observable<Ticket> {
-    return this.httpClient.get<Ticket>(`/api/tickets/${id}`).pipe(
+  public getTicket(id: string): Observable<Ticket> {
+    return this.httpClient.get<Ticket>(`http://localhost:8080/api/v1/tickets/${id}`).pipe(
       map(ticket => new Ticket().deserialize(ticket)),
       catchError(() => throwError('Ticket not found'))
     );
   }
 
   public postNewTicket(title: string, description: string, endDate: string, participants: Participant[],
-                       commentaries: Commentary[], file: File, owner: number){
+                       commentaries: Commentary[], file: File, owner: string){
 
     const formData = new FormData();
     formData.append('file', file);
@@ -47,12 +47,12 @@ export class TicketsService {
     return this.httpClient.post<Ticket>(`http://localhost:8080/api/v1/ticket`, ticket).pipe(map(data => data));
   }
 
-  public postCommentary(ticket: Ticket, ticketId: number){
+  public postCommentary(ticket: Ticket, ticketId: string){
     return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
   }
 
-  public updateTicket(ticket: Ticket, ticketId: number){
-    return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
+  public updateTicket(ticket: Ticket, ticketId: string){
+    return this.httpClient.put<Ticket>(`http://localhost:8080/api/v1/tickets/` + ticketId, ticket).pipe(map(data => data));
   }
 
   public getTickets(): Observable<Ticket[]> {
