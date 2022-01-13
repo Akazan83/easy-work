@@ -25,7 +25,7 @@ export class MessengerComponent implements OnInit {
               private messengerService: MessengerService) { }
 
   ngOnInit(): void {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe( () => {
       this.maxHeight = innerHeight - 70;
@@ -37,9 +37,6 @@ export class MessengerComponent implements OnInit {
       console.log(this.users);
       this.loadMessages(this.users[0].id);
     });
-
-    //this.users.sort((a,b) => b.id - a.id);
-
   }
 
   loadMessages(receiverId){

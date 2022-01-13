@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit {
               private ticketService: TicketsService) { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.tickets = this.ticketService.tickets;
   }
 

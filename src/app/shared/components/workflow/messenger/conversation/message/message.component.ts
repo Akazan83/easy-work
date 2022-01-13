@@ -26,7 +26,7 @@ export class MessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
 }

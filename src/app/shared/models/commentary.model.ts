@@ -1,7 +1,7 @@
 import {Deserializable} from './deserializable';
 
 export class Commentary implements Deserializable{
-  userId: number;
+  userId: string;
   firstName: string;
   lastName: string;
   text: string;

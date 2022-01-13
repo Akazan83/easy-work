@@ -1,12 +1,13 @@
 import {Participant} from './participant.model';
 import {Commentary} from './commentary.model';
 import {Deserializable} from './deserializable';
+import {TicketStateEnum} from '../components/workflow/ticket/ticketStateEnum';
 
 export class Ticket implements Deserializable{
   id: string;
   owner: string;
   title: string;
-  status: string;
+  status: TicketStateEnum;
   reference: string;
   creationDate: string;
   endDate: string;

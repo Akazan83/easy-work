@@ -9,11 +9,11 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    if (localStorage.getItem('token')) {
+    if (sessionStorage.getItem('token')) {
       req = req.clone({
         setHeaders: {
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          Authorization: localStorage.getItem('token')
+          Authorization: sessionStorage.getItem('token')
         }
       });
     }

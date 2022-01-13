@@ -12,7 +12,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
 
   constructor(private httpClient: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
@@ -28,9 +28,9 @@ export class AuthenticationService {
     return this.httpClient.post<User>(`http://localhost:8080/api/auth/signin`, {email, password})
       .pipe(
         map(userData => {
-        localStorage.setItem('currentUser', JSON.stringify(userData));
+        sessionStorage.setItem('currentUser', JSON.stringify(userData));
 
-        localStorage.setItem('token', 'Bearer ' + userData.accessToken);
+        sessionStorage.setItem('token', 'Bearer ' + userData.accessToken);
         this.currentUserSubject.next(userData);
 
         return userData;
@@ -40,7 +40,7 @@ export class AuthenticationService {
 
   public logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
 }

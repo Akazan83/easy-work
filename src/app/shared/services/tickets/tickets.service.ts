@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Ticket} from '../../models/ticket.model';
 import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, filter, map} from 'rxjs/operators';
 import {Participant} from '../../models/participant.model';
 import {Commentary} from '../../models/commentary.model';
 import {TicketStateEnum} from '../../components/workflow/ticket/ticketStateEnum';
@@ -47,10 +47,6 @@ export class TicketsService {
     return this.httpClient.post<Ticket>(`http://localhost:8080/api/v1/ticket`, ticket).pipe(map(data => data));
   }
 
-  public postCommentary(ticket: Ticket, ticketId: string){
-    return this.httpClient.put<Ticket>(`/api/tickets/` + ticketId, ticket).pipe(map(data => data));
-  }
-
   public updateTicket(ticket: Ticket, ticketId: string){
     return this.httpClient.put<Ticket>(`http://localhost:8080/api/v1/tickets/` + ticketId, ticket).pipe(map(data => data));
   }
@@ -58,6 +54,17 @@ export class TicketsService {
   public getTickets(): Observable<Ticket[]> {
     return this.httpClient.get<Ticket[]>(`http://localhost:8080/api/v1/tickets`).pipe(
       map(data => data.map(ticket => new Ticket().deserialize(ticket)))
+    );
+  }
+
+  public getTicketsByStatus(status,page): Observable<Ticket[]> {
+    return this.httpClient.get<Ticket[]>(`http://localhost:8080/api/v1/tickets/filtered/${status}/${page}`).pipe(
+      map(tickets => {
+        if(tickets != null){
+          return tickets.map(ticket => new Ticket().deserialize(ticket));
+        }
+       return null;
+      })
     );
   }
 }

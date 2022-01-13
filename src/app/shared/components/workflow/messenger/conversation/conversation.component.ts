@@ -47,7 +47,7 @@ export class ConversationComponent implements OnInit, DoCheck {
     });
     this.maxHeight = innerHeight - 180;
     this.maxWidth = innerWidth - 120;
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
   sendMessage() {

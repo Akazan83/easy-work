@@ -28,7 +28,7 @@ export class DetailTicketComponent implements OnInit {
   closeResult = '';
 
 
-  currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   file: File;
   fileName = '';
   ticketForm: FormGroup;
@@ -60,7 +60,7 @@ export class DetailTicketComponent implements OnInit {
           file: [null]
         });
     });
-    this.user = JSON.parse(localStorage.getItem('currentUser'));
+    this.user = JSON.parse(sessionStorage.getItem('currentUser'));
 
   }
 
@@ -117,7 +117,7 @@ export class DetailTicketComponent implements OnInit {
 
     this.commentaries.push(commentary);
     const ticket = this.ticketFactory();
-    this.ticketService.postCommentary(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
+    this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
   }
 
   changeParticipantStatus(status){
@@ -145,7 +145,7 @@ export class DetailTicketComponent implements OnInit {
     const ticket = new Ticket();
     ticket.title = this.f.title.value;
     ticket.description = this.f.description.value;
-    ticket.status = this.ticket.status.toString();
+    ticket.status = this.ticket.status;
     ticket.participants = this.participants;
     ticket.commentaries = this.commentaries;
     ticket.endDate = this.f.endDate.value;

@@ -24,7 +24,7 @@ export class NewTicketsComponent implements OnInit {
   public searchText = '';
   private file: File;
   private commentaries: Commentary[] = [];
-  private currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  private currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   private fileName = '';
   private error = '';
 
