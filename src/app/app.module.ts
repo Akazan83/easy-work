@@ -41,10 +41,6 @@ import {BasicAuthHtppInterceptorService} from './shared/services/httpInterceptor
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
-export function initializeTickets(ticketService: TicketsService) {
-  return (): Promise<any> => ticketService.init();
-}
-
 export function initializeUsers(userService: UserService) {
   return (): Promise<any> => userService.init();
 }

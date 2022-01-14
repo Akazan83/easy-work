@@ -23,6 +23,18 @@ export class TicketsService {
     });
   }
 
+
+  public getTicketsByStatus(status,page): Observable<Ticket[]> {
+    return this.httpClient.get<Ticket[]>(`http://localhost:8080/api/v1/tickets/filtered/${status}/${page}`).pipe(
+      map(tickets => {
+        if(tickets != null){
+          return tickets.map(ticket => new Ticket().deserialize(ticket));
+        }
+        return null;
+      })
+    );
+  }
+
   public getTicket(id: string): Observable<Ticket> {
     return this.httpClient.get<Ticket>(`http://localhost:8080/api/v1/tickets/${id}`).pipe(
       map(ticket => new Ticket().deserialize(ticket)),
@@ -57,14 +69,7 @@ export class TicketsService {
     );
   }
 
-  public getTicketsByStatus(status,page): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(`http://localhost:8080/api/v1/tickets/filtered/${status}/${page}`).pipe(
-      map(tickets => {
-        if(tickets != null){
-          return tickets.map(ticket => new Ticket().deserialize(ticket));
-        }
-       return null;
-      })
-    );
+  public deleteTicket(ticketId: string){
+    return this.httpClient.delete<Ticket[]>(`http://localhost:8080/api/v1/ticket/${ticketId}`);
   }
 }

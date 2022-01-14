@@ -113,6 +113,7 @@
                     <div *ngIf="isOwner" class="text-center">
                       <button class="btn btn-info btn-lg m-1 text-white"  (click)="openCommentForm(content)" type="button">Commenter</button>
                       <button class="btn btn-primary btn-lg m-1" type="submit">Modifier</button>
+                      <button class="btn btn-danger btn-lg m-1 text-white"  (click)="deleteTicket()" type="button">Supprimer</button>
                     </div>
                     <div *ngIf="!isOwner" class="text-center">
                       <button class="btn btn-info btn-lg m-1 text-white"  (click)="openCommentForm(content)" type="button" >Commenter</button>

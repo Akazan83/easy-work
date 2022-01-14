@@ -94,16 +94,7 @@ export class DetailTicketComponent implements OnInit {
 
     this.ticketService.updateTicket(ticket, this.ticket.id)
       .pipe(first())
-      .subscribe(
-        () => {
-          this.ticketService.init().then(()=>{
-            this.router.navigate(['']).catch(error => this.error = error);
-          });
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+      .subscribe(() =>  this.router.navigate(['']).catch(error => this.error = error));
   }
 
   saveComment(data){
@@ -118,6 +109,10 @@ export class DetailTicketComponent implements OnInit {
     this.commentaries.push(commentary);
     const ticket = this.ticketFactory();
     this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
+  }
+
+  deleteTicket(){
+    this.ticketService.deleteTicket(this.ticket.id).subscribe(() => this.router.navigate(['']).catch(error => this.error = error));
   }
 
   changeParticipantStatus(status){
