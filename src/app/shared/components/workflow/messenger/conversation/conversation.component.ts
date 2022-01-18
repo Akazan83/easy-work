@@ -4,14 +4,13 @@ import {User} from '../../../../models/user.model';
 import {MessengerService} from '../../../../services/messenger/messenger.service';
 import {Message} from '../../../../models/message.model';
 import {UserService} from '../../../../services/user/user.service';
-import {MessengerComponent} from '../messenger.component';
 
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss']
 })
-export class ConversationComponent implements OnInit{
+export class ConversationComponent implements OnInit, DoCheck  {
   @ViewChild('messageInput') messageInput;
   @Input()
   messagesFrom: Message[];
@@ -32,8 +31,10 @@ export class ConversationComponent implements OnInit{
   users: User[];
 
   constructor(private iterableDiffers: IterableDiffers,
-              private userService: UserService) {
+              private userService: UserService,
+              private messenger: MessengerService) {
     this.differ = iterableDiffers.find([]).create(null);
+    console.log(this.messages);
   }
 
   ngOnInit(): void {
@@ -46,6 +47,32 @@ export class ConversationComponent implements OnInit{
     this.maxHeight = innerHeight - 180;
     this.maxWidth = innerWidth - 120;
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+
+    console.log('Message de :' + this.receiverId);
+    const message = new Message();
+    message.content = 'dz';
+    message.senderName = 'dz';
+    message.recipientId = 'dz';
+    message.id = 'dz';
+    message.chatId = 'dz';
+    message.timestamp = new Date();
+    message.recipientName = 'dz';
+    message.senderId = 'dz';
+    //this.messenger.
+  }
+
+  ngDoCheck() {
+    this.messages = [];
+    if(this.messagesFrom !== null){
+      this.messages = this.messagesFrom;
+      /*    this.messages.sort(function(a, b) {
+            return b.id - a.id;
+          });*/
+    }
+  }
+
+  getValue(event: Event): string {
+    return (event.target as HTMLInputElement).value;
   }
 
 }

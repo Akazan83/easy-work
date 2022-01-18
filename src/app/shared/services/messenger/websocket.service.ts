@@ -1,5 +1,3 @@
-// @ts-ignore
-import { AppComponent } from './app.component';
 import {Observable} from 'rxjs';
 import {InjectableRxStompConfig, RxStompService} from '@stomp/ng2-stompjs';
 import {WebSocketOptions} from '../../models/webSocket/websocket.options';
@@ -37,8 +35,6 @@ export class WebsocketService {
   public getObservable = () => this.obsStompConnection;
 
   public sendMessage(message: Message){
-
-
     this.stompService.stompClient.publish({destination: '/app/chat', body: JSON.stringify(message)});
   }
 
@@ -79,10 +75,8 @@ export class WebsocketService {
   /**
    * On each connect / reconnect, we subscribe all broker clients.
    */
-  private onSocketConnect = frame => {
+  private onSocketConnect = () => {
     this.stompService.stompClient.subscribe(this.options.brokerEndpoint, this.socketListener);
-    console.log('dza');
-
   };
 
   private onSocketError = errorMsg => {

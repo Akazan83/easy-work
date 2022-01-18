@@ -39,6 +39,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BasicAuthHtppInterceptorService} from './shared/services/httpInterceptor/BasicAuthHtppInterceptorService';
 import { RxStompService  } from '@stomp/ng2-stompjs';
 import {ProgressWebsocketService} from './shared/services/messenger/progress.websocket.service';
+import {MatBadgeModule} from "@angular/material/badge";
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -71,6 +72,7 @@ export function initializeUsers(userService: UserService) {
     }),
     ReactiveFormsModule,
     NgbModule,
+    MatBadgeModule,
   ],
   providers: [ // TicketsService,
    // { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},

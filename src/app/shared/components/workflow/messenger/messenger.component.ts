@@ -3,8 +3,6 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {Message} from '../../../models/message.model';
-import * as Stomp from '@stomp/stompjs';
-import * as SockJS from 'sockjs-client';
 import {MessengerService} from '../../../services/messenger/messenger.service';
 
 
@@ -15,9 +13,9 @@ import {MessengerService} from '../../../services/messenger/messenger.service';
 })
 export class MessengerComponent implements OnInit {
   maxHeight: number;
-  users: User[];
+  users: User[] = [];
   currentUser: User;
-  receiverId: number;
+  receiverId: string;
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
@@ -34,9 +32,27 @@ export class MessengerComponent implements OnInit {
     this.maxHeight = innerHeight - 70;
 
     this.userService.getAllUsers().subscribe(users => {
-      this.users = users;
+      users.map(user => {
+        if(user.id !== this.currentUser.id){
+          this.users.push(user);
+        }
+      });
+      this.loadMessages(this.users[0].id, this.currentUser.id);
     });
 
+    this.messenger.init();
   }
 
+  loadMessages(receiverId,currentUserId){
+    this.messages = [];
+    this.messenger.getMessagesFromUser(receiverId,currentUserId)
+      .subscribe(messages => {
+        this.messages.push(...messages);
+        console.log(messages);
+      });
+    this.receiverId = receiverId;
+
+
+    console.log(this.messenger.notification[0].senderId);
+  }
 }

@@ -8,7 +8,7 @@ import {User} from '../../../../../models/user.model';
 })
 export class MessageComponent implements OnInit {
   @Input()
-  userId: number;
+  userId: string;
 
   @Input()
   userName: string;

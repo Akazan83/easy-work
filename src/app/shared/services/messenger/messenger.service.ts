@@ -1,18 +1,36 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ProgressWebsocketService} from './progress.websocket.service';
+import {Message} from '../../models/message.model';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Notification} from '../../models/notification.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MessengerService  implements OnInit{
-  public progress: any = {};
-  constructor(private progressWebsocketService: ProgressWebsocketService) { }
+export class MessengerService {
+  public notification: Notification[] = [];
+  constructor(private progressWebsocketService: ProgressWebsocketService,
+              private httpClient: HttpClient) { }
 
-
-  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
-  ngOnInit() {
-    // Init Progress WebSocket.
+  /**
+   * Init Progress WebSocket.
+   */
+  public init(){
     this.initProgressWebSocket();
+  }
+
+
+  public getMessagesFromUser(sender,receiver): Observable<Message[]> {
+    return this.httpClient.get<Message[]>(`http://localhost:8080/messages/${sender}/${receiver}`).pipe(
+      map(messages => {
+        if(messages != null){
+          return messages.map(message => new Message().deserialize(message));
+        }
+        return null;
+      })
+    );
   }
 
   /**
@@ -35,8 +53,8 @@ export class MessengerService  implements OnInit{
    */
   private onNewProgressMsg = receivedMsg => {
     if (receivedMsg.type === 'SUCCESS') {
-      this.progress = receivedMsg.message;
-
+      this.notification.push(new Notification().deserialize(receivedMsg.message));
+      console.log(this.notification);
     }
   };
 
