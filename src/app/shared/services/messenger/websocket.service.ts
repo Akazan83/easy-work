@@ -37,11 +37,9 @@ export class WebsocketService {
   public getObservable = () => this.obsStompConnection;
 
   public sendMessage(message: Message){
+
+
     this.stompService.stompClient.publish({destination: '/app/chat', body: JSON.stringify(message)});
-  }
-
-  public getMessageFrom(){
-
   }
 
   private createObservableSocket = () => {
@@ -83,6 +81,8 @@ export class WebsocketService {
    */
   private onSocketConnect = frame => {
     this.stompService.stompClient.subscribe(this.options.brokerEndpoint, this.socketListener);
+    console.log('dza');
+
   };
 
   private onSocketError = errorMsg => {

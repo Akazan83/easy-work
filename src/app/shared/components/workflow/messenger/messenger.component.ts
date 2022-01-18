@@ -5,7 +5,7 @@ import {UserService} from '../../../services/user/user.service';
 import {Message} from '../../../models/message.model';
 import * as Stomp from '@stomp/stompjs';
 import * as SockJS from 'sockjs-client';
-import {MessengerService} from "../../../services/messenger/messenger.service";
+import {MessengerService} from '../../../services/messenger/messenger.service';
 
 
 @Component({
@@ -17,14 +17,13 @@ export class MessengerComponent implements OnInit {
   maxHeight: number;
   users: User[];
   currentUser: User;
-  receiverId: string;
+  receiverId: number;
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
   messages: Message[];
 
-  constructor(private userService: UserService,
-              private messengerService: MessengerService) { }
+  constructor(private userService: UserService, private messenger: MessengerService) { }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -37,11 +36,7 @@ export class MessengerComponent implements OnInit {
     this.userService.getAllUsers().subscribe(users => {
       this.users = users;
     });
-    this.messengerService.ngOnInit();
-  }
 
-  loadMessages(currentUser: string, recipientUser: string){
-    this.messengerService.createStomp('/user/'+ currentUser + '/queue/messages');
   }
 
 }

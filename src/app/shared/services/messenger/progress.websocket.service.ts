@@ -10,14 +10,14 @@ export const progressStompConfig: InjectableRxStompConfig = {
 @Injectable()
 export class ProgressWebsocketService extends WebsocketService {
 
-  constructor(stompService: RxStompService, url: string) {
+  constructor(stompService: RxStompService) {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-
+    console.log('fffffff');
     super(
           stompService,
           progressStompConfig,
           //new WebSocketOptions('/topic/progress')
-          new WebSocketOptions(url)
+          new WebSocketOptions( '/user/'+currentUser.id + '/queue/messages')
       );
   }
 }

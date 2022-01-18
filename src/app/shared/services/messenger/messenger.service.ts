@@ -1,27 +1,16 @@
 import {Injectable, OnInit} from '@angular/core';
 import {ProgressWebsocketService} from './progress.websocket.service';
-import {RxStompService} from '@stomp/ng2-stompjs';
-import {User} from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MessengerService  implements OnInit {
+export class MessengerService  implements OnInit{
   public progress: any = {};
-  test: ProgressWebsocketService;
-  currentUser: User;
-  stompService: RxStompService;
-  constructor(/*private progressWebsocketService: ProgressWebsocketService*/) { }
+  constructor(private progressWebsocketService: ProgressWebsocketService) { }
 
 
   // eslint-disable-next-line @angular-eslint/contextual-lifecycle
   ngOnInit() {
-    this.stompService = new RxStompService();
-    this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-  }
-
-  public createStomp(url: string){
-    this.test = new ProgressWebsocketService(this.stompService,url);
     // Init Progress WebSocket.
     this.initProgressWebSocket();
   }
@@ -31,7 +20,7 @@ export class MessengerService  implements OnInit {
    * Return the current status of the batch.
    */
   private initProgressWebSocket = () => {
-    const obs = this.test.getObservable();
+    const obs = this.progressWebsocketService.getObservable();
 
     obs.subscribe({
       next: this.onNewProgressMsg,
@@ -47,6 +36,7 @@ export class MessengerService  implements OnInit {
   private onNewProgressMsg = receivedMsg => {
     if (receivedMsg.type === 'SUCCESS') {
       this.progress = receivedMsg.message;
+
     }
   };
 
