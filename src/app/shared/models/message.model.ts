@@ -2,12 +2,14 @@ import {Deserializable} from './deserializable';
 
 export class Message implements Deserializable{
   id: string;
-  sendingDate: string;
+  chatId: string;
   senderId: string;
-  receiverId: string;
-  firstName: string;
-  lastName: string;
-  text: string;
+  recipientId: string;
+  senderName: string;
+  recipientName: string;
+  content: string;
+  timestamp: Date;
+  status: string;
 
   deserialize(input: any) {
     Object.assign(this, input);

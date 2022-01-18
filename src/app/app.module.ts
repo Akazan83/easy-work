@@ -33,11 +33,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DetailTicketComponent } from './shared/components/workflow/detail-ticket/detail-ticket.component';
 import { AccountComponent } from './shared/components/workflow/navbar/account/account.component';
 import {TicketsFilterPipe} from './shared/services/filter/ticketsFilter.pipe';
-import {TicketsService} from './shared/services/tickets/tickets.service';
 import {UserService} from './shared/services/user/user.service';
 import {UsersFilterPipe} from './shared/services/filter/userFilter.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BasicAuthHtppInterceptorService} from './shared/services/httpInterceptor/BasicAuthHtppInterceptorService';
+import { RxStompService  } from '@stomp/ng2-stompjs';
+import {ProgressWebsocketService} from './shared/services/messenger/progress.websocket.service';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -74,6 +75,8 @@ export function initializeUsers(userService: UserService) {
   providers: [ // TicketsService,
    // { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},
     //{ provide: APP_INITIALIZER,useFactory: initializeUsers, deps: [UserService], multi: true}
+    RxStompService,
+    ProgressWebsocketService,
     { provide:HTTP_INTERCEPTORS, useClass:BasicAuthHtppInterceptorService, multi:true }
   ],
   bootstrap: [AppComponent]

@@ -11,7 +11,7 @@ import {MessengerComponent} from '../messenger.component';
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.scss']
 })
-export class ConversationComponent implements OnInit, DoCheck {
+export class ConversationComponent implements OnInit{
   @ViewChild('messageInput') messageInput;
   @Input()
   messagesFrom: Message[];
@@ -32,9 +32,7 @@ export class ConversationComponent implements OnInit, DoCheck {
   users: User[];
 
   constructor(private iterableDiffers: IterableDiffers,
-              private messengerService: MessengerService,
-              private userService: UserService,
-              private messengerComponent: MessengerComponent) {
+              private userService: UserService) {
     this.differ = iterableDiffers.find([]).create(null);
   }
 
@@ -50,48 +48,4 @@ export class ConversationComponent implements OnInit, DoCheck {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   }
 
-  sendMessage() {
-    const dateNow =  new Date();
-
-    const newMessage = new Message();
-    newMessage.sendingDate = dateNow.toLocaleString();
-    newMessage.senderId = this.currentUser.id;
-    newMessage.receiverId = this.receiverId;
-    newMessage.firstName = this.currentUser.firstName;
-    newMessage.lastName = this.currentUser.lastName;
-    newMessage.text = this.message;
-
-    this.messageInput.nativeElement.value = '';
-
-    const messageSent = new Promise((resolve => {
-      this.messengerService.postNewMessage(newMessage);
-      resolve(newMessage);
-    }));
-
-    messageSent.then((value => {
-
-      if (value instanceof Message) {
-        try {
-          this.messengerComponent.messages.unshift(value);
-        }catch (e) {
-          console.log(e);
-        }
-      }
-    }));
-
-  }
-
-  ngDoCheck() {
-    this.messages = [];
-    if(this.messagesFrom.length !== 0){
-      this.messages = this.messagesFrom;
-  /*    this.messages.sort(function(a, b) {
-        return b.id - a.id;
-      });*/
-    }
-  }
-
-  getValue(event: Event): string {
-    return (event.target as HTMLInputElement).value;
-  }
 }

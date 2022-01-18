@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
-import {MessengerService} from '../../../services/messenger/messenger.service';
 import {Message} from '../../../models/message.model';
+import * as Stomp from '@stomp/stompjs';
+import * as SockJS from 'sockjs-client';
+import {MessengerService} from "../../../services/messenger/messenger.service";
 
 
 @Component({
@@ -15,7 +17,7 @@ export class MessengerComponent implements OnInit {
   maxHeight: number;
   users: User[];
   currentUser: User;
-  receiverId: number;
+  receiverId: string;
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
 
@@ -34,22 +36,12 @@ export class MessengerComponent implements OnInit {
 
     this.userService.getAllUsers().subscribe(users => {
       this.users = users;
-      console.log(this.users);
-      this.loadMessages(this.users[0].id);
     });
+    this.messengerService.ngOnInit();
   }
 
-  loadMessages(receiverId){
-    this.messages = [];
-    this.messengerService.getMessagesFromUserId(receiverId,this.currentUser.id)
-      .subscribe(messages => {
-      this.messages.push(...messages);
-    });
-    this.receiverId = receiverId;
-  }
-
-  onDestroy() {
-    this.resizeSubscription$.unsubscribe();
+  loadMessages(currentUser: string, recipientUser: string){
+    this.messengerService.createStomp('/user/'+ currentUser + '/queue/messages');
   }
 
 }
