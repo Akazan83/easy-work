@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Ticket} from '../../../models/ticket.model';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
+import {NotificationsService} from '../../../services/notification/notifications.service';
 
 @Component({
   selector: 'app-waiting-tickets',
@@ -14,10 +15,11 @@ export class WaitingTicketsComponent implements OnInit {
   ticketsNumber: number;
   tickets: Ticket[] = [];
 
-  constructor(private http: HttpClient, private ticketService: TicketsService) { }
+  constructor(private http: HttpClient, private ticketService: TicketsService,private notif: NotificationsService) { }
 
   ngOnInit(): void {
     this.getTickets(0);
+    this.notif.initProgressWebSocket();
   }
 
   handlePageChange(event) {

@@ -17,7 +17,7 @@ export class ProgressWebsocketService extends WebsocketService {
           stompService,
           progressStompConfig,
           //new WebSocketOptions('/topic/progress')
-          new WebSocketOptions( '/user/'+currentUser.id + '/queue/messages')
+          new WebSocketOptions( '/user/'+ currentUser.id + '/queue/messages')
       );
   }
 }

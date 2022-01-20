@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ProgressWebsocketService} from './progress.websocket.service';
+import {ProgressWebsocketService} from '../notification/progress.websocket.service';
 import {Message} from '../../models/message.model';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
@@ -33,6 +33,11 @@ export class MessengerService {
     );
   }
 
+
+  public countNewMessages(senderId,recipientId): Observable<number> {
+    return this.httpClient.get<number>(`http://localhost:8080/messages/${senderId}/${recipientId}/count`);
+  }
+
   /**
    * Subscribe to the client broker.
    * Return the current status of the batch.
@@ -57,5 +62,4 @@ export class MessengerService {
       console.log(this.notification);
     }
   };
-
 }

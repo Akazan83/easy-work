@@ -1,7 +1,7 @@
 import {Component, DoCheck, Input, IterableDiffers, OnInit, ViewChild} from '@angular/core';
 import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../../models/user.model';
-import {MessengerService} from '../../../../services/messenger/messenger.service';
+import {NotificationsService} from '../../../../services/notification/notifications.service';
 import {Message} from '../../../../models/message.model';
 import {UserService} from '../../../../services/user/user.service';
 
@@ -14,9 +14,6 @@ export class ConversationComponent implements OnInit, DoCheck  {
   @ViewChild('messageInput') messageInput;
   @Input()
   messagesFrom: Message[];
-
-  @Input()
-  receiverId: string;
 
   maxHeight: number;
   maxWidth: number;
@@ -31,10 +28,8 @@ export class ConversationComponent implements OnInit, DoCheck  {
   users: User[];
 
   constructor(private iterableDiffers: IterableDiffers,
-              private userService: UserService,
-              private messenger: MessengerService) {
+              private userService: UserService) {
     this.differ = iterableDiffers.find([]).create(null);
-    console.log(this.messages);
   }
 
   ngOnInit(): void {
@@ -48,7 +43,6 @@ export class ConversationComponent implements OnInit, DoCheck  {
     this.maxWidth = innerWidth - 120;
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 
-    console.log('Message de :' + this.receiverId);
     const message = new Message();
     message.content = 'dz';
     message.senderName = 'dz';

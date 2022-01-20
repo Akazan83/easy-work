@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
+import {ProgressWebsocketService} from "./notification/progress.websocket.service";
+import {RxStompService} from "@stomp/ng2-stompjs";
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,11 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
   private currentUserSubject: BehaviorSubject<User>;
 
-  constructor(private httpClient: HttpClient) {
+
+  constructor(private httpClient: HttpClient,) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(sessionStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
+
   }
 
   public get currentUserValue(): User {
@@ -29,10 +33,8 @@ export class AuthenticationService {
       .pipe(
         map(userData => {
         sessionStorage.setItem('currentUser', JSON.stringify(userData));
-
         sessionStorage.setItem('token', 'Bearer ' + userData.accessToken);
         this.currentUserSubject.next(userData);
-
         return userData;
       })
       );

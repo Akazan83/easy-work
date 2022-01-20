@@ -3,6 +3,8 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {Message} from '../../../models/message.model';
+import {NotificationsService} from '../../../services/notification/notifications.service';
+import {Notification} from '../../../models/notification.model';
 import {MessengerService} from '../../../services/messenger/messenger.service';
 
 
@@ -15,13 +17,14 @@ export class MessengerComponent implements OnInit {
   maxHeight: number;
   users: User[] = [];
   currentUser: User;
-  receiverId: string;
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
-
+  notifications: Notification[] = [];
   messages: Message[];
 
-  constructor(private userService: UserService, private messenger: MessengerService) { }
+  constructor(private userService: UserService,
+              private notificationsService: NotificationsService,
+              private messengerService: MessengerService) { }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -31,28 +34,38 @@ export class MessengerComponent implements OnInit {
     });
     this.maxHeight = innerHeight - 70;
 
+    this.notificationsService.notificationObservable.subscribe(notification => this.notifications.push(notification));
+
     this.userService.getAllUsers().subscribe(users => {
       users.map(user => {
         if(user.id !== this.currentUser.id){
           this.users.push(user);
         }
       });
-      this.loadMessages(this.users[0].id, this.currentUser.id);
-    });
+      this.loadMessages(this.users[1].id, this.currentUser.id);
 
-    this.messenger.init();
+      this.users.forEach(user => {
+        this.countNewMessages(user.id,this.currentUser.id);
+        //this.countNewMessages(user.id,this.currentUser.id).subscribe(x => console.log(x));
+        this.countNewMessages('61db5a373240426ebbf177f3','61db59e13240426ebbf177f2').subscribe(x => console.log(x));
+      });
+    });
   }
 
-  loadMessages(receiverId,currentUserId){
+  loadMessages(receiverId: string,currentUserId: string){
     this.messages = [];
-    this.messenger.getMessagesFromUser(receiverId,currentUserId)
+    this.messengerService.getMessagesFromUser(receiverId,currentUserId)
       .subscribe(messages => {
         this.messages.push(...messages);
         console.log(messages);
       });
-    this.receiverId = receiverId;
 
+    if(this.notificationsService.notification[1] != null){
+      console.log(this.notifications);
+    }
+  }
 
-    console.log(this.messenger.notification[0].senderId);
+  countNewMessages(senderId: string,recipientId: string): Observable<number> {
+    return this.messengerService.countNewMessages(senderId,recipientId);
   }
 }

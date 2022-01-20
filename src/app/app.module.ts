@@ -38,13 +38,18 @@ import {UsersFilterPipe} from './shared/services/filter/userFilter.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {BasicAuthHtppInterceptorService} from './shared/services/httpInterceptor/BasicAuthHtppInterceptorService';
 import { RxStompService  } from '@stomp/ng2-stompjs';
-import {ProgressWebsocketService} from './shared/services/messenger/progress.websocket.service';
-import {MatBadgeModule} from "@angular/material/badge";
+import {ProgressWebsocketService} from './shared/services/notification/progress.websocket.service';
+import {MatBadgeModule} from '@angular/material/badge';
+import {NotificationsService} from './shared/services/notification/notifications.service';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 export function initializeUsers(userService: UserService) {
   return (): Promise<any> => userService.init();
+}
+
+export function initializeSocket(messengerService: NotificationsService) {
+  return (): void => messengerService.initProgressWebSocket();
 }
 
 @NgModule({
@@ -74,8 +79,8 @@ export function initializeUsers(userService: UserService) {
     NgbModule,
     MatBadgeModule,
   ],
-  providers: [ // TicketsService,
-   // { provide: APP_INITIALIZER,useFactory: initializeTickets, deps: [TicketsService], multi: true},
+  providers: [
+    //{ provide: APP_INITIALIZER,useFactory: initializeSocket, deps: [NotificationsService], multi: true},
     //{ provide: APP_INITIALIZER,useFactory: initializeUsers, deps: [UserService], multi: true}
     RxStompService,
     ProgressWebsocketService,
