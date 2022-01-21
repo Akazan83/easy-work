@@ -48,10 +48,6 @@ export function initializeUsers(userService: UserService) {
   return (): Promise<any> => userService.init();
 }
 
-export function initializeSocket(messengerService: NotificationsService) {
-  return (): void => messengerService.initProgressWebSocket();
-}
-
 @NgModule({
   declarations: [AppComponent, RegisterComponent, ForgotComponent, HomeApplicationComponent, ValidateTicketsComponent,
     RefusedTicketsComponent, WaitingTicketsComponent, NewTicketsComponent, TicketComponent, NotificationComponent,
@@ -64,7 +60,7 @@ export function initializeSocket(messengerService: NotificationsService) {
     FormsModule,
     HttpClientModule,
     CoreModule,
-    SharedModule,
+    SharedModule.forRoot(),
     HomeModule,
     AppRoutingModule,
     NgxPaginationModule,
@@ -80,7 +76,7 @@ export function initializeSocket(messengerService: NotificationsService) {
     MatBadgeModule,
   ],
   providers: [
-    //{ provide: APP_INITIALIZER,useFactory: initializeSocket, deps: [NotificationsService], multi: true},
+    //{ provide: APP,useFactory: initializeSocket, deps: [NotificationsService], multi: true},
     //{ provide: APP_INITIALIZER,useFactory: initializeUsers, deps: [UserService], multi: true}
     RxStompService,
     ProgressWebsocketService,

@@ -1,7 +1,6 @@
 import {Component, DoCheck, Input, IterableDiffers, OnInit, ViewChild} from '@angular/core';
 import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../../models/user.model';
-import {NotificationsService} from '../../../../services/notification/notifications.service';
 import {Message} from '../../../../models/message.model';
 import {UserService} from '../../../../services/user/user.service';
 

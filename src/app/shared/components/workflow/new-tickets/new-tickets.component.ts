@@ -3,7 +3,7 @@ import {User} from '../../../models/user.model';
 import {UserService} from '../../../services/user/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TicketsService} from '../../../services/tickets/tickets.service';
-import {first, map} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Participant} from '../../../models/participant.model';

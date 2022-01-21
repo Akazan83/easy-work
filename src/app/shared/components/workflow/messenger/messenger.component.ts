@@ -11,7 +11,7 @@ import {MessengerService} from '../../../services/messenger/messenger.service';
 @Component({
   selector: 'app-messenger',
   templateUrl: './messenger.component.html',
-  styleUrls: ['./messenger.component.scss']
+  styleUrls: ['./messenger.component.scss'],
 })
 export class MessengerComponent implements OnInit {
   maxHeight: number;
@@ -23,8 +23,8 @@ export class MessengerComponent implements OnInit {
   messages: Message[];
 
   constructor(private userService: UserService,
-              private notificationsService: NotificationsService,
-              private messengerService: MessengerService) { }
+              private messengerService: MessengerService,
+              private notif: NotificationsService) { }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -33,9 +33,10 @@ export class MessengerComponent implements OnInit {
       this.maxHeight = innerHeight - 70;
     });
     this.maxHeight = innerHeight - 70;
+    console.log('init');
+    this.notifications = this.notif.notification;
 
-    this.notificationsService.notificationObservable.subscribe(notification => this.notifications.push(notification));
-
+    this.subscribeToNotifications();
     this.userService.getAllUsers().subscribe(users => {
       users.map(user => {
         if(user.id !== this.currentUser.id){
@@ -46,9 +47,19 @@ export class MessengerComponent implements OnInit {
 
       this.users.forEach(user => {
         this.countNewMessages(user.id,this.currentUser.id);
+        //TODO: A remettre
         //this.countNewMessages(user.id,this.currentUser.id).subscribe(x => console.log(x));
         this.countNewMessages('61db5a373240426ebbf177f3','61db59e13240426ebbf177f2').subscribe(x => console.log(x));
       });
+    });
+  }
+
+  subscribeToNotifications(){
+    this.notif.notificationObservable.subscribe(notification => {
+      this.notifications.push(notification);
+      console.log(notification);
+      console.log(this.notifications);
+      console.log(this.notifications.filter(message => message.senderId === '61db5a373240426ebbf177f3'));
     });
   }
 
@@ -59,13 +70,13 @@ export class MessengerComponent implements OnInit {
         this.messages.push(...messages);
         console.log(messages);
       });
-
-    if(this.notificationsService.notification[1] != null){
-      console.log(this.notifications);
-    }
   }
 
   countNewMessages(senderId: string,recipientId: string): Observable<number> {
     return this.messengerService.countNewMessages(senderId,recipientId);
+  }
+
+  getNotificationByUser(userId: string){
+    return this.notifications.filter(message => message.senderId === userId).length;
   }
 }

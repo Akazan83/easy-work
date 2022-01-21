@@ -6,13 +6,12 @@ import {Message} from '../../models/message.model';
 
 export class WebsocketService {
   private obsStompConnection: Observable<any>;
-  private subscribers: Array<any> = [];
-  private subscriberIndex = 0;
+  private subscriber: any;
   private stompConfig: InjectableRxStompConfig = {
     heartbeatIncoming: 0,
     heartbeatOutgoing: 20000,
     reconnectDelay: 10000,
-    debug: (str) => { console.log('Console : ' + str); }
+    debug: (str) => { /*console.log('Console : ' + str); */}
   };
 
   constructor(
@@ -40,25 +39,8 @@ export class WebsocketService {
 
   private createObservableSocket = () => {
     this.obsStompConnection = new Observable(observer => {
-      const subscriberIndex = this.subscriberIndex++;
-      this.addToSubscribers({ index: subscriberIndex, observer });
-      return () => {
-        this.removeFromSubscribers(subscriberIndex);
-      };
+      this.subscriber = observer;
     });
-  };
-
-  private addToSubscribers = subscriber => {
-    this.subscribers.push(subscriber);
-  };
-
-  private removeFromSubscribers = index => {
-    for (let i = 0; i < this.subscribers.length; i++) {
-      if (i === index) {
-        this.subscribers.splice(i, 1);
-        break;
-      }
-    }
   };
 
   /**
@@ -86,16 +68,12 @@ export class WebsocketService {
       type: 'ERROR',
       message: errorMsg
     };
+    this.subscriber.error(response);
 
-    this.subscribers.forEach(subscriber => {
-      subscriber.observer.error(response);
-    });
   };
 
   private socketListener = frame => {
-    this.subscribers.forEach(subscriber => {
-      subscriber.observer.next(this.getMessage(frame));
-    });
+    this.subscriber.next(this.getMessage(frame));
   };
 
   private getMessage = data => {

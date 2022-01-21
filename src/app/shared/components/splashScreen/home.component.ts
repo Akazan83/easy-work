@@ -3,10 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import {WebsocketService} from "../../services/notification/websocket.service";
-import {ProgressWebsocketService} from "../../services/notification/progress.websocket.service";
-import {NotificationsService} from "../../services/notification/notifications.service";
-import {RxStompService} from "@stomp/ng2-stompjs";
 
 @Component({
   selector: 'app-splashscreen',
@@ -23,14 +19,12 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,
               private route: ActivatedRoute,
               private authenticationService: AuthenticationService,
-              private formBuilder: FormBuilder,
-              /*private notif: NotificationsService*/) {
+              private formBuilder: FormBuilder) {
 
     // redirect to waitingTicket if already logged in
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/waitingTicket']).catch(error => console.log(error));
     }
-    //this.notif.initProgressWebSocket();
   }
 
   ngOnInit(): void {

@@ -9,8 +9,7 @@ export class AuthGuardService {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
-  ) { }
+    private authenticationService: AuthenticationService) {}
 
   protected canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
@@ -18,7 +17,6 @@ export class AuthGuardService {
       // logged in so return true
       return true;
     }
-
     // not logged in so redirect to splashScreen page with the return url
     this.router.navigate(['/'], {queryParams: {returnUrl: state.url}}).then(() => false);
   }

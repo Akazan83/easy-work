@@ -4,11 +4,12 @@ import {Router} from '@angular/router';
 import {User} from '../../../models/user.model';
 import {Ticket} from '../../../models/ticket.model';
 import {TicketsService} from '../../../services/tickets/tickets.service';
+import {NotificationsService} from '../../../services/notification/notifications.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   tickets: Ticket[];
@@ -47,11 +48,13 @@ export class NavbarComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,
               private router: Router,
-              private ticketService: TicketsService) { }
+              private ticketService: TicketsService,
+              private notif: NotificationsService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.tickets = this.ticketService.tickets;
+
   }
 
   logout(){
