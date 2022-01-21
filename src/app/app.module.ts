@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CoreModule } from './core/core.module';
@@ -40,7 +40,8 @@ import {BasicAuthHtppInterceptorService} from './shared/services/httpInterceptor
 import { RxStompService  } from '@stomp/ng2-stompjs';
 import {ProgressWebsocketService} from './shared/services/notification/progress.websocket.service';
 import {MatBadgeModule} from '@angular/material/badge';
-import {NotificationsService} from './shared/services/notification/notifications.service';
+import {MatCardModule} from '@angular/material/card';
+import {MatIconModule} from '@angular/material/icon';
 
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -74,6 +75,8 @@ export function initializeUsers(userService: UserService) {
     ReactiveFormsModule,
     NgbModule,
     MatBadgeModule,
+    MatCardModule,
+    MatIconModule,
   ],
   providers: [
     //{ provide: APP,useFactory: initializeSocket, deps: [NotificationsService], multi: true},

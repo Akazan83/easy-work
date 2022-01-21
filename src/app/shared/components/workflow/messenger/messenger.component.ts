@@ -24,7 +24,7 @@ export class MessengerComponent implements OnInit {
 
   constructor(private userService: UserService,
               private messengerService: MessengerService,
-              private notif: NotificationsService) { }
+              private notificationsService: NotificationsService) { }
 
   ngOnInit(): void {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -34,7 +34,7 @@ export class MessengerComponent implements OnInit {
     });
     this.maxHeight = innerHeight - 70;
     console.log('init');
-    this.notifications = this.notif.notification;
+    this.notifications = this.notificationsService.notification;
 
     this.subscribeToNotifications();
     this.userService.getAllUsers().subscribe(users => {
@@ -55,7 +55,7 @@ export class MessengerComponent implements OnInit {
   }
 
   subscribeToNotifications(){
-    this.notif.notificationObservable.subscribe(notification => {
+    this.notificationsService.notificationObservable.subscribe(notification => {
       this.notifications.push(notification);
       console.log(notification);
       console.log(this.notifications);

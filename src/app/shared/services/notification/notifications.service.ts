@@ -46,9 +46,6 @@ initProgressWebSocket = () => {
   private onNewProgressMsg = receivedNotification => {
     if (receivedNotification.type === 'SUCCESS') {
       this.notification.push(new Notification().deserialize(receivedNotification.message));
-      this.messageSource.next(new Notification().deserialize(receivedNotification.message));
-      console.log(receivedNotification);
-      console.log(this.notification);
     }
   };
 

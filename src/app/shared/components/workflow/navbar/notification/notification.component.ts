@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class NotificationComponent implements OnInit {
   @Input()
-  id: number;
+  id: string;
 
   @Input()
   title: string;
@@ -16,13 +16,13 @@ export class NotificationComponent implements OnInit {
   link: string;
 
   @Input()
-  creationDate: string;
+  senderName: string;
 
   @Input()
-  icon: string;
+  type: string;
 
   @Input()
-  bg: string;
+  creationDate: Date;
 
   constructor() { }
 

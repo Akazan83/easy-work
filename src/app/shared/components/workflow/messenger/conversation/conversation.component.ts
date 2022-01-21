@@ -51,7 +51,6 @@ export class ConversationComponent implements OnInit, DoCheck  {
     message.timestamp = new Date();
     message.recipientName = 'dz';
     message.senderId = 'dz';
-    //this.messenger.
   }
 
   ngDoCheck() {

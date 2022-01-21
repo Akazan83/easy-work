@@ -1,65 +1,72 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Router} from '@angular/router';
 import {User} from '../../../models/user.model';
 import {Ticket} from '../../../models/ticket.model';
 import {TicketsService} from '../../../services/tickets/tickets.service';
-import {NotificationsService} from '../../../services/notification/notifications.service';
+import {Notification} from '../../../models/notification.model';
+import {ProgressWebsocketService} from '../../../services/notification/progress.websocket.service';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   tickets: Ticket[];
   searchText = '';
-
-  alerts = [
-    {
-      id: 1,
-      title: 'Vous avez un nouveau document en attente d\'approbation !',
-      link: '',
-      creationDate: '11 fevrier 2021',
-      icon: 'fa-file-alt',
-      bg: 'bg-primary',
-      seen : false
-    },
-    {
-      id: 2,
-      title: 'Le document n°1441186 arrive bientot en date butoire',
-      link: '',
-      creationDate: '12 fevrier 2021',
-      icon: 'fa-exclamation-triangle',
-      bg: 'bg-warning',
-      seen : false
-    },
-    {
-      id: 3,
-      title: 'Le document n°289614 a été approuvé !',
-      link: '',
-      creationDate: '13 fevrier 2021',
-      icon: 'fa-file-alt',
-      bg: 'bg-primary',
-      seen : true
-    },
-  ];
+  notifications: Notification[] = [];
   user: User;
 
   constructor(private authenticationService: AuthenticationService,
               private router: Router,
               private ticketService: TicketsService,
-              private notif: NotificationsService) { }
+              private progressWebsocketService: ProgressWebsocketService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.tickets = this.ticketService.tickets;
 
+    if(JSON.parse(localStorage.getItem('notifications')) != null){
+      this.notifications = JSON.parse(localStorage.getItem('notifications'));
+    }
+    this.initProgressWebSocket();
+
+  }
+
+  close(id: string) {
+    const index = this.notifications.findIndex(function(notification) {
+      if(notification.id === id)
+        {return true;}
+    });
+
+    this.notifications.splice(index, 1);
+  }
+
+
+  initProgressWebSocket = () => {
+    const obs = this.progressWebsocketService.getObservable();
+    obs.subscribe({
+      next: this.onNewProgressMsg,
+      error: err => {
+        console.log(err);
+      }
+    });
+  };
+
+  ngOnDestroy(){
+    localStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
   logout(){
     this.authenticationService.logout();
     this.router.navigate(['/']).catch(error => console.log(error));
   }
+
+  private onNewProgressMsg = receivedNotification => {
+    if (receivedNotification.type === 'SUCCESS') {
+      this.notifications.push(new Notification().deserialize(receivedNotification.message));
+    }
+  };
 
 }

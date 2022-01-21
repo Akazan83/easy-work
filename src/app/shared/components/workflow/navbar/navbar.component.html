@@ -30,16 +30,17 @@
         </div>
       </li>
       <li class="nav-item dropdown no-arrow mx-1">
-        <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">{{ alerts.length }}</span><i class="fas fa-bell fa-fw"></i></a>
+        <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
+          <span class="badge bg-danger badge-counter">{{ notifications.length }}</span><i class="fas fa-bell fa-fw"></i></a>
           <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
             <h6 class="dropdown-header text-center">Notifications</h6>
-            <app-notification *ngFor="let alert of alerts"
-                              [id]="alert.id"
-                              [title]="alert.title"
-                              [link]="alert.link"
-                              [creationDate]="alert.creationDate"
-                              [icon]="alert.icon"
-                              [bg]="alert.bg">
+            <app-notification *ngFor="let notification of notifications"
+                              [id]="notification.chatId"
+                              [title]="notification.senderId"
+                              [type]="notification.type"
+                              [senderName]="notification.senderName"
+                              [creationDate]="notification.creationDate"
+                              [link]="notification.senderName" (click)="close(notification.id)">
             </app-notification>
           </div>
         </div>
