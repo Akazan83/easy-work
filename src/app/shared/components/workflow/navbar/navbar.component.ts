@@ -47,6 +47,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.notifications.splice(index, 1);
   }
 
+  deleteAllNotifications(){
+    this.notifications = [];
+    localStorage.setItem('notifications', JSON.stringify(this.notifications));
+  }
+
 
   initProgressWebSocket = () => {
     const obs = this.progressWebsocketService.getObservable();

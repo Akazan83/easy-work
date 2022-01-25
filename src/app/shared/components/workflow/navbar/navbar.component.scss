@@ -1,8 +1,18 @@
+.overflow-auto{
+  max-height: 229.38px;
+}
+
+.btn-danger {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+}
+
 .autocomplete {
-  /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
 }
+
 input {
   border: 1px solid transparent;
   background-color: #f1f1f1;

@@ -26,6 +26,7 @@ export class DetailTicketComponent implements OnInit {
   searchText = '';
   id: string;
   closeResult = '';
+  isUpdatable = false;
 
 
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
@@ -41,7 +42,8 @@ export class DetailTicketComponent implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router,
               private userService: UserService,
-              private modalService: NgbModal) { }
+              private modalService: NgbModal) {
+  }
 
   ngOnInit(): void {
     this.users = this.userService.users;
@@ -59,8 +61,13 @@ export class DetailTicketComponent implements OnInit {
           endDate: [this.ticket.endDate, Validators.required],
           file: [null]
         });
+        console.log(this.isUpdatable);
+       this.ticketForm.valueChanges.subscribe(() => this.isUpdatable = true);
+        console.log(this.isUpdatable);
     });
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+
+
 
   }
 

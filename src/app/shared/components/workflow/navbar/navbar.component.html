@@ -33,16 +33,19 @@
         <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
           <span class="badge bg-danger badge-counter">{{ notifications.length }}</span><i class="fas fa-bell fa-fw"></i></a>
           <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
-            <h6 class="dropdown-header text-center">Notifications</h6>
-            <app-notification *ngFor="let notification of notifications"
-                              [id]="notification.chatId"
-                              [title]="notification.senderId"
-                              [type]="notification.type"
-                              [senderName]="notification.senderName"
-                              [creationDate]="notification.creationDate"
-                              [occurence]="notification.occurence"
-                              [link]="notification.senderName" (click)="deleteNotification(notification.id,notification.type)">
-            </app-notification>
+            <h6 class="dropdown-header text-center">{{notifications.length}} Notification(s)
+              <button *ngIf="notifications.length > 0" class="btn btn-danger btn-sm fas fa-trash-alt" (click)="deleteAllNotifications()"></button></h6>
+              <div class="overflow-auto">
+                <app-notification *ngFor="let notification of notifications"
+                                  [id]="notification.chatId"
+                                  [title]="notification.senderId"
+                                  [type]="notification.type"
+                                  [senderName]="notification.senderName"
+                                  [creationDate]="notification.creationDate"
+                                  [occurence]="notification.occurence"
+                                  [link]="notification.senderName" (click)="deleteNotification(notification.id,notification.type)">
+                </app-notification>
+              </div>
           </div>
         </div>
       </li>
