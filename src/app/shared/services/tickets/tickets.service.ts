@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Ticket} from '../../models/ticket.model';
 import {Observable, throwError} from 'rxjs';
 import {catchError, filter, map} from 'rxjs/operators';
@@ -60,8 +60,11 @@ export class TicketsService {
     return this.httpClient.post<Ticket>(`http://localhost:8080/api/v1/ticket`, ticket).pipe(map(data => data));
   }
 
-  public updateTicket(ticket: Ticket, ticketId: string){
-    return this.httpClient.put<Ticket>(`http://localhost:8080/api/v1/tickets/` + ticketId, ticket).pipe(map(data => data));
+  public updateTicket(ticket: Ticket, ticketId: string, updateType: string){
+    const headers = new HttpHeaders({type: updateType});
+    const options = { headers };
+    console.log('addNewParticipant REQUEST');
+    return this.httpClient.put<Ticket>(`http://localhost:8080/api/v1/tickets/` + ticketId, ticket, options).pipe(map(data => data));
   }
 
   public getTickets(): Observable<Ticket[]> {

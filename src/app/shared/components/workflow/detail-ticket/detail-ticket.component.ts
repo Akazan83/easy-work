@@ -46,7 +46,10 @@ export class DetailTicketComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users = this.userService.users;
+    this.userService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
+
     this.id = this.route.snapshot.paramMap.get('id');
     this.ticketService.getTicket(this.id)
       .subscribe(ticket => {
@@ -61,14 +64,9 @@ export class DetailTicketComponent implements OnInit {
           endDate: [this.ticket.endDate, Validators.required],
           file: [null]
         });
-        console.log(this.isUpdatable);
        this.ticketForm.valueChanges.subscribe(() => this.isUpdatable = true);
-        console.log(this.isUpdatable);
     });
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
-
-
-
   }
 
   addParticipant(participantId){
@@ -81,11 +79,17 @@ export class DetailTicketComponent implements OnInit {
     newParticipant.role = user.role;
     this.participants.push(newParticipant);
     this.searchText = '';
+    const ticket = this.ticketFactory();
+
+    this.ticketService.updateTicket(ticket, this.ticket.id,'addNewParticipant').subscribe(() => console.log('new Participant'));
   }
 
 
   removeParticipant(participantId){
     this.participants = this.participants.filter(value => value.userId !== participantId);
+
+    const ticket = this.ticketFactory();
+    this.ticketService.updateTicket(ticket, this.ticket.id,'removeParticipant').subscribe(() => console.log('Remove Participant'));
   }
 
   get f() { return this.ticketForm.controls; }
@@ -98,8 +102,8 @@ export class DetailTicketComponent implements OnInit {
     }
     this.loading = true;
     const ticket = this.ticketFactory();
-
-    this.ticketService.updateTicket(ticket, this.ticket.id)
+    console.log('Send');
+    this.ticketService.updateTicket(ticket, this.ticket.id,'TicketUpdate')
       .pipe(first())
       .subscribe(() =>  this.router.navigate(['']).catch(error => this.error = error));
   }
@@ -115,7 +119,7 @@ export class DetailTicketComponent implements OnInit {
 
     this.commentaries.push(commentary);
     const ticket = this.ticketFactory();
-    this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(() => console.log('Commentaire envoyé'));
+    this.ticketService.updateTicket(ticket, this.ticket.id,'CommentaryUpdate').subscribe(() => console.log('Commentaire envoyé'));
   }
 
   deleteTicket(){
@@ -130,7 +134,7 @@ export class DetailTicketComponent implements OnInit {
     });
 
     const ticket = this.ticketFactory();
-    this.ticketService.updateTicket(ticket, this.ticket.id).subscribe(() => console.log('Status mis à jour'));
+    this.ticketService.updateTicket(ticket, this.ticket.id,'TicketApproved').subscribe(() => console.log('Status mis à jour'));
   }
 
   openCommentForm(content) {
@@ -145,6 +149,7 @@ export class DetailTicketComponent implements OnInit {
 
   private ticketFactory(){
     const ticket = new Ticket();
+    ticket.id = this.ticket.id;
     ticket.title = this.f.title.value;
     ticket.description = this.f.description.value;
     ticket.status = this.ticket.status;
