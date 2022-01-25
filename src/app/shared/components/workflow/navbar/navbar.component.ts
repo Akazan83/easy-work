@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.notifications = JSON.parse(localStorage.getItem('notifications'));
     }
     this.initProgressWebSocket();
-
   }
 
   deleteNotification(id: string, type: string) {
@@ -74,9 +73,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private onNewProgressMsg = receivedNotification => {
     if (receivedNotification.type === 'SUCCESS') {
-      console.log(receivedNotification);
       if(this.notifications.length > 0){
-        if(!this.verifyIfMessageIsAlreadyPresent(receivedNotification)){
+        if(this.verifyIfMessageIsAlreadyPresent(receivedNotification)){
           this.notifications.push(new Notification().deserialize(receivedNotification.message));
         }
       } else {
@@ -87,7 +85,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private verifyIfMessageIsAlreadyPresent(receivedNotification): boolean{
     this.notifications.forEach(notification => {
-      if(receivedNotification.message.id === notification.id &&
+      if(receivedNotification.message.senderId === notification.senderId &&
         receivedNotification.message.type === 'Message'){
         notification.occurence++;
         return true;

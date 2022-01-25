@@ -14,7 +14,6 @@ export class ProgressWebsocketService extends WebsocketService {
 
   constructor(stompService: RxStompService) {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-    console.log(currentUser.id);
     super(
           stompService,
           progressStompConfig,

@@ -17,7 +17,7 @@ export class MessageComponent implements OnInit {
   text: string;
 
   @Input()
-  dateEnvoi: string;
+  dateEnvoi: Date;
 
   @Input()
   pictureUrl: string;

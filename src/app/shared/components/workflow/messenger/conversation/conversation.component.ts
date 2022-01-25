@@ -3,6 +3,7 @@ import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../../models/user.model';
 import {Message} from '../../../../models/message.model';
 import {UserService} from '../../../../services/user/user.service';
+import {ProgressWebsocketService} from '../../../../services/notification/progress.websocket.service';
 
 @Component({
   selector: 'app-conversation',
@@ -10,9 +11,14 @@ import {UserService} from '../../../../services/user/user.service';
   styleUrls: ['./conversation.component.scss']
 })
 export class ConversationComponent implements OnInit, DoCheck  {
-  @ViewChild('messageInput') messageInput;
+
   @Input()
   messagesFrom: Message[];
+
+  @Input()
+  receiverUser: User;
+
+  messageInput = '';
 
   maxHeight: number;
   maxWidth: number;
@@ -24,15 +30,15 @@ export class ConversationComponent implements OnInit, DoCheck  {
   message: string;
   differ: any;
   currentUser: User;
-  users: User[];
+  users: User[] = [];
 
   constructor(private iterableDiffers: IterableDiffers,
-              private userService: UserService) {
+              private userService: UserService,
+              private progressWebsocketService: ProgressWebsocketService) {
     this.differ = iterableDiffers.find([]).create(null);
   }
 
   ngOnInit(): void {
-    this.users = this.userService.users;
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.subscribe( () => {
       this.maxHeight = innerHeight - 180;
@@ -41,25 +47,12 @@ export class ConversationComponent implements OnInit, DoCheck  {
     this.maxHeight = innerHeight - 180;
     this.maxWidth = innerWidth - 120;
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-
-    const message = new Message();
-    message.content = 'dz';
-    message.senderName = 'dz';
-    message.recipientId = 'dz';
-    message.id = 'dz';
-    message.chatId = 'dz';
-    message.timestamp = new Date();
-    message.recipientName = 'dz';
-    message.senderId = 'dz';
   }
 
   ngDoCheck() {
     this.messages = [];
     if(this.messagesFrom !== null){
       this.messages = this.messagesFrom;
-      /*    this.messages.sort(function(a, b) {
-            return b.id - a.id;
-          });*/
     }
   }
 
@@ -67,4 +60,17 @@ export class ConversationComponent implements OnInit, DoCheck  {
     return (event.target as HTMLInputElement).value;
   }
 
+  sendMessage(content: string) {
+    const message = new Message();
+    message.content = content;
+    message.senderId = this.currentUser.id;
+    message.senderName = this.currentUser.firstName;
+    message.recipientName = this.receiverUser.firstName;
+    message.recipientId = this.receiverUser.id;
+    message.timestamp = new Date();
+    this.progressWebsocketService.sendMessage(message);
+
+    this.messages.unshift(message);
+    this.messageInput = '';
+  }
 }

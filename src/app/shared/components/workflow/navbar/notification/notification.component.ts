@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss']
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent {
   @Input()
   id: string;
 
@@ -28,7 +28,4 @@ export class NotificationComponent implements OnInit {
   creationDate: Date;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 }

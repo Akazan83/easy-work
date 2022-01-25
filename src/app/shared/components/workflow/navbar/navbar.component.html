@@ -5,9 +5,9 @@
         <input class="bg-light form-control border-0 small" type="text"
                placeholder="Rechercher une demande..." [(ngModel)]="searchText">
           <div class="autocomplete-items" *ngIf="searchText.length">
-            <div *ngFor="let c of tickets | ticketsFilter: searchText"
-                 [routerLink]="'/ticket/' + c.id">
-                {{c.id}}
+            <div *ngFor="let ticket of tickets | ticketsFilter: searchText"
+                 [routerLink]="'/ticket/' + ticket.id">
+                {{ticket.id}}
             </div>
           </div>
 
