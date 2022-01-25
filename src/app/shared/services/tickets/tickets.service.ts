@@ -43,7 +43,7 @@ export class TicketsService {
   }
 
   public postNewTicket(title: string, description: string, endDate: string, participants: Participant[],
-                       commentaries: Commentary[], file: File, owner: string){
+                       commentaries: Commentary[], file: File, owner: string, ownerName: string){
 
     const formData = new FormData();
     formData.append('file', file);
@@ -55,6 +55,7 @@ export class TicketsService {
     ticket.commentaries = commentaries;
     ticket.endDate = endDate;
     ticket.owner = owner;
+    ticket.ownerName = ownerName;
     ticket.file = formData;
     return this.httpClient.post<Ticket>(`http://localhost:8080/api/v1/ticket`, ticket).pipe(map(data => data));
   }

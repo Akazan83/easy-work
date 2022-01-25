@@ -2,16 +2,17 @@
   <div class="me-3">
       <div *ngIf="type === 'Message'" class="icon-circle bg-primary" ><i class="fas fa-envelope-open-text text-white"></i></div>
       <div *ngIf="type === 'NewTicket'" class="icon-circle bg-success" ><i class="fas fa-ticket-alt text-white"></i></div>
-      <div *ngIf="type === 'TicketUpdate'" class="icon-circle bg-warning" ><i class="fab fa-file-alt text-white"></i></div>
+      <div *ngIf="type === 'TicketUpdate'" class="icon-circle bg-warning" ><i class="fas fa-file-alt text-white"></i></div>
       <div *ngIf="type === 'TicketApproved'" class="icon-circle bg-success" ><i class="far fa-check-square text-white"></i></div>
       <div *ngIf="type === 'TicketRefused'" class="icon-circle bg-danger" ><i class="fas fa-times text-white"></i></div>
     </div>
   <div>
     <span class="small text-gray-500">{{creationDate| date: "HH:mm:ss"}} </span>
-    <p *ngIf="type === 'Message'">Nouveau message de {{senderName}}</p>
+    <a *ngIf="type === 'Message' && occurence === 1">{{occurence}} nouveau message de {{senderName}}</a>
+    <p *ngIf="type === 'Message' && occurence > 1">{{occurence}} nouveaux messages de {{senderName}}</p>
     <p *ngIf="type === 'NewTicket'">{{senderName}} a ouvert un nouveau ticket</p>
     <p *ngIf="type === 'TicketUpdate'">{{senderName}} à mit à jour un ticket</p>
-    <p *ngIf="type === 'TicketApproved'">{{senderName}} à approuver le ticket</p>
-    <p *ngIf="type === 'TicketRefused'">{{senderName}} à refusé le ticket</p>
+    <p *ngIf="type === 'TicketApproved'">{{senderName}} à approuver un ticket</p>
+    <p *ngIf="type === 'TicketRefused'">{{senderName}} à refusé un ticket</p>
   </div>
 </a>

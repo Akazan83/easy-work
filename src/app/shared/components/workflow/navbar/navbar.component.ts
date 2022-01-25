@@ -26,7 +26,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
     this.tickets = this.ticketService.tickets;
-
     if(JSON.parse(localStorage.getItem('notifications')) != null){
       this.notifications = JSON.parse(localStorage.getItem('notifications'));
     }
@@ -34,7 +33,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   }
 
-  close(id: string) {
+  deleteNotification(id: string, type: string) {
+    if(type === 'Message'){
+
+    } else {
+      this.router.navigate(['/ticket/'+id]).catch(error => console.log(error));
+    }
     const index = this.notifications.findIndex(function(notification) {
       if(notification.id === id)
         {return true;}
@@ -65,8 +69,26 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   private onNewProgressMsg = receivedNotification => {
     if (receivedNotification.type === 'SUCCESS') {
-      this.notifications.push(new Notification().deserialize(receivedNotification.message));
+      console.log(receivedNotification);
+      if(this.notifications.length > 0){
+        if(!this.verifyIfMessageIsAlreadyPresent(receivedNotification)){
+          this.notifications.push(new Notification().deserialize(receivedNotification.message));
+        }
+      } else {
+        this.notifications.push(new Notification().deserialize(receivedNotification.message));
+      }
     }
   };
+
+  private verifyIfMessageIsAlreadyPresent(receivedNotification): boolean{
+    this.notifications.forEach(notification => {
+      if(receivedNotification.message.id === notification.id &&
+        receivedNotification.message.type === 'Message'){
+        notification.occurence++;
+        return true;
+      }
+    });
+    return false;
+  }
 
 }

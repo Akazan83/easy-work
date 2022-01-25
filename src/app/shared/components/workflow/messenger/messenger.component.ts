@@ -33,7 +33,7 @@ export class MessengerComponent implements OnInit {
       this.maxHeight = innerHeight - 70;
     });
     this.maxHeight = innerHeight - 70;
-    console.log('init');
+
     this.notifications = this.notificationsService.notification;
 
     this.subscribeToNotifications();

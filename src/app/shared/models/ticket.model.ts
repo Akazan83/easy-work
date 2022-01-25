@@ -6,6 +6,7 @@ import {TicketStateEnum} from '../components/workflow/ticket/ticketStateEnum';
 export class Ticket implements Deserializable{
   id: string;
   owner: string;
+  ownerName: string;
   title: string;
   status: TicketStateEnum;
   reference: string;

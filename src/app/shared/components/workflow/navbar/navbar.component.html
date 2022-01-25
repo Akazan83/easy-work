@@ -40,7 +40,8 @@
                               [type]="notification.type"
                               [senderName]="notification.senderName"
                               [creationDate]="notification.creationDate"
-                              [link]="notification.senderName" (click)="close(notification.id)">
+                              [occurence]="notification.occurence"
+                              [link]="notification.senderName" (click)="deleteNotification(notification.id,notification.type)">
             </app-notification>
           </div>
         </div>

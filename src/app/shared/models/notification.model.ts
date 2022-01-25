@@ -7,9 +7,11 @@ export class Notification implements Deserializable{
   senderName: string;
   type: string;
   creationDate: Date;
+  occurence: number;
 
   deserialize(input: any) {
     Object.assign(this, input);
+    this.occurence = 1;
     return this;
   }
 }

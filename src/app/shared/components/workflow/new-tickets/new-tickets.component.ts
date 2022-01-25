@@ -86,7 +86,7 @@ export class NewTicketsComponent implements OnInit {
     this.loading = true;
 
     this.ticketService.postNewTicket(this.f.title.value, this.f.description.value, this.f.endDate.value,
-      this.participants, this.commentaries, this.f.file.value, this.currentUser.id)
+      this.participants, this.commentaries, this.f.file.value, this.currentUser.id, this.currentUser.name)
       .pipe(first())
       .subscribe(
         () => {

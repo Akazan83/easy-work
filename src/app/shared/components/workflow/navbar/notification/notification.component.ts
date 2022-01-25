@@ -16,6 +16,9 @@ export class NotificationComponent implements OnInit {
   link: string;
 
   @Input()
+  occurence: number;
+
+  @Input()
   senderName: string;
 
   @Input()
