@@ -4,6 +4,7 @@ export class User {
   email: string;
   firstName: string;
   lastName: string;
+  messagesNumber: number;
   accessToken?: string;
 
   deserialize(input: any): this {

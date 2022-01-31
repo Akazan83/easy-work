@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   deleteNotification(id: string, type: string) {
     if(type === 'Message'){
-
+      this.router.navigate(['/messenger']).catch(error => console.log(error));
     } else {
       this.router.navigate(['/ticket/'+id]).catch(error => console.log(error));
     }
