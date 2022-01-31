@@ -16,9 +16,6 @@ jobs:
             cache-path: ~/project/node_modules
             override-ci-command: npm install
         - run: sudo npm install -g npm@latest
-        - node/install-packages:
-            cache-path: ~/project/node_modules
-            override-ci-command: npm install
         - run: cd app
         - run: sudo npm install -g npm@latest
         - run: npm run test
