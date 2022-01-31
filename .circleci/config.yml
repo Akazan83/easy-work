@@ -12,9 +12,6 @@ jobs:
         tag: '16.12-browsers'
       steps:
         - checkout
-        - run: DISPLAY=:0
-        - run: sudo apt-get update && sudo apt-get install -y libxshmfence-dev libnss3-tools libatk1.0-0 libatk-bridge2.0-0 libdrm2 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libasound2
-        - run: npm install electron
         - node/install-packages:
             cache-path: ~/project/node_modules
             override-ci-command: npm install
