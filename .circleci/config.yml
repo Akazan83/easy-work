@@ -9,7 +9,7 @@ jobs:
   installAndTest:
       executor:
         name: node/default
-        tag: '16.10'
+        tag: '16.12-browsers'
       steps:
         - checkout
         - run: DISPLAY=:0
