@@ -7,7 +7,9 @@ orbs:
   node: circleci/node@4.7
 jobs:
   installApp:
-      executor: node/default
+      executor:
+        name: node/default
+        tag: '16.10'
       steps:
         - checkout
         - node/install-packages:
