@@ -12,7 +12,7 @@ jobs:
         tag: '16.10'
       steps:
         - checkout
-        - run: sudo apt-get update && apt-get install -y libgbm-dev 
+        - run: sudo apt-get update && sudo apt-get install -y libgbm-dev
         - node/install-packages:
             cache-path: ~/project/node_modules
             override-ci-command: npm install
