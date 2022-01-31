@@ -12,7 +12,7 @@ jobs:
         tag: '16.10'
       steps:
         - checkout
-        - run: sudo apt-get update && sudo apt-get install -y libxshmfence-dev libnss3-tools
+        - run: sudo apt-get update && sudo apt-get install -y libxshmfence-dev libnss3-tools libatk1.0-0
         - node/install-packages:
             cache-path: ~/project/node_modules
             override-ci-command: npm install
