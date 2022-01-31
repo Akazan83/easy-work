@@ -1,6 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { DetailTicketComponent } from './detail-ticket.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('DetailTicketComponent', () => {
   let component: DetailTicketComponent;
@@ -8,9 +11,12 @@ describe('DetailTicketComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailTicketComponent ]
-    })
-    .compileComponents();
+      declarations: [DetailTicketComponent],
+      imports: [RouterTestingModule,
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        FormsModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

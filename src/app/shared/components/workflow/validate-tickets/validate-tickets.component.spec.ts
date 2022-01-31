@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidateTicketsComponent } from './validate-tickets.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 describe('ValidateTicketsComponent', () => {
   let component: ValidateTicketsComponent;
@@ -8,9 +12,13 @@ describe('ValidateTicketsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ValidateTicketsComponent ]
-    })
-    .compileComponents();
+      declarations: [ValidateTicketsComponent],
+      imports: [RouterTestingModule,
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgxPaginationModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

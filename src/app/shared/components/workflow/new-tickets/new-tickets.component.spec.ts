@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewTicketsComponent } from './new-tickets.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('NewTicketsComponent', () => {
   let component: NewTicketsComponent;
@@ -8,10 +11,14 @@ describe('NewTicketsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NewTicketsComponent ]
-    })
-    .compileComponents();
+      declarations: [NewTicketsComponent],
+      imports: [RouterTestingModule,
+        HttpClientTestingModule,
+        ReactiveFormsModule,
+        FormsModule],
+    }).compileComponents();
   });
+
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NewTicketsComponent);

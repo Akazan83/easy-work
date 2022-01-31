@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MessengerComponent } from './messenger.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('MessengerComponent', () => {
   let component: MessengerComponent;
@@ -11,6 +13,15 @@ describe('MessengerComponent', () => {
       declarations: [ MessengerComponent ]
     })
     .compileComponents();
+  });
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [MessengerComponent],
+      imports: [RouterTestingModule,
+        HttpClientTestingModule],
+      providers: []
+    }).compileComponents();
   });
 
   beforeEach(() => {
