@@ -76,6 +76,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if(this.notifications.length > 0){
         if(this.verifyIfMessageIsAlreadyPresent(receivedNotification)){
           this.notifications.push(new Notification().deserialize(receivedNotification.message));
+        } else if(receivedNotification.type !== 'Message'){
+          this.notifications.push(new Notification().deserialize(receivedNotification.message));
         }
       } else {
         this.notifications.push(new Notification().deserialize(receivedNotification.message));

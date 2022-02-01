@@ -10,6 +10,9 @@ import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {FileuploadingService} from '../../../services/fileUpload/FileuploadingService';
 
 @Component({
   selector: 'app-detail-ticket',
@@ -37,12 +40,20 @@ export class DetailTicketComponent implements OnInit {
   private loading = false;
   private error = '';
 
+  // FileUpload
+  private selectedFiles?: FileList;
+  private currentFile?: File;
+  private progress = 0;
+  private message = '';
+  private fileInfos?: Observable<any>;
+
   constructor(private route: ActivatedRoute,
               private ticketService: TicketsService,
               private formBuilder: FormBuilder,
               private router: Router,
               private userService: UserService,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private fileuploadingService: FileuploadingService) {
   }
 
   ngOnInit(): void {
@@ -57,6 +68,14 @@ export class DetailTicketComponent implements OnInit {
         this.participants = ticket.participants;
         this.commentaries = ticket.commentaries;
         this.isOwner = this.user.id === this.ticket.owner;
+
+        //this.fileInfos = this.fileuploadingService.getFiles(this.ticket.id).subscribe(t => this.fileInfos = t);
+        this.fileuploadingService.getFiles(this.ticket.id).pipe(t => {
+          this.fileInfos = t;
+          console.log(this.fileInfos);
+          console.log(t);
+          return t;
+        });
 
         this.ticketForm = this.formBuilder.group({
           title: [this.ticket.title, Validators.required],
@@ -145,6 +164,48 @@ export class DetailTicketComponent implements OnInit {
 
   openCommentShow(longContent) {
     this.modalService.open(longContent, { scrollable: true });
+    console.log(this.fileInfos);
+  }
+
+  // FileUpload
+  selectFile(event: any) {
+    this.selectedFiles = event.target.files;
+  }
+
+  upload(): void {
+    this.progress = 0;
+
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+
+        this.fileuploadingService.upload(this.currentFile, this.ticket.id).subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              this.message = event.body.message;
+              this.fileInfos = this.fileuploadingService.getFiles(this.ticket.id);
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            this.progress = 0;
+
+            if (err.error && err.error.message) {
+              this.message = err.error.message;
+            } else {
+              this.message = 'Could not upload the file!';
+            }
+
+            this.currentFile = undefined;
+          });
+      }
+
+      this.selectedFiles = undefined;
+    }
   }
 
   private ticketFactory(){

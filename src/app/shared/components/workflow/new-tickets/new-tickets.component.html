@@ -4,7 +4,7 @@
   <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
       <app-navbar></app-navbar>
-
+      <div *ngIf="message" class="alert alert-success" role="alert">{{ message }}</div>
       <div class="container my-auto">
         <div class="container">
           <main>
@@ -47,17 +47,48 @@
                   </h4>
                   <form class="card mt-2 p-2">
                     <div class="input-group">
-                      <input type="file" class="form-control" id="file" (change)="onFileSelected($event)">
+                      <input type="file" class="form-control" id="file" (change)="selectFile($event)">
                     </div>
+                    <div *ngIf="currentFile" class="progress my-3">
+                      <div
+                        class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ progress }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: progress + '%' }">
+                        {{ progress }}%
+                      </div>
+                    </div>
+                    <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+                      Upload
+                    </button>
                   </form>
                 </form>
+              </div>
+
+
+
+
+
+              <div class="card mt-3">
+                <div class="card-header">List of Files</div>
+                <ul
+                  class="list-group list-group-flush"
+                  *ngFor="let file of fileInfos | async"
+                >
+                  <li class="list-group-item">
+                    <a href="{{ file.url }}">{{ file.name }}</a>
+                  </li>
+                </ul>
               </div>
 
               <div class="col-md-7 col-lg-8">
 
                 <form class="needs-validation" [formGroup]="ticketForm" (ngSubmit)="onSubmit()" novalidate>
                   <div class="col-sm-12">
-                    <input type="text" formControlName="title" class="form-control mt-2" id="title" placeholder="Titre" [ngClass]="{ 'is-invalid': submitted && f.title.errors }"  required>
+                    <input type="text" formControlName="title" class="form-control mt-2" id="title" placeholder="Titre"
+                           [ngClass]="{ 'is-invalid': submitted && f.title.errors }"  required>
                     <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
                       <div *ngIf="f.title.errors.required">Un titre valide est requis.</div>
                     </div>

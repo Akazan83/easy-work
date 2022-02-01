@@ -4,11 +4,13 @@ import {UserService} from '../../../services/user/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {first} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Participant} from '../../../models/participant.model';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
 import {Commentary} from '../../../models/commentary.model';
+import {Observable} from 'rxjs';
+import {FileuploadingService} from '../../../services/fileUpload/FileuploadingService';
 
 @Component({
   selector: 'app-new-tickets',
@@ -22,17 +24,23 @@ export class NewTicketsComponent implements OnInit {
   public users: User[];
   public participants: Participant[] = [];
   public searchText = '';
-  private file: File;
   private commentaries: Commentary[] = [];
   private currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-  private fileName = '';
   private error = '';
+
+  // FileUpload
+  private selectedFiles?: FileList;
+  private currentFile?: File;
+  private progress = 0;
+  private message = '';
+  private fileInfos?: Observable<any>;
 
   constructor(private userService: UserService,
               private ticketService: TicketsService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private http: HttpClient) { }
+              private http: HttpClient,
+              private fileuploadingService: FileuploadingService) { }
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(users => {
@@ -45,6 +53,49 @@ export class NewTicketsComponent implements OnInit {
       endDate: ['', Validators.required],
       file: [null]
     });
+
+    //this.fileInfos = this.fileuploadingService.getFiles();
+  }
+
+  // FileUpload
+  selectFile(event: any) {
+    this.selectedFiles = event.target.files;
+  }
+
+  upload(): void {
+    this.progress = 0;
+
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+
+      if (file) {
+        this.currentFile = file;
+
+        this.fileuploadingService.upload(this.currentFile,'').subscribe(
+          (event: any) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              this.message = event.body.message;
+              //this.fileInfos = this.fileuploadingService.getFiles();
+            }
+          },
+          (err: any) => {
+            console.log(err);
+            this.progress = 0;
+
+            if (err.error && err.error.message) {
+              this.message = err.error.message;
+            } else {
+              this.message = 'Could not upload the file!';
+            }
+
+            this.currentFile = undefined;
+          });
+      }
+
+      this.selectedFiles = undefined;
+    }
   }
 
   addParticipant(participantId){
@@ -61,18 +112,6 @@ export class NewTicketsComponent implements OnInit {
 
   removeParticipant(participantId){
     this.participants = this.participants.filter(value => value.userId !== participantId);
-  }
-
-  onFileSelected(event) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.fileName = file.name;
-      const formData = new FormData();
-      formData.append('thumbnail', file);
-      const upload$ = this.http.post('/api/messages', formData);
-      upload$.subscribe();
-    }
   }
 
   get f() { return this.ticketForm.controls; }

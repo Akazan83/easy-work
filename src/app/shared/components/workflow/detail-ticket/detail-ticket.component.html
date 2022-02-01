@@ -4,7 +4,7 @@
   <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
       <app-navbar></app-navbar>
-
+      <div *ngIf="message" class="alert alert-success" role="alert">{{ message }}</div>
       <div class="container my-auto">
         <div class="container" *ngIf="ticket">
           <main>
@@ -51,11 +51,42 @@
                   <h4 class="d-flex justify-content-between align-items-center">
                     <span class="text-primary">Fichier</span>
                   </h4>
-                  <form class="card mt-2 p-2">
+                  <form *ngIf="fileInfos === null" class="card mt-2 p-2">
                     <div class="input-group">
-                      <input type="file" class="form-control" id="customFile" onchange="console.log(target.files)">
+                      <input type="file" class="form-control" id="customFile" (change)="selectFile($event)">
                     </div>
+                    <div *ngIf="currentFile" class="progress my-3">
+                      <div
+                        class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ progress }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: progress + '%' }">
+                        {{ progress }}%
+                      </div>
+                    </div>
+                    <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
+                      Sauvegarder
+                    </button>
                   </form>
+                </div>
+
+
+                <div class="card mt-3">
+                  <ul
+                    class="list-group list-group-flush"
+                    *ngFor="let file of fileInfos | async">
+                    <li class="list-group-item">
+                      <p href="{{ file.url }}">{{ file.name }}</p>
+                    </li>
+                    <button class="btn btn-info btn-sm mb-1">
+                      Aperçu
+                    </button>
+                    <button class="btn btn-success btn-sm">
+                      Télécharger
+                    </button>
+                  </ul>
                 </div>
 
                 <div class="mt-5">
