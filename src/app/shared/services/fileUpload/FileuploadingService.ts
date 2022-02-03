@@ -26,4 +26,8 @@ export class FileuploadingService {
   getFiles(ticketId: string): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/getFiles/${ticketId}`);
   }
+
+  downloadFile(ticketId: string,fileName: string){
+    return this.httpClient.get(`${this.baseUrl}/files/${ticketId}/${fileName}`);
+  }
 }

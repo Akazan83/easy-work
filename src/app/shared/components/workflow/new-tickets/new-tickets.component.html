@@ -60,31 +60,11 @@
                         {{ progress }}%
                       </div>
                     </div>
-                    <button class="btn btn-success btn-sm" [disabled]="!selectedFiles" (click)="upload()">
-                      Upload
-                    </button>
                   </form>
                 </form>
               </div>
 
-
-
-
-
-              <div class="card mt-3">
-                <div class="card-header">List of Files</div>
-                <ul
-                  class="list-group list-group-flush"
-                  *ngFor="let file of fileInfos | async"
-                >
-                  <li class="list-group-item">
-                    <a href="{{ file.url }}">{{ file.name }}</a>
-                  </li>
-                </ul>
-              </div>
-
               <div class="col-md-7 col-lg-8">
-
                 <form class="needs-validation" [formGroup]="ticketForm" (ngSubmit)="onSubmit()" novalidate>
                   <div class="col-sm-12">
                     <input type="text" formControlName="title" class="form-control mt-2" id="title" placeholder="Titre"

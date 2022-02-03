@@ -53,8 +53,6 @@ export class NewTicketsComponent implements OnInit {
       endDate: ['', Validators.required],
       file: [null]
     });
-
-    //this.fileInfos = this.fileuploadingService.getFiles();
   }
 
   // FileUpload
@@ -62,7 +60,7 @@ export class NewTicketsComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  upload(): void {
+  upload(ticketId: string): void {
     this.progress = 0;
 
     if (this.selectedFiles) {
@@ -71,13 +69,12 @@ export class NewTicketsComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.fileuploadingService.upload(this.currentFile,'').subscribe(
+        this.fileuploadingService.upload(this.currentFile,ticketId).subscribe(
           (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
               this.message = event.body.message;
-              //this.fileInfos = this.fileuploadingService.getFiles();
             }
           },
           (err: any) => {
@@ -87,7 +84,7 @@ export class NewTicketsComponent implements OnInit {
             if (err.error && err.error.message) {
               this.message = err.error.message;
             } else {
-              this.message = 'Could not upload the file!';
+              this.message = 'Impossible d\'envoyer le fichier au serveur';
             }
 
             this.currentFile = undefined;
@@ -128,7 +125,9 @@ export class NewTicketsComponent implements OnInit {
       this.participants, this.commentaries, this.f.file.value, this.currentUser.id, this.currentUser.name)
       .pipe(first())
       .subscribe(
-        () => {
+        ticket => {
+          console.log(ticket);
+          this.upload(ticket.id);
           this.ticketService.init().then(()=>{
             this.router.navigate(['']).catch(error => console.log(error));
           });

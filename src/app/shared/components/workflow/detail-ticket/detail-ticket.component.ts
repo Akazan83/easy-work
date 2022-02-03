@@ -13,6 +13,7 @@ import {TicketStateEnum} from '../ticket/ticketStateEnum';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {FileuploadingService} from '../../../services/fileUpload/FileuploadingService';
+import {log} from "util";
 
 @Component({
   selector: 'app-detail-ticket',
@@ -37,6 +38,7 @@ export class DetailTicketComponent implements OnInit {
   fileName = '';
   ticketForm: FormGroup;
   submitted = false;
+  public fileOnServer: boolean;
   private loading = false;
   private error = '';
 
@@ -60,22 +62,15 @@ export class DetailTicketComponent implements OnInit {
     this.userService.getAllUsers().subscribe(users => {
       this.users = users;
     });
-
     this.id = this.route.snapshot.paramMap.get('id');
+
     this.ticketService.getTicket(this.id)
       .subscribe(ticket => {
         this.ticket = ticket;
         this.participants = ticket.participants;
         this.commentaries = ticket.commentaries;
         this.isOwner = this.user.id === this.ticket.owner;
-
-        //this.fileInfos = this.fileuploadingService.getFiles(this.ticket.id).subscribe(t => this.fileInfos = t);
-        this.fileuploadingService.getFiles(this.ticket.id).pipe(t => {
-          this.fileInfos = t;
-          console.log(this.fileInfos);
-          console.log(t);
-          return t;
-        });
+        this.fileInfos = this.fileuploadingService.getFiles(this.ticket.id);
 
         this.ticketForm = this.formBuilder.group({
           title: [this.ticket.title, Validators.required],
@@ -164,7 +159,7 @@ export class DetailTicketComponent implements OnInit {
 
   openCommentShow(longContent) {
     this.modalService.open(longContent, { scrollable: true });
-    console.log(this.fileInfos);
+    console.log(this.fileOnServer);
   }
 
   // FileUpload
@@ -207,6 +202,14 @@ export class DetailTicketComponent implements OnInit {
       this.selectedFiles = undefined;
     }
   }
+
+  private downloadFile(fileUrl: string){
+    this.fileuploadingService.downloadFile(this.ticket.id,fileUrl).subscribe(
+      (event: any) => {
+        console.log(event);
+        window.open(event, '_blank');
+      });
+}
 
   private ticketFactory(){
     const ticket = new Ticket();
