@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Ticket} from '../../../models/ticket.model';
@@ -13,7 +13,10 @@ import {TicketStateEnum} from '../ticket/ticketStateEnum';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {FileuploadingService} from '../../../services/fileUpload/FileuploadingService';
-import {log} from "util";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from 'html-to-pdfmake';
 
 @Component({
   selector: 'app-detail-ticket',
@@ -21,6 +24,8 @@ import {log} from "util";
   styleUrls: ['./detail-ticket.component.scss']
 })
 export class DetailTicketComponent implements OnInit {
+  @ViewChild('pdfTable') pdfTable: ElementRef;
+
   ticket: Ticket;
   participants: Participant[];
   commentaries: Commentary[];
@@ -32,30 +37,22 @@ export class DetailTicketComponent implements OnInit {
   closeResult = '';
   isUpdatable = false;
 
-
   currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   file: File;
   fileName = '';
   ticketForm: FormGroup;
   submitted = false;
+  message: string;
   public fileOnServer: boolean;
   private loading = false;
   private error = '';
-
-  // FileUpload
-  private selectedFiles?: FileList;
-  private currentFile?: File;
-  private progress = 0;
-  private message = '';
-  private fileInfos?: Observable<any>;
 
   constructor(private route: ActivatedRoute,
               private ticketService: TicketsService,
               private formBuilder: FormBuilder,
               private router: Router,
               private userService: UserService,
-              private modalService: NgbModal,
-              private fileuploadingService: FileuploadingService) {
+              private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -70,7 +67,6 @@ export class DetailTicketComponent implements OnInit {
         this.participants = ticket.participants;
         this.commentaries = ticket.commentaries;
         this.isOwner = this.user.id === this.ticket.owner;
-        this.fileInfos = this.fileuploadingService.getFiles(this.ticket.id);
 
         this.ticketForm = this.formBuilder.group({
           title: [this.ticket.title, Validators.required],
@@ -95,7 +91,7 @@ export class DetailTicketComponent implements OnInit {
     this.searchText = '';
     const ticket = this.ticketFactory();
 
-    this.ticketService.updateTicket(ticket, this.ticket.id,'addNewParticipant').subscribe(() => console.log('new Participant'));
+    this.ticketService.updateTicket(ticket, this.ticket.id,'addNewParticipant').subscribe(() => this.message = 'Participant ajouté!');
   }
 
 
@@ -103,7 +99,7 @@ export class DetailTicketComponent implements OnInit {
     this.participants = this.participants.filter(value => value.userId !== participantId);
 
     const ticket = this.ticketFactory();
-    this.ticketService.updateTicket(ticket, this.ticket.id,'removeParticipant').subscribe(() => console.log('Remove Participant'));
+    this.ticketService.updateTicket(ticket, this.ticket.id,'removeParticipant').subscribe(() => this.message = 'Participant enlevé!');
   }
 
   get f() { return this.ticketForm.controls; }
@@ -116,10 +112,9 @@ export class DetailTicketComponent implements OnInit {
     }
     this.loading = true;
     const ticket = this.ticketFactory();
-    console.log('Send');
     this.ticketService.updateTicket(ticket, this.ticket.id,'TicketUpdate')
       .pipe(first())
-      .subscribe(() =>  this.router.navigate(['']).catch(error => this.error = error));
+      .subscribe(() =>  this.message = 'Ticket mit à jour!');
   }
 
   saveComment(data){
@@ -133,7 +128,7 @@ export class DetailTicketComponent implements OnInit {
 
     this.commentaries.push(commentary);
     const ticket = this.ticketFactory();
-    this.ticketService.updateTicket(ticket, this.ticket.id,'CommentaryUpdate').subscribe(() => console.log('Commentaire envoyé'));
+    this.ticketService.updateTicket(ticket, this.ticket.id,'CommentaryUpdate').subscribe(() => this.message = 'Commentaire envoyé!');
   }
 
   deleteTicket(){
@@ -148,7 +143,7 @@ export class DetailTicketComponent implements OnInit {
     });
 
     const ticket = this.ticketFactory();
-    this.ticketService.updateTicket(ticket, this.ticket.id,'TicketApproved').subscribe(() => console.log('Status mis à jour'));
+    this.ticketService.updateTicket(ticket, this.ticket.id,'TicketApproved').subscribe(() => this.message = 'Status mis à jour');
   }
 
   openCommentForm(content) {
@@ -163,53 +158,29 @@ export class DetailTicketComponent implements OnInit {
   }
 
   // FileUpload
-  selectFile(event: any) {
-    this.selectedFiles = event.target.files;
+  downloadAsPDF() {
+    const html = htmlToPdfmake(
+      '  <h1 style="text-align: center">' + this.ticket.title +'</h1>' +
+      '  <h4 style="margin-top: 25px;">Résumé de la demande </h4>' + this.ticket.description +
+      '  <h4 style="margin-top: 25px;">Date butoire  </h4> '+ this.ticket.endDate +
+      '  <h4 style="margin-top: 25px;">Signataires numériques </h4>' +
+      '  <table style="width: 250px;border-collapse: collapse;text-align:center;">' +
+        this.getESignature() +
+      '  </table>' +
+      '</body>');
+
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open();
   }
 
-  upload(): void {
-    this.progress = 0;
-
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.currentFile = file;
-
-        this.fileuploadingService.upload(this.currentFile, this.ticket.id).subscribe(
-          (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-              this.fileInfos = this.fileuploadingService.getFiles(this.ticket.id);
-            }
-          },
-          (err: any) => {
-            console.log(err);
-            this.progress = 0;
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Could not upload the file!';
-            }
-
-            this.currentFile = undefined;
-          });
-      }
-
-      this.selectedFiles = undefined;
-    }
+  private getESignature(){
+    let signature = '';
+    this.participants.forEach(part => {
+      signature += '<tr>'+'<td style="width: 200px; border: 1px solid #ddd;padding: 8px;">'+ part.firstName + ' ' + part.lastName +'</td>' +
+        '<td style="width: 200px;color: #04AA6D; border: 1px solid #ddd;padding: 8px;">Bon pour Accord.</td> '+'</tr>';
+    });
+    return signature;
   }
-
-  private downloadFile(fileUrl: string){
-    this.fileuploadingService.downloadFile(this.ticket.id,fileUrl).subscribe(
-      (event: any) => {
-        console.log(event);
-        window.open(event, '_blank');
-      });
-}
 
   private ticketFactory(){
     const ticket = new Ticket();
@@ -221,6 +192,7 @@ export class DetailTicketComponent implements OnInit {
     ticket.commentaries = this.commentaries;
     ticket.endDate = this.f.endDate.value;
     ticket.owner = this.ticket.owner;
+    ticket.ownerName = this.ticket.ownerName;
     ticket.file = this.ticket.file;
 
     return ticket;

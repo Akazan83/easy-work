@@ -122,12 +122,12 @@ export class NewTicketsComponent implements OnInit {
     this.loading = true;
 
     this.ticketService.postNewTicket(this.f.title.value, this.f.description.value, this.f.endDate.value,
-      this.participants, this.commentaries, this.f.file.value, this.currentUser.id, this.currentUser.name)
+      this.participants, this.commentaries, this.f.file.value, this.currentUser.id, this.currentUser.firstName)
       .pipe(first())
       .subscribe(
         ticket => {
-          console.log(ticket);
-          this.upload(ticket.id);
+          console.log( this.currentUser.firstName);
+          //this.upload(ticket.id);
           this.ticketService.init().then(()=>{
             this.router.navigate(['']).catch(error => console.log(error));
           });

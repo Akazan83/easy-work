@@ -11,9 +11,9 @@
     <a *ngIf="type === 'Message' && occurence === 1">{{occurence}} nouveau message de {{senderName}}</a>
     <p *ngIf="type === 'Message' && occurence > 1">{{occurence}} nouveaux messages de {{senderName}}</p>
     <p *ngIf="type === 'NewTicket'">{{senderName}} a ouvert un nouveau ticket</p>
-    <p *ngIf="type === 'CommentaryUpdate'">{{senderName}} a commenté un ticket</p>
+    <p *ngIf="type === 'CommentaryUpdate'">Un participant a commenté un ticket</p>
     <p *ngIf="type === 'TicketUpdate'">{{senderName}} à mit à jour un ticket</p>
-    <p *ngIf="type === 'TicketApproved'">{{senderName}} à approuver un ticket</p>
-    <p *ngIf="type === 'TicketRefused'">{{senderName}} à refusé un ticket</p>
+    <p *ngIf="type === 'TicketApproved'">Un participant a approuver un ticket</p>
+    <p *ngIf="type === 'TicketRefused'">Un participant à refusé un ticket</p>
   </div>
 </a>

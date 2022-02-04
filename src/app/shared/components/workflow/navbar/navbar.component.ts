@@ -72,6 +72,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   private onNewProgressMsg = receivedNotification => {
+    console.log(receivedNotification);
     if (receivedNotification.type === 'SUCCESS') {
       if(this.notifications.length > 0){
         if(this.verifyIfMessageIsAlreadyPresent(receivedNotification)){
