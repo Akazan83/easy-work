@@ -38,9 +38,7 @@ export class NewTicketsComponent implements OnInit {
   constructor(private userService: UserService,
               private ticketService: TicketsService,
               private formBuilder: FormBuilder,
-              private router: Router,
-              private http: HttpClient,
-              private fileuploadingService: FileuploadingService) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getAllUsers().subscribe(users => {
@@ -53,46 +51,6 @@ export class NewTicketsComponent implements OnInit {
       endDate: ['', Validators.required],
       file: [null]
     });
-  }
-
-  // FileUpload
-  selectFile(event: any) {
-    this.selectedFiles = event.target.files;
-  }
-
-  upload(ticketId: string): void {
-    this.progress = 0;
-
-    if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-
-      if (file) {
-        this.currentFile = file;
-
-        this.fileuploadingService.upload(this.currentFile,ticketId).subscribe(
-          (event: any) => {
-            if (event.type === HttpEventType.UploadProgress) {
-              this.progress = Math.round(100 * event.loaded / event.total);
-            } else if (event instanceof HttpResponse) {
-              this.message = event.body.message;
-            }
-          },
-          (err: any) => {
-            console.log(err);
-            this.progress = 0;
-
-            if (err.error && err.error.message) {
-              this.message = err.error.message;
-            } else {
-              this.message = 'Impossible d\'envoyer le fichier au serveur';
-            }
-
-            this.currentFile = undefined;
-          });
-      }
-
-      this.selectedFiles = undefined;
-    }
   }
 
   addParticipant(participantId){

@@ -32,7 +32,6 @@
                       </div>
                       <span>{{ participant.status }}</span>
                       <button type="button" class="btn btn-danger" *ngIf="isOwner && ticket.status !== 'Validé'" (click)="removeParticipant(participant.userId)">X</button>
-
                   </li>
                 </ul>
 

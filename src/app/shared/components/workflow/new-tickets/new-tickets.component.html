@@ -55,7 +55,8 @@
                   <div class="row g-3">
                     <div class="col-sm-12">
                       <textarea type="text" formControlName="description" class="form-control mt-4" id="description" placeholder="Description" rows="14"
-                                [ngClass]="{ 'is-invalid': submitted && f.description.errors }" ></textarea>
+                                [ngClass]="{ 'is-invalid': submitted && f.description.errors }" >
+                      </textarea>
                       <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
                         <div *ngIf="f.description.errors.required">Une description valide est requise</div>
                       </div>

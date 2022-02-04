@@ -10,11 +10,12 @@ export class FileuploadingService {
 
   constructor(private httpClient: HttpClient) {}
 
-  upload(file: File, ticketId: string): Observable<HttpEvent<any>> {
+  upload(file: File, userId: string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
+    const fileExtension = file.name.split('?')[0].split('.').pop();
 
-    formData.append('file', file);
-    formData.append('ticketId',ticketId);
+    formData.append('file', file, userId+'.'+fileExtension);
+    formData.append('ticketId',userId);
 
     const request = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
       reportProgress: true,
@@ -23,11 +24,12 @@ export class FileuploadingService {
     return this.httpClient.request(request);
   }
 
-  getFiles(ticketId: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/getFiles/${ticketId}`);
+  getFiles(userId: string): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/getFiles/${userId}`);
   }
 
-  downloadFile(ticketId: string,fileName: string){
-    return this.httpClient.get(`${this.baseUrl}/files/${ticketId}/${fileName}`);
+  downloadFile(userId: string,fileName: string){
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    return this.httpClient.get(`${this.baseUrl}/files/${userId}/${fileName}`);
   }
 }

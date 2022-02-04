@@ -4,14 +4,35 @@
     <div class="d-flex flex-column" id="content-wrapper">
       <div id="content">
         <app-navbar></app-navbar>
+        <div *ngIf="message" class="alert alert-success alert-dismissible fade show" role="alert">{{ message }}
+        </div>
         <div class="container-fluid">
           <h1 class="text-dark text-center mb-4 mt-5">Profile</h1>
           <div class="row mb-3">
             <div class="col-lg-4">
               <div class="card mb-3">
                 <div class="card-body text-center shadow">
-                  <img class="rounded-circle mb-3 mt-4" src="../../../../../../assets/img/avatars/avatar1.jpeg" alt="profile picture" width="160" height="160">
-                  <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Changer de photo</button></div>
+                  <img class="rounded-circle mb-3 mt-4" src="{{pictureUrl}}"  alt="profile picture" width="160" height="160">
+                  <div class="mb-3">
+                    <div  class="input-group">
+                      <input type="file" class="form-control" id="customFile" (change)="selectFile($event)">
+                    </div>
+
+                    <button class="btn btn-primary btn-sm mt-1 text-white" [disabled]="!selectedFiles" (click)="upload()">
+                      Changer de photo
+                    </button>
+                    <div *ngIf="currentFile" class="progress my-3">
+                      <div
+                        class="progress-bar progress-bar-info progress-bar-striped"
+                        role="progressbar"
+                        attr.aria-valuenow="{{ progress }}"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        [ngStyle]="{ width: progress + '%' }">
+                        {{ progress }}%
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
