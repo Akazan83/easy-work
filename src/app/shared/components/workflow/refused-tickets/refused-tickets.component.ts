@@ -28,6 +28,9 @@ export class RefusedTicketsComponent implements OnInit {
   }
   private getTickets(page: number){
     this.ticketService.getTicketsByStatus(TicketStateEnum.refused,page).subscribe(tickets => {
+      if(tickets === null){
+        return;
+      }
       tickets.map(ticket => {
 
         if (this.tickets != null && !this.ticketExists(ticket.id)){

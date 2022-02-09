@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Notification} from '../../models/notification.model';
+import {APP_CONFIG} from '../../../../environments/environment.web';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class MessengerService {
   constructor(private httpClient: HttpClient) { }
 
   public getMessagesFromUser(sender,receiver): Observable<Message[]> {
-    return this.httpClient.get<Message[]>(`http://localhost:8080/messages/${sender}/${receiver}`).pipe(
+    return this.httpClient.get<Message[]>(APP_CONFIG.apiUrl + `/messages/${sender}/${receiver}`).pipe(
       map(messages => {
         if(messages != null){
           return messages.map(message => new Message().deserialize(message));
@@ -24,6 +25,6 @@ export class MessengerService {
   }
 
   public countNewMessages(senderId,recipientId): Observable<number> {
-    return this.httpClient.get<number>(`http://localhost:8080/messages/${senderId}/${recipientId}/count`);
+    return this.httpClient.get<number>(APP_CONFIG.apiUrl + `/messages/${senderId}/${recipientId}/count`);
   }
 }

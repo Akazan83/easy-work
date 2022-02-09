@@ -6,6 +6,7 @@ import {Ticket} from '../../../models/ticket.model';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {Notification} from '../../../models/notification.model';
 import {ProgressWebsocketService} from '../../../services/notification/progress.websocket.service';
+import {APP_CONFIG} from '../../../../../environments/environment.web';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   searchText = '';
   notifications: Notification[] = [];
   user: User;
+  pictureUrl: string;
 
   constructor(private authenticationService: AuthenticationService,
               private router: Router,
@@ -25,6 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.pictureUrl = APP_CONFIG.apiUrl + '/images/'+ this.user.id+'.jpg';
     this.tickets = this.ticketService.tickets;
     if(JSON.parse(localStorage.getItem('notifications')) != null){
       this.notifications = JSON.parse(localStorage.getItem('notifications'));

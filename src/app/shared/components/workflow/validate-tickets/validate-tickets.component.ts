@@ -28,6 +28,9 @@ export class ValidateTicketsComponent implements OnInit {
   }
   private getTickets(page: number){
     this.ticketService.getTicketsByStatus(TicketStateEnum.approved,page).subscribe(tickets => {
+      if(tickets === null){
+        return;
+      }
       tickets.map(ticket => {
         if(!this.ticketExists(ticket.id)){
           this.tickets.push(ticket);

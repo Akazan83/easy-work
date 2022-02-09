@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user.model';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {APP_CONFIG} from '../../../../environments/environment.web';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   init(){
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>((resolve) => {
       this.getAllUsers().subscribe(users => {
         this.users = users;
         resolve();
@@ -21,7 +22,7 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(`http://localhost:8080/api/test/users`).pipe(
+    return this.httpClient.get<User[]>(APP_CONFIG.apiUrl + `/api/test/users`).pipe(
       map(data => data.map(users => new User().deserialize(users)))
     );
   }

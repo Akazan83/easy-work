@@ -33,6 +33,9 @@ export class WaitingTicketsComponent implements OnInit {
 
   private getTickets(page: number){
     this.ticketService.getTicketsByStatus(TicketStateEnum.waiting,page).subscribe(tickets => {
+      if(tickets === null){
+        return;
+      }
       tickets.map(ticket => {
 
         if(!this.ticketExists(ticket.id)){

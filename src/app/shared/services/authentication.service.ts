@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user.model';
+import {APP_CONFIG} from '../../../environments/environment.web';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,11 @@ export class AuthenticationService {
   }
 
   public register(firstName: string, lastName: string, email: string, password: string){
-    return this.httpClient.post(`http://localhost:8080/api/auth/signup`, {firstName, lastName, email, password});
+    return this.httpClient.post(APP_CONFIG.apiUrl + `/api/auth/signup`, {firstName, lastName, email, password});
   }
 
   public login(email: string, password: string) {
-    return this.httpClient.post<User>(`http://localhost:8080/api/auth/signin`, {email, password})
+    return this.httpClient.post<User>(APP_CONFIG.apiUrl + `/api/auth/signin`, {email, password})
       .pipe(
         map(userData => {
         sessionStorage.setItem('currentUser', JSON.stringify(userData));

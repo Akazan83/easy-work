@@ -3,8 +3,8 @@ import {User} from '../../../../models/user.model';
 import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
 import {FileuploadingService} from '../../../../services/fileUpload/FileuploadingService';
 import {Observable} from 'rxjs';
-import { saveAs } from 'file-saver';
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer} from '@angular/platform-browser';
+import {APP_CONFIG} from '../../../../../../environments/environment.web';
 
 @Component({
   selector: 'app-account',
@@ -29,6 +29,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('currentUser'));
+    this.pictureUrl = APP_CONFIG.apiUrl + '/images/'+ this.user.id+'.jpg';
   }
 
   // FileUpload
@@ -47,13 +48,6 @@ export class AccountComponent implements OnInit {
 
         this.fileuploadingService.upload(this.currentFile, this.user.id).subscribe(
           (event: any) => {
-            this.fileuploadingService.getFiles(this.user.id).subscribe(files =>
-              this.fileuploadingService.downloadFile(this.user.id, files[0].name).subscribe(t => {
-                console.log(t);
-                this.pictureUrl = t;
-                //this.pictureUrl = this.getSantizeUrl(t);
-              }));
-
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {

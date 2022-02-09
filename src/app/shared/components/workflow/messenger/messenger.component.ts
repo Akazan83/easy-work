@@ -33,6 +33,9 @@ export class MessengerComponent implements OnInit {
     this.maxHeight = innerHeight - 70;
 
     this.userService.getAllUsers().subscribe(users => {
+      if(users.length <= 1){
+        return;
+      }
       users.map(user => {
         if(user.id !== this.currentUser.id){
           this.countMessagesFromUsers(user.id)
