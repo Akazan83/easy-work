@@ -7,7 +7,7 @@ import {APP_CONFIG} from '../../../../environments/environment.web';
   providedIn: 'root'
 })
 export class FileuploadingService {
-  private baseUrl = APP_CONFIG.apiUrl + '/api/v1';
+  private baseUrl = APP_CONFIG.apiUrl + '/api/file';
 
   constructor(private httpClient: HttpClient) {}
 

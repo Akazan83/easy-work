@@ -10,6 +10,7 @@ import {APP_CONFIG} from '../../../environments/environment.web';
 })
 export class AuthenticationService {
   public currentUser: Observable<User>;
+  private baseUrl = APP_CONFIG.apiUrl + '/api/auth';
   private currentUserSubject: BehaviorSubject<User>;
 
 
@@ -24,11 +25,11 @@ export class AuthenticationService {
   }
 
   public register(firstName: string, lastName: string, email: string, password: string){
-    return this.httpClient.post(APP_CONFIG.apiUrl + `/api/auth/signup`, {firstName, lastName, email, password});
+    return this.httpClient.post(`${this.baseUrl}/signup`, {firstName, lastName, email, password});
   }
 
   public login(email: string, password: string) {
-    return this.httpClient.post<User>(APP_CONFIG.apiUrl + `/api/auth/signin`, {email, password})
+    return this.httpClient.post<User>(`${this.baseUrl}/signin`, {email, password})
       .pipe(
         map(userData => {
         sessionStorage.setItem('currentUser', JSON.stringify(userData));

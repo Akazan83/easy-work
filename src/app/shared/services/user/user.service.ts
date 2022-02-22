@@ -22,7 +22,7 @@ export class UserService {
   }
 
   public getAllUsers(): Observable<User[]> {
-    return this.httpClient.get<User[]>(APP_CONFIG.apiUrl + `/api/test/users`).pipe(
+    return this.httpClient.get<User[]>(APP_CONFIG.apiUrl + `/api/user/getAll`).pipe(
       map(data => data.map(users => new User().deserialize(users)))
     );
   }

@@ -12,7 +12,8 @@ import {APP_CONFIG} from '../../../../environments/environment.web';
   providedIn: 'root'
 })
 export class TicketsService {
-  tickets: Ticket[];
+  public tickets: Ticket[];
+  private baseUrl = APP_CONFIG.apiUrl + '/api/ticket';
   constructor(private httpClient: HttpClient) { }
 
   init(){
@@ -26,7 +27,7 @@ export class TicketsService {
 
 
   public getTicketsByStatus(status,page): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(APP_CONFIG.apiUrl + `/api/v1/tickets/filtered/${status}/${page}`).pipe(
+    return this.httpClient.get<Ticket[]>(`${this.baseUrl}/tickets/filtered/${status}/${page}`).pipe(
       map(tickets => {
         if(tickets != null){
           return tickets.map(ticket => new Ticket().deserialize(ticket));
@@ -37,7 +38,7 @@ export class TicketsService {
   }
 
   public getTicket(id: string): Observable<Ticket> {
-    return this.httpClient.get<Ticket>(APP_CONFIG.apiUrl + `/api/v1/tickets/${id}`).pipe(
+    return this.httpClient.get<Ticket>(`${this.baseUrl}/getOne/${id}`).pipe(
       map(ticket => new Ticket().deserialize(ticket)),
       catchError(() => throwError('Ticket not found'))
     );
@@ -58,24 +59,24 @@ export class TicketsService {
     ticket.owner = owner;
     ticket.ownerName = ownerName;
     ticket.file = formData;
-    return this.httpClient.post<Ticket>(APP_CONFIG.apiUrl + `/api/v1/ticket`, ticket).pipe(map(data => data));
+    return this.httpClient.post<Ticket>(APP_CONFIG.apiUrl + `${this.baseUrl}/new`, ticket).pipe(map(data => data));
   }
 
   public updateTicket(ticket: Ticket, ticketId: string, updateType: string){
     const headers = new HttpHeaders({type: updateType});
     const options = { headers };
     console.log('addNewParticipant REQUEST');
-    return this.httpClient.put<Ticket>(APP_CONFIG.apiUrl + `/api/v1/tickets/` + ticketId, ticket, options)
+    return this.httpClient.put<Ticket>(APP_CONFIG.apiUrl + `${this.baseUrl}/update/` + ticketId, ticket, options)
       .pipe(map(data => data));
   }
 
   public getTickets(): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(APP_CONFIG.apiUrl + `/api/v1/tickets`).pipe(
+    return this.httpClient.get<Ticket[]>(APP_CONFIG.apiUrl + `${this.baseUrl}/getAll`).pipe(
       map(data => data.map(ticket => new Ticket().deserialize(ticket)))
     );
   }
 
   public deleteTicket(ticketId: string){
-    return this.httpClient.delete<Ticket[]>(APP_CONFIG.apiUrl + `/api/v1/ticket/${ticketId}`);
+    return this.httpClient.delete<Ticket[]>(APP_CONFIG.apiUrl + `${this.baseUrl}/delete/${ticketId}`);
   }
 }
