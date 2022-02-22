@@ -24,6 +24,9 @@ describe('AccountComponent', () => {
   });
 
   it('should create', () => {
+    const user = new User();
+    user.id = '1';
+    component.user = user;
     expect(component).toBeTruthy();
   });
 });
