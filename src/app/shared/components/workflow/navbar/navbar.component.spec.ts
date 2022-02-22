@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {RxStompService} from '@stomp/ng2-stompjs';
+import {User} from '../../../models/user.model';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -16,6 +17,11 @@ describe('NavbarComponent', () => {
       providers: [RxStompService]
     })
     .compileComponents();
+
+    const user = new User();
+    user.id = '1';
+    spyOn(window.sessionStorage, 'getItem').and.callFake(()=> JSON.stringify(user));
+
   });
 
   beforeEach(() => {
