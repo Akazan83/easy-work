@@ -1,4 +1,4 @@
-import {Component, DoCheck, Input, IterableDiffers, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, Input, IterableDiffers, OnInit} from '@angular/core';
 import {fromEvent, Observable, Subscription} from 'rxjs';
 import {User} from '../../../../models/user.model';
 import {Message} from '../../../../models/message.model';

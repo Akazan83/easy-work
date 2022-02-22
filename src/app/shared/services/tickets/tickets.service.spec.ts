@@ -9,10 +9,10 @@ describe('TicketsService', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TicketsService],
+      declarations: [],
       imports: [RouterTestingModule,
         HttpClientTestingModule],
-      providers: []
+      providers: [TicketsService]
     }).compileComponents();
     service = TestBed.inject(TicketsService);
   });

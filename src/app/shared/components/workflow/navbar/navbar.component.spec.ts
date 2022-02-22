@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
+import {RxStompService} from '@stomp/ng2-stompjs';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -11,7 +12,8 @@ describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ NavbarComponent ],
-      imports: [HttpClientTestingModule,RouterTestingModule]
+      imports: [HttpClientTestingModule,RouterTestingModule],
+      providers: [RxStompService]
     })
     .compileComponents();
   });

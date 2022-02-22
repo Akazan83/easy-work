@@ -9,10 +9,10 @@ describe('MessengerService', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MessengerService],
+      declarations: [],
       imports: [RouterTestingModule,
         HttpClientTestingModule],
-      providers: []
+      providers: [MessengerService]
     }).compileComponents();
     service = TestBed.inject(MessengerService);
   });

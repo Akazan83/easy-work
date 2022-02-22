@@ -13,7 +13,8 @@ describe('WaitingTicketsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WaitingTicketsComponent ]
+      declarations: [ WaitingTicketsComponent ],
+      providers: [RxStompService]
     })
     .compileComponents();
   });
@@ -25,9 +26,8 @@ describe('WaitingTicketsComponent', () => {
         HttpClientTestingModule,
         ReactiveFormsModule,
         FormsModule,
-        NgxPaginationModule,
-        RxStompService],
-      providers: []
+        NgxPaginationModule],
+      providers: [RxStompService]
     }).compileComponents();
   });
 

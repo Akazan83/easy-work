@@ -15,10 +15,14 @@ export class ProgressWebsocketService extends WebsocketService {
 
   constructor(stompService: RxStompService) {
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    let userId = '1';
+    if(currentUser != null){
+      userId = currentUser.id;
+    }
     super(
           stompService,
           progressStompConfig,
-          new WebSocketOptions( '/user/'+ currentUser.id + '/queue/messages')
+          new WebSocketOptions( '/user/'+ userId + '/queue/messages')
       );
   }
 }

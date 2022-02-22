@@ -10,11 +10,8 @@ import {first} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
-import {HttpEventType, HttpResponse} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {FileuploadingService} from '../../../services/fileUpload/FileuploadingService';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import htmlToPdfmake from 'html-to-pdfmake';
 
