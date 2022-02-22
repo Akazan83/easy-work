@@ -14,19 +14,17 @@ describe('AccountComponent', () => {
       imports: [HttpClientTestingModule]
     })
     .compileComponents();
+
     const user = new User();
     user.id = '1';
+    spyOn(window.sessionStorage, 'getItem').and.callFake(()=> JSON.stringify(user));
 
     fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
-    component.user = user;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    const user = new User();
-    user.id = '1';
-    component.user = user;
     expect(component).toBeTruthy();
   });
 });
