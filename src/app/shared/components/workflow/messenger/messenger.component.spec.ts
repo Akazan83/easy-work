@@ -14,11 +14,6 @@ describe('MessengerComponent', () => {
       declarations: [ MessengerComponent ]
     })
     .compileComponents();
-
-    const user = new User();
-    user.id = '1';
-    spyOn(window.sessionStorage, 'getItem').and.callFake(()=> JSON.stringify(user));
-
   });
 
   beforeEach(async () => {
