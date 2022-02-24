@@ -13,13 +13,12 @@ import {APP_CONFIG} from '../../../../../../environments/environment.web';
 })
 export class AccountComponent implements OnInit {
   user: User;
+  public progress = 0;
   // FileUpload
-  private selectedFiles?: FileList;
-  private currentFile?: File;
-  private progress = 0;
-  private message = '';
-  private pictureUrl;
-  private fileInfos?: Observable<any>;
+  public selectedFiles?: FileList;
+  public currentFile?: File;
+  public message = '';
+  public pictureUrl;
 
   constructor(
     private http: HttpClient,

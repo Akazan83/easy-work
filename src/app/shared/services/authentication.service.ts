@@ -33,7 +33,7 @@ export class AuthenticationService {
       .pipe(
         map(userData => {
         sessionStorage.setItem('currentUser', JSON.stringify(userData));
-        sessionStorage.setItem('token', 'Bearer ' + userData.accessToken);
+        sessionStorage.setItem('token', 'Bearer ' + userData.token);
         this.currentUserSubject.next(userData);
         return userData;
       })

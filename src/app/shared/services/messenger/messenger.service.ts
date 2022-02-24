@@ -11,6 +11,7 @@ import {APP_CONFIG} from '../../../../environments/environment.web';
 })
 export class MessengerService {
   public notification: Notification[] = [];
+
   private baseUrl = APP_CONFIG.apiUrl;
   constructor(private httpClient: HttpClient) { }
 

@@ -4,13 +4,11 @@ import {UserService} from '../../../services/user/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TicketsService} from '../../../services/tickets/tickets.service';
 import {first} from 'rxjs/operators';
-import {HttpClient, HttpEventType, HttpResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {Participant} from '../../../models/participant.model';
 import {TicketStateEnum} from '../ticket/ticketStateEnum';
 import {Commentary} from '../../../models/commentary.model';
 import {Observable} from 'rxjs';
-import {FileuploadingService} from '../../../services/fileUpload/FileuploadingService';
 
 @Component({
   selector: 'app-new-tickets',
@@ -24,16 +22,10 @@ export class NewTicketsComponent implements OnInit {
   public users: User[];
   public participants: Participant[] = [];
   public searchText = '';
+  public message = '';
   private commentaries: Commentary[] = [];
   private currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
   private error = '';
-
-  // FileUpload
-  private selectedFiles?: FileList;
-  private currentFile?: File;
-  private progress = 0;
-  private message = '';
-  private fileInfos?: Observable<any>;
 
   constructor(private userService: UserService,
               private ticketService: TicketsService,
@@ -78,14 +70,12 @@ export class NewTicketsComponent implements OnInit {
       return;
     }
     this.loading = true;
-
+    console.log(this.currentUser.firstName);
     this.ticketService.postNewTicket(this.f.title.value, this.f.description.value, this.f.endDate.value,
       this.participants, this.commentaries, this.f.file.value, this.currentUser.id, this.currentUser.firstName)
       .pipe(first())
       .subscribe(
-        ticket => {
-          console.log( this.currentUser.firstName);
-          //this.upload(ticket.id);
+        () => {
           this.ticketService.init().then(()=>{
             this.router.navigate(['']).catch(error => console.log(error));
           });

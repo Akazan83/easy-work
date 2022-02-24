@@ -7,10 +7,11 @@ import { PageNotFoundComponent } from './components/';
 import { WebviewDirective } from './directives/';
 import { FormsModule } from '@angular/forms';
 import {NotificationsService} from './services/notification/notifications.service';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   declarations: [PageNotFoundComponent, WebviewDirective],
-  imports: [CommonModule, TranslateModule, FormsModule],
+    imports: [CommonModule, TranslateModule, FormsModule, RouterModule],
   exports: [TranslateModule, WebviewDirective, FormsModule]
 })
 export class SharedModule {

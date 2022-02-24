@@ -59,24 +59,24 @@ export class TicketsService {
     ticket.owner = owner;
     ticket.ownerName = ownerName;
     ticket.file = formData;
-    return this.httpClient.post<Ticket>(APP_CONFIG.apiUrl + `${this.baseUrl}/new`, ticket).pipe(map(data => data));
+    return this.httpClient.post<Ticket>(`${this.baseUrl}/new`, ticket).pipe(map(data => data));
   }
 
   public updateTicket(ticket: Ticket, ticketId: string, updateType: string){
     const headers = new HttpHeaders({type: updateType});
     const options = { headers };
     console.log('addNewParticipant REQUEST');
-    return this.httpClient.put<Ticket>(APP_CONFIG.apiUrl + `${this.baseUrl}/update/` + ticketId, ticket, options)
+    return this.httpClient.put<Ticket>(`${this.baseUrl}/update/` + ticketId, ticket, options)
       .pipe(map(data => data));
   }
 
   public getTickets(): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(APP_CONFIG.apiUrl + `${this.baseUrl}/getAll`).pipe(
+    return this.httpClient.get<Ticket[]>(`${this.baseUrl}/getAll`).pipe(
       map(data => data.map(ticket => new Ticket().deserialize(ticket)))
     );
   }
 
   public deleteTicket(ticketId: string){
-    return this.httpClient.delete<Ticket[]>(APP_CONFIG.apiUrl + `${this.baseUrl}/delete/${ticketId}`);
+    return this.httpClient.delete<Ticket[]>(`${this.baseUrl}/delete/${ticketId}`);
   }
 }

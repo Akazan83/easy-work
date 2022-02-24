@@ -5,7 +5,7 @@ export class User {
   firstName: string;
   lastName: string;
   messagesNumber: number;
-  accessToken?: string;
+  token?: string;
 
   deserialize(input: any): this {
     Object.assign(this, input);

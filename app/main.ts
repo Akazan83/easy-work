@@ -28,7 +28,6 @@ function createWindow(): BrowserWindow {
   });
   win.center();
 
-
   if (serve) {
     win.webContents.openDevTools();
     require('electron-reload')(__dirname, {

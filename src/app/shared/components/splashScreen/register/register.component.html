@@ -44,7 +44,7 @@
                       S'enregistrer
                     </button>
                     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
-                    <a class="btn btn-primary d-block w-100 mt-2" id="goBackButton" href="">Retour</a>
+                    <a class="btn btn-primary d-block w-100 mt-2" id="goBackButton" [routerLink]="['/']">Retour</a>
                   </form>
 
 
